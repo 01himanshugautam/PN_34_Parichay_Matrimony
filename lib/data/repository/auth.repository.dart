@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:app/utils/constants/app-urls.constant.dart';
+import 'package:app/utils/constants/app_urls_constant.dart';
 
 class AuthRepository {
   var dio = Dio();

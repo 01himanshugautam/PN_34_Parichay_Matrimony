@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:app/utils/constants/colors.constant.dart';
+import 'package:app/utils/constants/colors_constant.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -51,17 +51,24 @@ class CustomTextField extends StatelessWidget {
           style: TextStyle(color: hintColor ?? AppColors.whiteColor),
           decoration: InputDecoration(
             prefixIcon: icon,
-            contentPadding: const EdgeInsets.only(left: 20, top: 10),
+            // contentPadding: const EdgeInsets.only(left: 0, top: 0),
             // filled: true,
             fillColor: backgroundColor ?? AppColors.backgroundColor2,
             hintText: hintText,
-            hintStyle: TextStyle(color: hintColor),
-            // border: OutlineInputBorder(
-            //   borderRadius: BorderRadius.circular(radius ?? 100),
-            //   borderSide: BorderSide(
-            //     color: backgroundColor ?? AppColors.whiteColor,
-            //   ),
-            // ),
+            hintStyle: TextStyle(
+                color: hintColor, fontSize: 2.5.h, fontWeight: FontWeight.w500),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius ?? 100),
+              borderSide: BorderSide(
+                color: backgroundColor ?? AppColors.whiteColor,
+              ),
+            ),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppColors.whiteColor, width: 2),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppColors.whiteColor, width: 2),
+            ),
             // focusedBorder: OutlineInputBorder(
             //   borderRadius: BorderRadius.circular(radius ?? 100),
             //   borderSide: BorderSide(

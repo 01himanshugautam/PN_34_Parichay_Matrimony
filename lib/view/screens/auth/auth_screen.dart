@@ -1,7 +1,9 @@
-import 'package:app/utils/constants/colors.constant.dart';
-import 'package:app/utils/constants/images.constant.dart';
-import 'package:app/view/basewidget/custom-button.widget.dart';
-import 'package:app/view/screens/auth/login.screen.dart';
+import 'package:app/utils/constants/colors_constant.dart';
+import 'package:app/utils/constants/images_constant.dart';
+import 'package:app/view/basewidget/custom_button_widget.dart';
+import 'package:app/view/screens/auth/login_screen.dart';
+import 'package:app/view/screens/auth/signup_screen.dart';
+import 'package:app/view/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -37,6 +39,13 @@ class AuthScreen extends StatelessWidget {
                   width: 82.w,
                   height: 6.h,
                   fontSize: 3.h,
+                  color: AppColors.whiteColor,
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignUpScreen(),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 1.5.h),
                 Row(
@@ -47,6 +56,7 @@ class AuthScreen extends StatelessWidget {
                       width: 39.w,
                       height: 6.h,
                       fontSize: 3.h,
+                      color: AppColors.whiteColor,
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -59,6 +69,13 @@ class AuthScreen extends StatelessWidget {
                       width: 39.w,
                       height: 6.h,
                       fontSize: 3.h,
+                      color: AppColors.whiteColor,
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchScreen(),
+                        ),
+                      ),
                     ),
                   ],
                 ),

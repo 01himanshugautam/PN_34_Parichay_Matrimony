@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:app/utils/constants/colors.constant.dart';
+import 'package:app/utils/constants/colors_constant.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TabButton extends StatelessWidget {
