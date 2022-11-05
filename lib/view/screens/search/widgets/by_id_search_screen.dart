@@ -3,12 +3,17 @@ import 'package:app/view/basewidget/custom_text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class SearchById extends StatelessWidget {
-  final TextEditingController controller;
-  const SearchById({
+class ByIdSearch extends StatefulWidget {
+  const ByIdSearch({
     Key? key,
-    required this.controller,
   }) : super(key: key);
+
+  @override
+  State<ByIdSearch> createState() => _ByIdSearchState();
+}
+
+class _ByIdSearchState extends State<ByIdSearch> {
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

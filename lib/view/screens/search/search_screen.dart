@@ -1,4 +1,6 @@
 import 'package:app/utils/constants/images_constant.dart';
+import 'package:app/view/screens/search/widgets/advance_search_screen.dart';
+import 'package:app/view/screens/search/widgets/basic_search_screen.dart';
 import 'package:app/view/screens/search/widgets/by_id_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
@@ -53,6 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           advance = false;
                           byId = false;
                         });
+                        debugPrint("Basic $basic");
                       },
                       child: Container(
                         height: 6.h,
@@ -142,11 +145,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 2.h),
-                  child: SearchById(
-                    controller: _username,
-                  ),
-                ),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 3.h, horizontal: 2.h),
+                    child: const BasicSearch()),
               ],
             ),
             CustomButton(
