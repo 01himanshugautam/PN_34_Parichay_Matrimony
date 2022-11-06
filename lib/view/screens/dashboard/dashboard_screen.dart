@@ -1,6 +1,6 @@
+import 'package:app/view/screens/dashboard/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -13,21 +13,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.basicColor,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
+        ],
+      ),
+      drawer: const HomeDrawer(),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'App',
-                style: TextStyle(
-                  fontSize: 5.h,
-                  color: AppColors.whiteColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+            children: const [],
           ),
         ],
       ),
