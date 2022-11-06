@@ -1,4 +1,3 @@
-import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/search/widgets/advance_search_screen.dart';
 import 'package:app/view/screens/search/widgets/basic_search_screen.dart';
 import 'package:app/view/screens/search/widgets/by_id_search_screen.dart';
@@ -32,13 +31,13 @@ class _SearchScreenState extends State<SearchScreen> {
         height: 100.h,
         width: 100.w,
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(Images.couples),
-            fit: BoxFit.fill,
-            opacity: 0.65,
-          ),
-        ),
-        padding: EdgeInsets.only(bottom: 3.h),
+            // image: DecorationImage(
+            //   image: AssetImage(Images.couples),
+            //   fit: BoxFit.fill,
+            //   opacity: 0.65,
+            // ),
+            ),
+        padding: EdgeInsets.only(bottom: 3.h, left: 3.w, right: 3.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -46,7 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
                       onTap: () {
@@ -144,10 +143,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ],
                 ),
-                Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 3.h, horizontal: 2.h),
-                    child: const BasicSearch()),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 1.h),
+                  child: basic
+                      ? const BasicSearch()
+                      : advance
+                          ? const AdvanceSearch()
+                          : const ByIdSearch(),
+                ),
               ],
             ),
             CustomButton(
@@ -157,7 +160,7 @@ class _SearchScreenState extends State<SearchScreen> {
               fontSize: 3.h,
               color: AppColors.primaryColor,
               textColor: AppColors.whiteColor,
-              onPressed: () => Navigator.pushReplacement(
+              onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const DashboardScreen())),

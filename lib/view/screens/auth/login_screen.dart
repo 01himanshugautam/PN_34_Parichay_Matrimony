@@ -1,4 +1,5 @@
 import 'package:app/utils/constants/images_constant.dart';
+import 'package:app/view/screens/auth/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
@@ -47,7 +48,6 @@ class LoginScreen extends StatelessWidget {
                   width: 90.w,
                   controller: _password,
                   hintText: 'Password *',
-                  backgroundColor: Colors.white,
                   hintColor: AppColors.whiteColor,
                 ),
                 Row(
@@ -59,6 +59,10 @@ class LoginScreen extends StatelessWidget {
                       height: 3.h,
                       textColor: AppColors.whiteColor,
                       isPadding: true,
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgetPasswordScreen())),
                     ),
                   ],
                 ),
@@ -70,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                   fontSize: 3.h,
                   color: AppColors.primaryColor,
                   textColor: AppColors.whiteColor,
-                  onPressed: () => Navigator.pushReplacement(
+                  onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const DashboardScreen())),

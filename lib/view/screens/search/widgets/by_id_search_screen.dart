@@ -32,7 +32,7 @@ class _ByIdSearchState extends State<ByIdSearch> {
           width: 90.w,
           controller: controller,
           hintText: 'Profile ID',
-          hintColor: AppColors.whiteColor,
+          hintColor: AppColors.blackColor,
           isPadding: false,
         ),
       ],

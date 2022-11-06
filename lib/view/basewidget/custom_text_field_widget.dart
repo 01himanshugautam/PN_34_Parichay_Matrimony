@@ -48,26 +48,28 @@ class CustomTextField extends StatelessWidget {
         child: TextField(
           controller: controller,
           // expands: true,
-          style: TextStyle(color: hintColor ?? AppColors.whiteColor),
+          style: TextStyle(
+            color: hintColor ?? AppColors.whiteColor,
+            fontSize: 2.h,
+          ),
           decoration: InputDecoration(
             prefixIcon: icon,
             // contentPadding: const EdgeInsets.only(left: 0, top: 0),
-            // filled: true,
-            fillColor: backgroundColor ?? AppColors.backgroundColor2,
+            filled: true,
+            fillColor: backgroundColor ?? Colors.transparent,
             hintText: hintText,
             hintStyle: TextStyle(
-                color: hintColor, fontSize: 2.5.h, fontWeight: FontWeight.w500),
+              color: hintColor,
+              fontSize: 2.h,
+            ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(radius ?? 100),
-              borderSide: BorderSide(
-                color: backgroundColor ?? AppColors.whiteColor,
-              ),
+              borderSide: BorderSide(color: AppColors.blackColor, width: 1.5),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.whiteColor, width: 2),
+              borderSide: BorderSide(color: AppColors.blackColor, width: 1.5),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.whiteColor, width: 2),
+              borderSide: BorderSide(color: AppColors.blackColor, width: 1.5),
             ),
             // focusedBorder: OutlineInputBorder(
             //   borderRadius: BorderRadius.circular(radius ?? 100),
