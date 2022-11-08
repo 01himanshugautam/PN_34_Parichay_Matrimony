@@ -21,12 +21,21 @@ dependencies:
   fluttertoast: ^8.0.9
   permission_handler: ^10.1.0
   flutter_dotenv: ^5.0.2
+  icons_launcher: ^2.0.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
   # icons_launcher: ^1.1.8
+
+icons_launcher:
+  image_path: "assets/images/logo.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
 
 flutter:
   uses-material-design: true
