@@ -1,11 +1,11 @@
 import 'package:app/view/basewidget/tab_buttom_widget.dart';
+import 'package:app/view/screens/search/search_result.dart';
 import 'package:app/view/screens/search/widgets/advance_search_screen.dart';
 import 'package:app/view/screens/search/widgets/basic_search_screen.dart';
 import 'package:app/view/screens/search/widgets/by_id_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
-import 'package:app/view/screens/dashboard/dashboard_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -104,9 +104,9 @@ class _SearchScreenState extends State<SearchScreen> {
               color: AppColors.primaryColor,
               textColor: AppColors.whiteColor,
               onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const DashboardScreen())),
+                context,
+                MaterialPageRoute(builder: (context) => const SearchResult()),
+              ),
             ),
           ],
         ),

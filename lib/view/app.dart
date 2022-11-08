@@ -41,6 +41,7 @@ class _AppState extends State<App> {
           ],
           child: MaterialApp(
             title: 'app',
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(
               // primarySwatch: Colors.blue,
               unselectedWidgetColor: AppColors.whiteColor,

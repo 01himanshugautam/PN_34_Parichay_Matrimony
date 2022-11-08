@@ -4,6 +4,7 @@ import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/screens/contact/contact_screen.dart';
 import 'package:app/view/screens/dashboard/widgets/custom_list_tile_widget.dart';
 import 'package:app/view/screens/membership_plan/membership_plan_screen.dart';
+import 'package:app/view/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -78,17 +79,10 @@ class HomeDrawer extends StatelessWidget {
         CustomListTile(
           title: 'Search',
           image: Images.search,
-          onTap: () {},
-        ),
-        CustomListTile(
-          title: 'Advance Search',
-          image: Images.advanceSearch,
-          onTap: () {},
-        ),
-        CustomListTile(
-          title: 'Search by Profile ID',
-          image: Images.idSearch,
-          onTap: () {},
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SearchScreen()),
+          ),
         ),
         CustomListTile(
           title: 'My Matches',
@@ -124,9 +118,12 @@ class HomeDrawer extends StatelessWidget {
         CustomListTile(
           title: 'Help & Support',
           image: Images.help,
-          onTap: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ContactScreen())),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ContactScreen()),
+          ),
         ),
+        SizedBox(height: 10.h),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
           child: Column(
@@ -147,15 +144,17 @@ class HomeDrawer extends StatelessWidget {
               ),
               SizedBox(height: 1.h),
               CustomButton(
-                  text: 'UPGRADE PLANS',
-                  color: AppColors.primaryColor,
-                  textColor: AppColors.whiteColor,
-                  width: 60.w,
-                  onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const MembershipScreen())),
-                      ))
+                text: 'UPGRADE PLANS',
+                color: AppColors.primaryColor,
+                textColor: AppColors.whiteColor,
+                width: 60.w,
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => const MembershipScreen()),
+                  ),
+                ),
+              )
             ],
           ),
         ),
