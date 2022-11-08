@@ -1,7 +1,9 @@
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
+import 'package:app/view/screens/contact/contact_screen.dart';
 import 'package:app/view/screens/dashboard/widgets/custom_list_tile_widget.dart';
+import 'package:app/view/screens/membership_plan/membership_plan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -80,18 +82,19 @@ class HomeDrawer extends StatelessWidget {
         ),
         CustomListTile(
           title: 'Advance Search',
-          image: Images.search,
+          image: Images.advanceSearch,
           onTap: () {},
         ),
         CustomListTile(
           title: 'Search by Profile ID',
-          image: Images.search,
+          image: Images.idSearch,
           onTap: () {},
         ),
         CustomListTile(
           title: 'My Matches',
-          image: Images.people,
+          image: Images.matches,
           onTap: () {},
+          trailing: true,
         ),
         CustomListTile(
           title: 'Shortlisted',
@@ -105,12 +108,12 @@ class HomeDrawer extends StatelessWidget {
         ),
         CustomListTile(
           title: 'Success Stories',
-          image: Images.trophy,
+          image: Images.success,
           onTap: () {},
         ),
         CustomListTile(
           title: 'Inbox',
-          image: Images.search,
+          image: Images.inbox,
           onTap: () {},
         ),
         CustomListTile(
@@ -121,7 +124,8 @@ class HomeDrawer extends StatelessWidget {
         CustomListTile(
           title: 'Help & Support',
           image: Images.help,
-          onTap: () {},
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ContactScreen())),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
@@ -143,11 +147,15 @@ class HomeDrawer extends StatelessWidget {
               ),
               SizedBox(height: 1.h),
               CustomButton(
-                text: 'UPGRADE PLANS',
-                color: AppColors.primaryColor,
-                textColor: AppColors.whiteColor,
-                width: 60.w,
-              )
+                  text: 'UPGRADE PLANS',
+                  color: AppColors.primaryColor,
+                  textColor: AppColors.whiteColor,
+                  width: 60.w,
+                  onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => const MembershipScreen())),
+                      ))
             ],
           ),
         ),

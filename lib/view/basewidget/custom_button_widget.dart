@@ -1,3 +1,4 @@
+import 'package:app/utils/constants/colors_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -11,6 +12,7 @@ class CustomButton extends StatelessWidget {
   final Color? textColor;
   final bool? fontWeight;
   final bool isPadding;
+  final bool enableBoxShadow;
   final Function()? onPressed;
 
   const CustomButton(
@@ -24,6 +26,7 @@ class CustomButton extends StatelessWidget {
       this.radius,
       this.fontWeight,
       this.isPadding = true,
+      this.enableBoxShadow = false,
       this.fontSize})
       : super(key: key);
 
@@ -39,9 +42,16 @@ class CustomButton extends StatelessWidget {
           height: height ?? 5.h,
           width: width ?? 20.w,
           decoration: BoxDecoration(
-            color: color ?? Colors.transparent,
-            borderRadius: BorderRadius.circular(radius ?? 0),
-          ),
+              color: color ?? Colors.transparent,
+              borderRadius: BorderRadius.circular(radius ?? 0),
+              boxShadow: [
+                BoxShadow(
+                  color: enableBoxShadow
+                      ? AppColors.blackColor.withOpacity(.7)
+                      : AppColors.whiteColor,
+                  blurRadius: enableBoxShadow ? 20.0 : 0,
+                ),
+              ]),
           child: Center(
             child: Text(
               text,

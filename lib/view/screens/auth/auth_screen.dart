@@ -2,7 +2,7 @@ import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/screens/auth/login_screen.dart';
-import 'package:app/view/screens/auth/signup_screen.dart';
+import 'package:app/view/screens/auth/sign_up_screen.dart';
 import 'package:app/view/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -13,76 +13,102 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: 100.h,
-        width: 100.w,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(Images.couples),
-            fit: BoxFit.fill,
-            opacity: 0.65,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 8.h),
-            CircleAvatar(
-              radius: 15.h,
-              backgroundColor: AppColors.whiteColor,
+      body: Column(
+        children: [
+          SizedBox(height: 1.h),
+          Container(
+            height: 15.h,
+            width: 70.w,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(Images.logo),
+                fit: BoxFit.fill,
+              ),
             ),
-            SizedBox(height: 19.h),
-            Column(
+          ),
+          SizedBox(
+            height: 80.h,
+            width: 100.w,
+            // decoration: const BoxDecoration(
+            //   image: DecorationImage(
+            //     image: AssetImage(Images.background3),
+            //     fit: BoxFit.fitWidth,
+            //   ),
+            // ),
+            child: Stack(
               children: [
-                CustomButton(
-                  text: "REGISTER NOW",
-                  width: 82.w,
-                  height: 6.h,
-                  fontSize: 3.h,
-                  color: AppColors.whiteColor,
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignUpScreen(),
-                    ),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  height: 72.h,
+                  padding: EdgeInsets.only(top: 3.h),
+                  child: Image.asset(
+                    Images.background3,
+                    fit: BoxFit.fill,
+                    // height: 72.h,
+                    width: 100.w,
                   ),
                 ),
-                SizedBox(height: 1.5.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButton(
-                      text: "LOGIN",
-                      width: 39.w,
-                      height: 6.h,
-                      fontSize: 3.h,
+                      text: "REGISTER NOW",
+                      width: 82.w,
+                      height: 5.5.h,
+                      radius: 3.h,
+                      enableBoxShadow: true,
+                      fontSize: 2.5.h,
                       color: AppColors.whiteColor,
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
+                          builder: (context) => const SignUpScreen(),
                         ),
                       ),
                     ),
-                    CustomButton(
-                      text: "SEARCH",
-                      width: 39.w,
-                      height: 6.h,
-                      fontSize: 3.h,
-                      color: AppColors.whiteColor,
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SearchScreen(),
+                    SizedBox(height: 1.5.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButton(
+                          text: "LOGIN",
+                          width: 39.w,
+                          height: 5.5.h,
+                          radius: 3.h,
+                          enableBoxShadow: true,
+                          fontSize: 2.5.h,
+                          color: AppColors.whiteColor,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ),
+                          ),
                         ),
-                      ),
+                        CustomButton(
+                          text: "SEARCH",
+                          width: 39.w,
+                          height: 5.5.h,
+                          radius: 3.h,
+                          enableBoxShadow: true,
+                          fontSize: 2.5.h,
+                          color: AppColors.whiteColor,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SearchScreen(),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                    SizedBox(height: 5.h),
                   ],
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

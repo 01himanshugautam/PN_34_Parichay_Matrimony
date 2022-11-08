@@ -1,3 +1,4 @@
+import 'package:app/view/basewidget/tab_buttom_widget.dart';
 import 'package:app/view/screens/search/widgets/advance_search_screen.dart';
 import 'package:app/view/screens/search/widgets/basic_search_screen.dart';
 import 'package:app/view/screens/search/widgets/by_id_search_screen.dart';
@@ -47,39 +48,22 @@ class _SearchScreenState extends State<SearchScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
+                    TabButton(
+                      isSelected: basic,
+                      text: "Basic\nSearch",
+                      width: 30.w,
                       onTap: () {
                         setState(() {
                           basic = true;
                           advance = false;
                           byId = false;
                         });
-                        debugPrint("Basic $basic");
                       },
-                      child: Container(
-                        height: 6.h,
-                        width: 26.w,
-                        decoration: BoxDecoration(
-                          color: basic
-                              ? AppColors.primaryColor3
-                              : AppColors.primaryColor,
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                          ),
-                        ),
-                        child: Text(
-                          "Basic\nSearch",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 2.h,
-                            color: AppColors.whiteColor,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
                     ),
-                    InkWell(
+                    TabButton(
+                      isSelected: advance,
+                      text: "Advance\nSearch",
+                      width: 30.w,
                       onTap: () {
                         setState(() {
                           basic = false;
@@ -87,30 +71,11 @@ class _SearchScreenState extends State<SearchScreen> {
                           byId = false;
                         });
                       },
-                      child: Container(
-                        height: 6.h,
-                        width: 26.w,
-                        decoration: BoxDecoration(
-                          color: advance
-                              ? AppColors.primaryColor3
-                              : AppColors.primaryColor,
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                          ),
-                        ),
-                        child: Text(
-                          "Advance\nSearch",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 2.h,
-                            color: AppColors.whiteColor,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
                     ),
-                    InkWell(
+                    TabButton(
+                      isSelected: basic,
+                      text: "Search By\nProfile Id",
+                      width: 30.w,
                       onTap: () {
                         setState(() {
                           basic = false;
@@ -118,28 +83,6 @@ class _SearchScreenState extends State<SearchScreen> {
                           byId = true;
                         });
                       },
-                      child: Container(
-                        height: 6.h,
-                        width: 26.w,
-                        decoration: BoxDecoration(
-                          color: byId
-                              ? AppColors.primaryColor3
-                              : AppColors.primaryColor,
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                          ),
-                        ),
-                        child: Text(
-                          "Search By\nProfile Id",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 2.h,
-                            color: AppColors.whiteColor,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),

@@ -1,54 +1,43 @@
-import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
+import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TabButton extends StatelessWidget {
-  final String text;
-  final String image;
-  final bool active;
-  final Function()? onPressed;
-
   const TabButton({
     Key? key,
+    required this.isSelected,
     required this.text,
-    required this.image,
-    required this.active,
-    this.onPressed,
+    required this.onTap,
+    this.width,
   }) : super(key: key);
+
+  final bool isSelected;
+  final String text;
+  final double? width;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 1.h),
-        child: Container(
-          height: 5.h,
-          width: 16.w,
-          decoration: BoxDecoration(
-            color: active ? AppColors.basicColor : AppColors.backgroundColor2,
-            borderRadius: BorderRadius.circular(15),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 6.h,
+        width: width ?? 23.w,
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.primaryColor3 : AppColors.primaryColor,
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 1.2.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Image.asset(
-                image,
-                color: active ? AppColors.whiteColor : AppColors.basicColor,
-                height: 2.h,
-              ),
-              SizedBox(width: 1.w),
-              Text(
-                text,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: active ? AppColors.whiteColor : AppColors.basicColor,
-                  fontSize: 12.sp,
-                ),
-              ),
-            ],
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 2.h,
+            color: AppColors.whiteColor,
+            fontWeight: FontWeight.w400,
           ),
         ),
       ),

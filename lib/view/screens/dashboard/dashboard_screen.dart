@@ -15,6 +15,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.basicColor,
+        // title: Text(
+        //   "MENU",
+        //   style: TextStyle(
+        //     fontWeight: FontWeight.normal,
+        //     fontSize: 2.h,
+        //     color: AppColors.whiteColor,
+        //   ),
+        // ),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
         ],

@@ -1,4 +1,5 @@
 import 'package:app/provider/auth_provider.dart';
+import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/screens/auth/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,9 +39,13 @@ class _AppState extends State<App> {
               create: (context) => AuthProvider(),
             ),
           ],
-          child: const MaterialApp(
+          child: MaterialApp(
             title: 'app',
-            home: AuthScreen(),
+            theme: ThemeData(
+              // primarySwatch: Colors.blue,
+              unselectedWidgetColor: AppColors.whiteColor,
+            ),
+            home: const AuthScreen(),
           ),
         );
       },

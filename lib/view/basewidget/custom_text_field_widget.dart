@@ -54,7 +54,7 @@ class CustomTextField extends StatelessWidget {
           ),
           decoration: InputDecoration(
             prefixIcon: icon,
-            // contentPadding: const EdgeInsets.only(left: 0, top: 0),
+            contentPadding: EdgeInsets.zero,
             filled: true,
             fillColor: backgroundColor ?? Colors.transparent,
             hintText: hintText,
@@ -63,13 +63,13 @@ class CustomTextField extends StatelessWidget {
               fontSize: 2.h,
             ),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.blackColor, width: 1.5),
+              borderSide: BorderSide(color: AppColors.whiteColor, width: 1.5),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.blackColor, width: 1.5),
+              borderSide: BorderSide(color: AppColors.whiteColor, width: 1.5),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.blackColor, width: 1.5),
+              borderSide: BorderSide(color: AppColors.whiteColor, width: 1.5),
             ),
             // focusedBorder: OutlineInputBorder(
             //   borderRadius: BorderRadius.circular(radius ?? 100),
