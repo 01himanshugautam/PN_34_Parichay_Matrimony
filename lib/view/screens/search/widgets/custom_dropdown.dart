@@ -8,6 +8,7 @@ class CustomDropDown extends StatelessWidget {
   final List items;
   final dynamic value;
   final double? width;
+  final Color? color;
   final Function(dynamic) onChanged;
   const CustomDropDown({
     Key? key,
@@ -17,6 +18,7 @@ class CustomDropDown extends StatelessWidget {
     required this.onChanged,
     this.hint,
     this.width,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -30,16 +32,25 @@ class CustomDropDown extends StatelessWidget {
             title,
             style: TextStyle(
               fontSize: 2.h,
-              color: AppColors.greyColor,
+              color: color ?? AppColors.greyColor,
             ),
           ),
           SizedBox(
             width: width ?? 100.w,
             child: DropdownButton(
-              hint: Text(hint ?? 'Any'),
+              dropdownColor: AppColors.greyColor.withOpacity(.9),
+              hint: Text(hint ?? 'Any',
+                  style: TextStyle(
+                    fontSize: 2.h,
+                    color: color ?? AppColors.greyColor,
+                  )),
+              style: TextStyle(
+                fontSize: 2.h,
+                color: color ?? AppColors.greyColor,
+              ),
               underline: Container(
                 height: 1.5,
-                color: AppColors.blackColor,
+                color: color ?? AppColors.blackColor,
               ),
               isExpanded: true,
               value: value,
