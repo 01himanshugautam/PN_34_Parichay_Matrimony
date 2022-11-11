@@ -1,6 +1,7 @@
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
 import 'package:app/view/screens/register/lifestyle_family_screen.dart';
+import 'package:app/view/screens/register/widgets/progress_bar_screen.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
@@ -45,6 +46,8 @@ class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
             Expanded(
               child: ListView(
                 children: [
+                  const ProgressBar(select: 2),
+                  SizedBox(height: 1.h),
                   CustomDropDown(
                     title: "Highest Education *",
                     items: const [1, 2],

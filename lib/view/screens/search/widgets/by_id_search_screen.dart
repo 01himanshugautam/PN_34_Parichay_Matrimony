@@ -34,6 +34,7 @@ class _ByIdSearchState extends State<ByIdSearch> {
           hintText: 'Profile ID',
           hintColor: AppColors.blackColor,
           isPadding: false,
+          borderColor: AppColors.blackColor,
         ),
       ],
     );

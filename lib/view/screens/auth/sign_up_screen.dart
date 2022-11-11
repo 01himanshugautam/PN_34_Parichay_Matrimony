@@ -45,6 +45,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   CustomTextField(
                     width: 100.w,
                     controller: _username,
+                    hintText: 'Name*',
+                    hintColor: AppColors.whiteColor,
+                    isPadding: false,
+                  ),
+                  CustomTextField(
+                    width: 100.w,
+                    controller: _username,
                     hintText: 'Email*',
                     hintColor: AppColors.whiteColor,
                   ),
@@ -125,13 +132,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ],
                       ),
                     ],
-                  ),
-                  CustomTextField(
-                    width: 100.w,
-                    controller: _username,
-                    hintText: 'Name*',
-                    hintColor: AppColors.whiteColor,
-                    isPadding: false,
                   ),
                   SizedBox(height: 1.h),
                   CustomTextField(

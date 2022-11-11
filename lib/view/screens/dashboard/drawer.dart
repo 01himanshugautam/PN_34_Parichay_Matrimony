@@ -21,7 +21,7 @@ class HomeDrawer extends StatelessWidget {
       children: <Widget>[
         Container(
           height: 20.h,
-          width: 70.w,
+          // width: 70.w,
           padding: EdgeInsets.only(top: 3.h, left: 5.w),
           color: AppColors.primaryColor,
           child: Row(
@@ -36,12 +36,12 @@ class HomeDrawer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: 45.w,
+                    // width: 45.w,
                     child: Text(
                       'PM6277',
                       maxLines: 1,
                       style: TextStyle(
-                        fontSize: 3.h,
+                        fontSize: 2.5.h,
                         fontWeight: FontWeight.bold,
                         color: AppColors.whiteColor,
                       ),
@@ -71,11 +71,11 @@ class HomeDrawer extends StatelessWidget {
             ],
           ),
         ),
-        CustomListTile(
-          title: 'Home',
-          image: Images.home,
-          onTap: () {},
-        ),
+        // CustomListTile(
+        //   title: 'Home',
+        //   image: Images.home,
+        //   onTap: () {},
+        // ),
         CustomListTile(
           title: 'Search',
           image: Images.search,

@@ -1,5 +1,6 @@
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/register/eduction_profession_screen.dart';
+import 'package:app/view/screens/register/widgets/progress_bar_screen.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
@@ -43,6 +44,22 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
             Expanded(
               child: ListView(
                 children: [
+                  const ProgressBar(select: 1),
+                  SizedBox(height: 1.h),
+                  Column(
+                    children: [
+                      CircleAvatar(radius: 5.h),
+                      SizedBox(height: 1.h),
+                      Text(
+                        "Profile Image",
+                        style: TextStyle(
+                          fontSize: 2.h,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 2.h),
                   CustomDropDown(
                     title: "Mother Toungue *",
                     items: const [1, 2],

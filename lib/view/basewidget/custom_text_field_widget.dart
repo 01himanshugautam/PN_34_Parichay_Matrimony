@@ -63,13 +63,16 @@ class CustomTextField extends StatelessWidget {
               fontSize: 2.h,
             ),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.whiteColor, width: 1.5),
+              borderSide: BorderSide(
+                  color: borderColor ?? AppColors.whiteColor, width: 1.5),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.whiteColor, width: 1.5),
+              borderSide: BorderSide(
+                  color: borderColor ?? AppColors.whiteColor, width: 1.5),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.whiteColor, width: 1.5),
+              borderSide: BorderSide(
+                  color: borderColor ?? AppColors.whiteColor, width: 1.5),
             ),
             // focusedBorder: OutlineInputBorder(
             //   borderRadius: BorderRadius.circular(radius ?? 100),

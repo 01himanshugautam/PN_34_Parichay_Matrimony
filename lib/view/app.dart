@@ -43,10 +43,13 @@ class _AppState extends State<App> {
             title: 'app',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              // primarySwatch: Colors.blue,
               unselectedWidgetColor: AppColors.whiteColor,
             ),
             home: const AuthScreen(),
+            // initialRoute: '/',
+            // routes: {
+            //   "/": (context) => const DashboardScreen(),
+            // },
           ),
         );
       },

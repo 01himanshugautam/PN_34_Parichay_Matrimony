@@ -1,6 +1,7 @@
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
-import 'package:app/view/screens/register/eduction_profession_screen.dart';
+import 'package:app/view/screens/dashboard/dashboard_screen.dart';
+import 'package:app/view/screens/register/widgets/progress_bar_screen.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
@@ -44,6 +45,8 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
             Expanded(
               child: ListView(
                 children: [
+                  const ProgressBar(select: 3),
+                  SizedBox(height: 1.h),
                   CustomDropDown(
                     title: "Family Type *",
                     items: const [1, 2],
@@ -268,7 +271,7 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const EducationProfessionScreen()),
+                    builder: (context) => const DashboardScreen()),
               ),
             ),
           ],
