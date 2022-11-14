@@ -1,17 +1,32 @@
+import 'dart:developer';
+
+import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/auth/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
-import 'package:app/view/screens/dashboard/dashboard_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
-  final TextEditingController _username = TextEditingController();
+  final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+
+  login(email, password, context) async {
+    debugPrint("Email");
+    log("Email ${_email.text}");
+    if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
+      var response = await Provider.of<AuthProvider>(context, listen: false)
+          .login(_email.text, _password.text);
+      log("response ${response.success}");
+      // Navigator.pushNamedAndRemoveUntil(
+      //     context, '/home', (r) => false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 2.h),
                 CustomTextField(
                   width: 90.w,
-                  controller: _username,
+                  controller: _email,
                   hintText: 'Email/Phone Number *',
                   hintColor: AppColors.whiteColor,
                 ),
@@ -53,16 +68,19 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButton(
-                      text: "Forget password",
-                      width: 30.w,
-                      height: 3.h,
-                      textColor: AppColors.whiteColor,
-                      isPadding: true,
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ForgetPasswordScreen())),
-                    ),
+                        text: "Forget password",
+                        width: 30.w,
+                        height: 3.h,
+                        textColor: AppColors.whiteColor,
+                        isPadding: true,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ForgetPasswordScreen(),
+                            ),
+                          );
+                        }),
                   ],
                 ),
                 SizedBox(height: 3.h),
@@ -73,10 +91,7 @@ class LoginScreen extends StatelessWidget {
                   fontSize: 3.h,
                   color: AppColors.primaryColor,
                   textColor: AppColors.whiteColor,
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DashboardScreen())),
+                  onPressed: () => login(_email, _password, context),
                 ),
               ],
             ),

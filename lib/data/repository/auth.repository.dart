@@ -7,7 +7,7 @@ class AuthRepository {
   login(String username, String password) async {
     try {
       Response response = await dio.post(AppUrls.login,
-          data: FormData.fromMap({'username': username, 'password': password}));
+          data: FormData.fromMap({'email': username, 'password': password}));
       return response;
     } catch (e) {
       return e;

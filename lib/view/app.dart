@@ -1,6 +1,10 @@
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/screens/auth/auth_screen.dart';
+import 'package:app/view/screens/auth/login_screen.dart';
+import 'package:app/view/screens/auth/sign_up_screen.dart';
+import 'package:app/view/screens/dashboard/dashboard_screen.dart';
+import 'package:app/view/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -46,10 +50,12 @@ class _AppState extends State<App> {
               unselectedWidgetColor: AppColors.whiteColor,
             ),
             home: const AuthScreen(),
-            // initialRoute: '/',
-            // routes: {
-            //   "/": (context) => const DashboardScreen(),
-            // },
+            routes: {
+              "/home": (context) => const DashboardScreen(),
+              "/login": (context) => LoginScreen(),
+              "/signUp": (context) => const SignUpScreen(),
+              "/search": (context) => const SearchScreen(),
+            },
           ),
         );
       },
