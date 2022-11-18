@@ -7,6 +7,7 @@ import 'package:app/view/screens/membership_plan/membership_plan_screen.dart';
 import 'package:app/view/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({
@@ -122,6 +123,17 @@ class HomeDrawer extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => const ContactScreen()),
           ),
+        ),
+        CustomListTile(
+          title: 'Logout',
+          image: Images.logout,
+          onTap: () async {
+            final SharedPreferences prefs =
+                await SharedPreferences.getInstance();
+            prefs.remove('userData');
+            prefs.remove('is_login');
+            Navigator.pushNamedAndRemoveUntil(context, '/login', (r) => false);
+          },
         ),
         SizedBox(height: 10.h),
         Padding(

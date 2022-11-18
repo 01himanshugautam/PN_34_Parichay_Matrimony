@@ -4,4 +4,5 @@ class AppUrls {
   static const String baseUrl = "https://parichaymatrimony.com/api/";
 
   static const String login = "${baseUrl}applogin";
+  static const String profile = "${baseUrl}appprofile";
 }

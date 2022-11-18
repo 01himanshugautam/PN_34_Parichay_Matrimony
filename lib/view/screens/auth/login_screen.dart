@@ -1,14 +1,18 @@
+import 'dart:convert';
 import 'dart:developer';
-
+import 'package:app/data/models/user.model.dart';
+import 'package:app/helper/common-function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/auth/forget_password_screen.dart';
+import 'package:app/view/screens/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -17,14 +21,20 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _password = TextEditingController();
 
   login(email, password, context) async {
-    debugPrint("Email");
-    log("Email ${_email.text}");
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    FocusScope.of(context).unfocus();
     if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
       var response = await Provider.of<AuthProvider>(context, listen: false)
           .login(_email.text, _password.text);
-      log("response ${response.success}");
-      // Navigator.pushNamedAndRemoveUntil(
-      //     context, '/home', (r) => false);
+      log("response ${response['success']}");
+      if (response['success'] == true) {
+        String user = jsonEncode(Users.fromJson(response['data']));
+        prefs.setString('userData', user);
+        prefs.setBool('is_login', true);
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
+      } else {
+        CommonFunctions.showErrorDialog("Error", response['message'], context);
+      }
     }
   }
 
@@ -109,6 +119,12 @@ class LoginScreen extends StatelessWidget {
                   height: 3.h,
                   textColor: AppColors.primaryColor,
                   isPadding: false,
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignUpScreen(),
+                    ),
+                  ),
                 ),
               ],
             ),

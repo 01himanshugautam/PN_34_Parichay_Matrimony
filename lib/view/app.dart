@@ -8,6 +8,7 @@ import 'package:app/view/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -17,20 +18,19 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  // bool? isLogin;
-  // login() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool? isLogin = prefs.getBool('is_login');
-  //   setState(() {
-  //     this.isLogin = isLogin;
-  //   });
-  // }
+  bool? isLogin;
+  login() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLogin = prefs.getBool('is_login')!;
+    setState(() {
+      this.isLogin = isLogin;
+    });
+  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // login();
+    login();
   }
 
   @override
@@ -49,7 +49,8 @@ class _AppState extends State<App> {
             theme: ThemeData(
               unselectedWidgetColor: AppColors.whiteColor,
             ),
-            home: const AuthScreen(),
+            home:
+                isLogin == true ? const DashboardScreen() : const AuthScreen(),
             routes: {
               "/home": (context) => const DashboardScreen(),
               "/login": (context) => LoginScreen(),

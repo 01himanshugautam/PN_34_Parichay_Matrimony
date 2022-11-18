@@ -1,3 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:app/data/models/user.model.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/dashboard/drawer.dart';
 import 'package:app/view/screens/dashboard/widgets/column_text.dart';
@@ -5,6 +11,7 @@ import 'package:app/view/screens/dashboard/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -18,9 +25,11 @@ class _DashboardScreenState extends State<DashboardScreen>
   late TabController _tabController;
   int selectIndex = 0;
   bool isAboutMeTab = true;
+  late Users user;
+
   @override
   void initState() {
-    // TODO: implement initState
+    profile();
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
@@ -30,6 +39,23 @@ class _DashboardScreenState extends State<DashboardScreen>
     _tabController.dispose();
     _scrollController.dispose();
     super.dispose();
+  }
+
+  profile() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    Map json = jsonDecode(pref.getString('userData')!);
+    // var user = Users.fromJson(json);
+    setState(() {
+      user = Users.fromJson(json);
+    });
+    log("User $user");
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // var response =
+    //     await Provider.of<AuthProvider>(context, listen: false).profile(6255);
+
+    // if (response['success'] == true) {
+    //   prefs.setBool('is_login', true);
+    // }
   }
 
   final ScrollController _scrollController = ScrollController();
@@ -46,30 +72,31 @@ class _DashboardScreenState extends State<DashboardScreen>
               child: TextField(
                 style: TextStyle(color: AppColors.whiteColor),
                 decoration: InputDecoration(
-                    filled: true,
-                    fillColor: AppColors.whiteColor.withOpacity(.3),
-                    contentPadding: EdgeInsets.only(top: 1.h, left: 2.w),
-                    hintText: "Find your partner",
-                    hintStyle: TextStyle(color: AppColors.whiteColor),
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                      ),
+                  filled: true,
+                  fillColor: AppColors.whiteColor.withOpacity(.3),
+                  contentPadding: EdgeInsets.only(top: 1.h, left: 2.w),
+                  hintText: "Find your partner",
+                  hintStyle: TextStyle(color: AppColors.whiteColor),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
                     ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                      ),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
                     ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                      ),
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
                     ),
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: AppColors.whiteColor,
-                    )),
+                  ),
+                  suffixIcon: Icon(
+                    Icons.search,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
               ),
             ),
           ),
@@ -106,7 +133,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                               SizedBox(
                                 width: 55.w,
                                 child: Text(
-                                  "Container Shah (PM6277)",
+                                  "${user.name}",
                                   maxLines: 1,
                                   overflow: TextOverflow.clip,
                                   style: TextStyle(
@@ -118,7 +145,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                               ),
                               SizedBox(height: 0.5.h),
                               Text(
-                                '35 yrs, 55',
+                                '${user.age} yrs, 55',
                                 style: TextStyle(
                                   fontSize: 1.8.h,
                                   color: AppColors.whiteColor,
@@ -132,7 +159,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 ),
                               ),
                               Text(
-                                '1234567890',
+                                '${user.mobile}',
                                 style: TextStyle(
                                   fontSize: 1.8.h,
                                   color: AppColors.whiteColor,
@@ -224,37 +251,37 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
               isAboutMeTab
                   ? Column(
-                      children: const [
+                      children: [
                         CustomCard(
                           image: Images.people,
                           title: "Basic information",
                           leftChildren: [
                             ColumnText(
                               text: 'Name',
-                              value: 'Container',
+                              value: "${user.name}",
                             ),
                             ColumnText(
                               text: 'Gender',
-                              value: 'Male',
+                              value: "${user.gender}",
                             ),
                             ColumnText(
                               text: 'Age',
-                              value: '35',
+                              value: "${user.age}",
                             ),
                             ColumnText(
                               text: 'Marital Status',
-                              value: 'Never Married',
+                              value: "${user.maritalstatus}",
                             ),
-                            ColumnText(
+                            const ColumnText(
                               text: 'Complexion',
                               value: 'Fair',
                             ),
-                            ColumnText(
+                            const ColumnText(
                               text: 'Physical Status',
                               value: 'Normal',
                             ),
                           ],
-                          rightChildren: [
+                          rightChildren: const [
                             ColumnText(
                               text: 'Date Off Birth',
                               value: '35',
@@ -281,7 +308,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             ),
                           ],
                         ),
-                        CustomCard(
+                        const CustomCard(
                           image: Images.people,
                           title: "Family Details",
                           leftChildren: [
@@ -337,7 +364,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             ),
                           ],
                         ),
-                        CustomCard(
+                        const CustomCard(
                           image: Images.people,
                           title: "Religion Background",
                           leftChildren: [
@@ -361,7 +388,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             ),
                           ],
                         ),
-                        CustomCard(
+                        const CustomCard(
                           image: Images.people,
                           title: "Education & Career",
                           leftChildren: [
@@ -385,7 +412,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             ),
                           ],
                         ),
-                        CustomCard(
+                        const CustomCard(
                           image: Images.people,
                           title: "Location",
                           leftChildren: [
@@ -409,7 +436,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             ),
                           ],
                         ),
-                        CustomCard(
+                        const CustomCard(
                           image: Images.people,
                           title: "Astrology",
                           leftChildren: [
@@ -441,7 +468,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             ),
                           ],
                         ),
-                        CustomCard(
+                        const CustomCard(
                           image: Images.people,
                           title: "Contact Details",
                           leftChildren: [

@@ -18,6 +18,7 @@ class Images {
   static const String success = "assets/images/success.png";
   static const String view = "assets/images/view.png";
   static const String preview = "assets/images/preview.png";
+  static const String logout = "assets/images/logout.png";
 
   static const String background = "assets/images/image1.png";
   static const String background2 = "assets/images/image2.png";
