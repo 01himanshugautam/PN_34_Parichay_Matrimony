@@ -1,15 +1,15 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
 import 'dart:developer';
 
 import 'package:app/data/models/user.model.dart';
+import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/dashboard/drawer.dart';
 import 'package:app/view/screens/dashboard/widgets/column_text.dart';
 import 'package:app/view/screens/dashboard/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,12 +25,12 @@ class _DashboardScreenState extends State<DashboardScreen>
   late TabController _tabController;
   int selectIndex = 0;
   bool isAboutMeTab = true;
-  late Users user;
+  Users user = Users();
 
   @override
   void initState() {
-    profile();
     _tabController = TabController(length: 3, vsync: this);
+    profile();
     super.initState();
   }
 
@@ -44,18 +44,17 @@ class _DashboardScreenState extends State<DashboardScreen>
   profile() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     Map json = jsonDecode(pref.getString('userData')!);
-    // var user = Users.fromJson(json);
     setState(() {
       user = Users.fromJson(json);
     });
     log("User $user");
-    // final SharedPreferences prefs = await SharedPreferences.getInstance();
-    // var response =
-    //     await Provider.of<AuthProvider>(context, listen: false).profile(6255);
-
-    // if (response['success'] == true) {
-    //   prefs.setBool('is_login', true);
-    // }
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var response = await Provider.of<AuthProvider>(context, listen: false)
+        .profile("${user.id}");
+    if (response['success'] == true) {
+      String user = jsonEncode(Users.fromJson(response['data']));
+      prefs.setString('userData', user);
+    }
   }
 
   final ScrollController _scrollController = ScrollController();
@@ -272,297 +271,297 @@ class _DashboardScreenState extends State<DashboardScreen>
                               text: 'Marital Status',
                               value: "${user.maritalstatus}",
                             ),
-                            const ColumnText(
+                            ColumnText(
                               text: 'Complexion',
-                              value: 'Fair',
+                              value: "${user.complexion}",
                             ),
-                            const ColumnText(
+                            ColumnText(
                               text: 'Physical Status',
-                              value: 'Normal',
+                              value: "${user.physicalType}",
                             ),
                           ],
-                          rightChildren: const [
+                          rightChildren: [
                             ColumnText(
                               text: 'Date Off Birth',
-                              value: '35',
+                              value: "${user.dOB}",
                             ),
                             ColumnText(
                               text: 'Height',
-                              value: "5'5'",
+                              value: "${user.height}",
                             ),
                             ColumnText(
                               text: 'Dietary Habits',
-                              value: 'Vegetarian',
+                              value: "${user.diet}",
                             ),
                             ColumnText(
                               text: 'Drinking Habits',
-                              value: 'No',
+                              value: "${user.drinkh}",
                             ),
                             ColumnText(
                               text: 'Smoking Habits',
-                              value: 'No',
+                              value: "${user.smokha}",
                             ),
                             ColumnText(
                               text: 'Body Type',
-                              value: 'Slim',
+                              value: "${user.bodyType}",
                             ),
                           ],
                         ),
-                        const CustomCard(
-                          image: Images.people,
+                        CustomCard(
+                          image: Images.family,
                           title: "Family Details",
                           leftChildren: [
                             ColumnText(
                               text: 'Family Type',
-                              value: 'Joint',
+                              value: "${user.familytype}",
                             ),
                             ColumnText(
                               text: 'Father Occupation',
-                              value: 'Passed Away',
+                              value: "${user.fatheroccupation}",
                             ),
                             ColumnText(
                               text: 'Age',
-                              value: '35',
+                              value: "${user.age}",
                             ),
                             ColumnText(
                               text: 'Mother Occupation ',
-                              value: 'Homemaker',
+                              value: "${user.motheroccupation}",
                             ),
                             ColumnText(
                               text: 'No of brothers',
-                              value: '1',
+                              value: "${user.noofbrother}",
                             ),
                             ColumnText(
                               text: 'How many brothers married',
-                              value: '1',
+                              value: "${user.married1}",
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Family Values',
-                              value: 'Liberal',
+                              value: "${user.famvalue}",
                             ),
                             ColumnText(
                               text: 'Family Income',
-                              value: "Rs 7.5-10 Lakh",
+                              value: "${user.famincome}",
                             ),
                             ColumnText(
                               text: 'Dietary Habits',
-                              value: 'Vegetarian',
+                              value: "${user.diet}",
                             ),
                             ColumnText(
                               text: 'Family Status',
-                              value: 'Middle Class',
+                              value: "${user.famstatus}",
                             ),
                             ColumnText(
                               text: 'No of Sister',
-                              value: '1',
+                              value: "${user.noofsisters}",
                             ),
                             ColumnText(
                               text: 'How many sister married',
-                              value: '0',
+                              value: "${user.married}",
                             ),
                           ],
                         ),
-                        const CustomCard(
-                          image: Images.people,
+                        CustomCard(
+                          image: Images.religion,
                           title: "Religion Background",
                           leftChildren: [
                             ColumnText(
                               text: 'Religion',
-                              value: 'Hindu',
+                              value: "${user.religion}",
                             ),
                             ColumnText(
                               text: 'Caste',
-                              value: 'Vaishnan',
+                              value: "${user.caste}",
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Mother Tounge',
-                              value: 'Gujarati',
+                              value: "${user.mothertong}",
                             ),
                             ColumnText(
                               text: 'Sub Caste',
-                              value: "5'58",
+                              value: "${user.subcast}",
                             ),
                           ],
                         ),
-                        const CustomCard(
-                          image: Images.people,
+                        CustomCard(
+                          image: Images.education,
                           title: "Education & Career",
                           leftChildren: [
                             ColumnText(
                               text: 'Education',
-                              value: 'MSW',
+                              value: "${user.education}",
                             ),
                             ColumnText(
                               text: 'Employed In',
-                              value: 'Private',
+                              value: "${user.employeeIn}",
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Occupation',
-                              value: 'HR Professional',
+                              value: "${user.occupation}",
                             ),
                             ColumnText(
                               text: 'Annual Income',
-                              value: "Rs 7-7.5 Lakh",
+                              value: "${user.income}",
                             ),
                           ],
                         ),
-                        const CustomCard(
-                          image: Images.people,
+                        CustomCard(
+                          image: Images.location,
                           title: "Location",
                           leftChildren: [
                             ColumnText(
                               text: 'Country',
-                              value: 'India',
+                              value: "${user.country}",
                             ),
                             ColumnText(
                               text: 'State',
-                              value: 'Not Filled',
+                              value: "${user.state}",
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'City',
-                              value: 'Delhi',
+                              value: "${user.city}",
                             ),
                             ColumnText(
                               text: 'Postal Code',
-                              value: "Not Filled",
+                              value: "${user.postalCode}",
                             ),
                           ],
                         ),
-                        const CustomCard(
-                          image: Images.people,
+                        CustomCard(
+                          image: Images.horoscope,
                           title: "Astrology",
                           leftChildren: [
                             ColumnText(
                               text: 'Horoscope',
-                              value: 'MSW',
+                              value: "${user.horoscope}",
                             ),
                             ColumnText(
                               text: 'Time of Birth',
-                              value: 'Private',
+                              value: "${user.timeOfBirth}",
                             ),
                             ColumnText(
                               text: 'Rishi/ Moon Sign',
-                              value: "Don't now",
+                              value: "${user.rashi}",
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Place of Birth',
-                              value: 'Delhi',
+                              value: "${user.birthplace}",
                             ),
                             ColumnText(
                               text: 'Nakshtra',
-                              value: "Utaea",
+                              value: "${user.nakshtra}",
                             ),
                             ColumnText(
                               text: 'Manglik',
-                              value: "Don't Know",
+                              value: "${user.manglik}",
                             ),
                           ],
                         ),
-                        const CustomCard(
+                        CustomCard(
                           image: Images.people,
-                          title: "Contact Details",
+                          title: "Contact Information",
                           leftChildren: [
                             ColumnText(
                               text: 'Email id',
-                              value: 'Not Filled',
+                              value: "${user.email}",
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Mobile No.',
-                              value: 'Not Filled',
+                              value: "${user.mobile}",
                             ),
                           ],
                         ),
                       ],
                     )
-                  : const CustomCard(
+                  : CustomCard(
                       image: Images.people,
                       title: "Basic information",
                       leftChildren: [
                         ColumnText(
                           text: 'Age',
-                          value: '35',
+                          value: "${user.age}",
                         ),
                         ColumnText(
                           text: 'Height',
-                          value: "5'5'",
+                          value: "${user.height}",
                         ),
                         ColumnText(
                           text: 'Body type',
-                          value: 'Never Married',
+                          value: "${user.bodyType}",
                         ),
                         ColumnText(
                           text: 'Complexion',
-                          value: 'Fair',
+                          value: "${user.complexion}",
                         ),
                         ColumnText(
                           text: 'Religion',
-                          value: 'Normal',
+                          value: "${user.religion}",
                         ),
                         ColumnText(
                           text: 'Caste',
-                          value: 'Normal',
+                          value: "${user.caste}",
                         ),
                         ColumnText(
                           text: 'Country',
-                          value: 'Normal',
+                          value: "${user.country}",
                         ),
                         ColumnText(
                           text: 'State',
-                          value: 'Normal',
+                          value: "${user.state}",
                         ),
                         ColumnText(
                           text: 'City',
-                          value: 'Normal',
+                          value: "${user.city}",
                         ),
                       ],
                       rightChildren: [
                         ColumnText(
                           text: 'Annual Income',
-                          value: '35',
+                          value: "${user.income}",
                         ),
                         ColumnText(
                           text: 'Marital Status',
-                          value: 'Vegetarian',
+                          value: "${user.maritalstatus}",
                         ),
                         ColumnText(
                           text: 'Drinking Habits',
-                          value: 'No',
+                          value: "${user.drinkh}",
                         ),
                         ColumnText(
                           text: 'Smoking Habits',
-                          value: 'No',
+                          value: "${user.smokha}",
                         ),
                         ColumnText(
                           text: 'Education',
-                          value: 'Slim',
+                          value: "${user.education}",
                         ),
                         ColumnText(
                           text: 'Mother Tongue',
-                          value: 'Slim',
+                          value: "${user.mothertong}",
                         ),
                         ColumnText(
                           text: 'Manglik Status',
-                          value: 'Slim',
+                          value: "${user.manglik}",
                         ),
                         ColumnText(
                           text: 'Horoscope',
-                          value: 'Slim',
+                          value: "${user.horoscope}",
                         ),
                         ColumnText(
                           text: 'Occupation',
-                          value: 'Slim',
+                          value: "${user.occupation}",
                         ),
                       ],
                     ),

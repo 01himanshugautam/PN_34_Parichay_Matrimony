@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
 import 'package:app/view/screens/dashboard/dashboard_screen.dart';
@@ -6,6 +9,7 @@ import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class LifestyleFamilyScreen extends StatefulWidget {
@@ -16,10 +20,67 @@ class LifestyleFamilyScreen extends StatefulWidget {
 }
 
 class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
-  final TextEditingController _username = TextEditingController();
-  int? _minAge;
+  final TextEditingController about = TextEditingController();
+  final TextEditingController address = TextEditingController();
+  String? diet,
+      drink,
+      smoke,
+      body,
+      complexion,
+      physical,
+      fType,
+      fOccupation,
+      mOccupation,
+      fStatus,
+      brother,
+      sister,
+      fLiving,
+      state,
+      city;
+  List countries = [
+    {"id": "101", "name": "India"},
+  ];
+  List states = [
+    {"id": "1", "name": "Andaman and Nicobar Islands"}
+  ];
+  List cities = [
+    {"id": "1", "name": "Sed ea dolore offici"}
+  ];
 
-  String? _gender;
+  getCountry() async {
+    var countries =
+        await Provider.of<SearchProvider>(context, listen: false).country();
+
+    setState(() {
+      this.countries = countries['data'];
+    });
+    // log("countries ${this.countries}");
+  }
+
+  getState(String id) async {
+    var states =
+        await Provider.of<SearchProvider>(context, listen: false).state(id);
+    log("States $states");
+    setState(() {
+      this.states = states['data'];
+    });
+  }
+
+  getCity(String id) async {
+    var cities =
+        await Provider.of<SearchProvider>(context, listen: false).city(id);
+    log("Cities $cities");
+    setState(() {
+      this.cities = cities['data'];
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCountry();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,118 +110,135 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                   SizedBox(height: 1.h),
                   CustomDropDown(
                     title: "Family Type *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const ["Joint", "Nuclear", "Other"],
+                    value: fType,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        fType = value;
                       });
                     },
                   ),
                   CustomDropDown(
-                    title: "Father Occuption *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    title: "Father Occupation *",
+                    items: const [
+                      "Employed",
+                      "Business Man",
+                      "Not Employed",
+                      "Retired",
+                      "Passed Away",
+                    ],
+                    value: fOccupation,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        fOccupation = value;
                       });
                     },
                   ),
                   CustomDropDown(
-                    title: "Mother Occuption *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    title: "Mother Occupation *",
+                    items: const [
+                      "Home Worker",
+                      "Employed",
+                      "Business Man",
+                      "Not Employed",
+                      "Retired",
+                      "Passed Away",
+                    ],
+                    value: mOccupation,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        mOccupation = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "Family Status *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const [
+                      "Upper Middle",
+                      "Rich Affluent",
+                      "Middle Class"
+                    ],
+                    value: fStatus,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        fStatus = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "Brother *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const ["1", "2", "3", "3+"],
+                    value: brother,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        brother = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "Sister *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const ["1", "2", "3", "3+"],
+                    value: sister,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        sister = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "Family Living In *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: countries,
+                    value: fLiving,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        fLiving = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "State *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: states,
+                    value: state,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        state = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "City *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: cities,
+                    value: city,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        city = value;
                       });
                     },
                   ),
@@ -182,79 +260,94 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                   const CustomTextField(hintText: ""),
                   CustomDropDown(
                     title: "Dietary Habits *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const [
+                      "Vegetarian",
+                      "Non Veg",
+                      "jain",
+                      "Eggetarian"
+                    ],
+                    value: diet,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        diet = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "Drinking Habits *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const ['Yes', 'No', 'Occasionally'],
+                    value: drink,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        drink = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "Smoking Habits *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const ['Yes', 'No', 'Occasionally'],
+                    value: smoke,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        smoke = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "Body Type *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const ["Slim", "Average", "Athletic", "Heavy"],
+                    value: body,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        body = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "Complexion *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const [
+                      "Fair",
+                      'Not Fair',
+                      "Wheatish",
+                      "Wheatish Brown",
+                      "Dark"
+                    ],
+                    value: complexion,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        complexion = value;
                       });
                     },
                   ),
                   CustomDropDown(
                     title: "Physical Status *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const [
+                      "Normal",
+                      "HIV Positive",
+                      "Physically Challenged"
+                    ],
+                    value: physical,
                     color: AppColors.whiteColor,
                     // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        physical = value;
                       });
                     },
                   ),

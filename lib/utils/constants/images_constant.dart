@@ -4,6 +4,12 @@ class Images {
   static const String logo = "assets/images/logo.png";
 
   static const String couples = "assets/images/couples.jpeg";
+  static const String user = "assets/images/user.png";
+  static const String family = "assets/images/family.png";
+  static const String education = "assets/images/education.png";
+  static const String horoscope = "assets/images/horoscope.png";
+  static const String location = "assets/images/location.png";
+  static const String religion = "assets/images/religion.png";
   static const String home = "assets/images/home.png";
   static const String search = "assets/images/search.png";
   static const String advanceSearch = "assets/images/advance_search.png";

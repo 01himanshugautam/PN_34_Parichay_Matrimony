@@ -1,6 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/register/profile_details.screen.dart';
+import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
@@ -14,9 +18,13 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _username = TextEditingController();
-
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController date = TextEditingController();
   String? _gender;
+  String? profileFor;
 
   @override
   Widget build(BuildContext context) {
@@ -39,108 +47,147 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  CustomTextField(
-                    width: 100.w,
-                    controller: _username,
-                    hintText: 'Name*',
-                    hintColor: AppColors.whiteColor,
-                    isPadding: false,
-                  ),
-                  CustomTextField(
-                    width: 100.w,
-                    controller: _username,
-                    hintText: 'Email*',
-                    hintColor: AppColors.whiteColor,
-                  ),
-                  CustomTextField(
-                    width: 100.w,
-                    controller: _username,
-                    hintText: 'Password*',
-                    hintColor: AppColors.whiteColor,
-                  ),
-                  CustomTextField(
-                    width: 100.w,
-                    controller: _username,
-                    hintText: 'Profile For*',
-                    hintColor: AppColors.whiteColor,
-                  ),
-                  SizedBox(height: 1.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Gender *",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 2.h,
-                          color: AppColors.whiteColor,
+            Form(
+              child: Expanded(
+                child: ListView(
+                  children: [
+                    CustomTextField(
+                      width: 100.w,
+                      controller: name,
+                      hintText: 'Name*',
+                      hintColor: AppColors.whiteColor,
+                      isPadding: false,
+                    ),
+                    SizedBox(height: 1.h),
+                    CustomTextField(
+                      width: 100.w,
+                      controller: email,
+                      hintText: 'Email*',
+                      hintColor: AppColors.whiteColor,
+                    ),
+                    SizedBox(height: 1.h),
+                    CustomTextField(
+                      width: 100.w,
+                      controller: password,
+                      hintText: 'Password*',
+                      hintColor: AppColors.whiteColor,
+                    ),
+                    SizedBox(height: 2.h),
+                    CustomDropDown(
+                      title: "Profile For*",
+                      items: const [
+                        "Self",
+                        "Son",
+                        "Daughter",
+                        "Brother",
+                        "Sister",
+                        "Relative",
+                        "Friends"
+                      ],
+                      value: profileFor,
+                      color: AppColors.whiteColor,
+                      onChanged: (value) {
+                        setState(() {
+                          profileFor = value;
+                        });
+                      },
+                    ),
+                    CustomTextField(
+                      width: 100.w,
+                      controller: phone,
+                      hintText: 'Phone Number*',
+                      hintColor: AppColors.whiteColor,
+                    ),
+                    SizedBox(height: 1.h),
+                    CustomTextField(
+                      width: 100.w,
+                      controller: date,
+                      hintText: 'Date off Birth*',
+                      hintColor: AppColors.whiteColor,
+                      readOnly: true,
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1970),
+                            lastDate: DateTime(2101));
+                        if (pickedDate != null) {
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                          setState(() {
+                            date.text = date.text = formattedDate;
+                          });
+                        }
+                      },
+                    ),
+                    SizedBox(height: 1.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Gender *",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 2.h,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 3.w),
-                      Row(
-                        children: [
-                          Radio(
-                            activeColor: AppColors.primaryColor,
-                            value: "Female",
-                            groupValue: _gender,
-                            onChanged: (value) {
-                              debugPrint("Value $value");
-                              setState(() {
-                                _gender = value;
-                              });
-                            },
-                          ),
-                          Text(
-                            "Female",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 2.h,
-                              color: _gender == "Female"
-                                  ? AppColors.primaryColor
-                                  : AppColors.whiteColor,
+                        SizedBox(width: 3.w),
+                        Row(
+                          children: [
+                            Radio(
+                              activeColor: AppColors.primaryColor,
+                              value: "Female",
+                              groupValue: _gender,
+                              onChanged: (value) {
+                                debugPrint("Value $value");
+                                setState(() {
+                                  _gender = value;
+                                });
+                              },
                             ),
-                          )
-                        ],
-                      ),
-                      SizedBox(width: 3.w),
-                      Row(
-                        children: [
-                          Radio(
-                            activeColor: AppColors.primaryColor,
-                            value: "Male",
-                            groupValue: _gender,
-                            onChanged: (value) {
-                              debugPrint("Value $value");
-                              setState(() {
-                                _gender = value;
-                              });
-                            },
-                          ),
-                          Text(
-                            "Male",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 2.h,
-                              color: _gender == "Male"
-                                  ? AppColors.primaryColor
-                                  : AppColors.whiteColor,
+                            Text(
+                              "Female",
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 2.h,
+                                color: _gender == "Female"
+                                    ? AppColors.primaryColor
+                                    : AppColors.whiteColor,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(width: 3.w),
+                        Row(
+                          children: [
+                            Radio(
+                              activeColor: AppColors.primaryColor,
+                              value: "Male",
+                              groupValue: _gender,
+                              onChanged: (value) {
+                                debugPrint("Value $value");
+                                setState(() {
+                                  _gender = value;
+                                });
+                              },
                             ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 1.h),
-                  CustomTextField(
-                    width: 100.w,
-                    controller: _username,
-                    hintText: 'Phone Number*',
-                    hintColor: AppColors.whiteColor,
-                  ),
-                ],
+                            Text(
+                              "Male",
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 2.h,
+                                color: _gender == "Male"
+                                    ? AppColors.primaryColor
+                                    : AppColors.whiteColor,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             CustomButton(
@@ -150,11 +197,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
               fontSize: 3.h,
               color: AppColors.primaryColor,
               textColor: AppColors.whiteColor,
-              onPressed: () => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ProfileDetailScreen()),
-              ),
+              onPressed: () async {
+                // if (name.text.isNotEmpty &&
+                //     email.text.isNotEmpty &&
+                //     password.text.isNotEmpty &&
+                //     phone.text.isNotEmpty &&
+                //     date.text.isNotEmpty &&
+                //     _gender != null &&
+                //     profileFor != null) {
+                //   var dateArray = date.text.split('-');
+                //   Map<String, dynamic> data = {
+                //     "fullname": name.text,
+                //     "email": email.text,
+                //     "password": password.text,
+                //     "profile_for": profileFor,
+                //     "phone": phone.text,
+                //     "gender": _gender,
+                //     "birth_date": dateArray[0],
+                //     "birth_month": dateArray[1],
+                //     "birth_year": dateArray[2]
+                //   };
+                //   var response =
+                //       await Provider.of<AuthProvider>(context, listen: false)
+                //           .register(data);
+                //   if (response['success'] == true) {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => const ProfileDetailScreen(),
+                //       ),
+                //     );
+                //     CommonFunctions.showSuccessToast(
+                //         "Profile Successfully Created.");
+                //   } else {
+                //     CommonFunctions.showErrorDialog(
+                //         "Error", response['message'], context);
+                //   }
+                // } else {
+                //   CommonFunctions.showSuccessToast("All fields are mandatory!");
+                // }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileDetailScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),

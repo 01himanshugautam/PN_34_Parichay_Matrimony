@@ -1,11 +1,16 @@
+import 'dart:developer';
+
+import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
 import 'package:app/view/screens/register/lifestyle_family_screen.dart';
 import 'package:app/view/screens/register/widgets/progress_bar_screen.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
+import 'package:app/view/screens/search/widgets/droop_api.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class EducationProfessionScreen extends StatefulWidget {
@@ -17,10 +22,66 @@ class EducationProfessionScreen extends StatefulWidget {
 }
 
 class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
-  final TextEditingController _username = TextEditingController();
-  int? _minAge;
+  final TextEditingController college = TextEditingController();
+  final TextEditingController about = TextEditingController();
 
-  String? _gender;
+  String? education;
+  String? job;
+  String? occupation;
+  String? income;
+
+  List educations = [
+    {"id": 1, "name": "Aeronautical Engineering"},
+  ];
+  List occupations = [
+    {"id": "1", "name": "Sed ea dolore offici"}
+  ];
+
+  List incomes = [
+    {"id": "1", "name": "Rs 1 Lakh"},
+  ];
+  List religions = [
+    {"id": "12", "name": "Hindu", "status": "1"},
+  ];
+  List languages = [
+    {"id": "1", "name": "Hindi"},
+  ];
+
+  getEducation() async {
+    var educations =
+        await Provider.of<SearchProvider>(context, listen: false).education();
+    log("educations $educations");
+    setState(() {
+      this.educations = educations['data'];
+    });
+  }
+
+  getOccupation() async {
+    var occupations =
+        await Provider.of<SearchProvider>(context, listen: false).occupations();
+    log("occupations $occupations");
+    setState(() {
+      this.occupations = occupations['data'];
+    });
+  }
+
+  getIncome() async {
+    var incomes =
+        await Provider.of<SearchProvider>(context, listen: false).income();
+    log("incomes $incomes");
+    setState(() {
+      this.incomes = incomes['data'];
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getEducation();
+    getOccupation();
+    getIncome();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,68 +109,78 @@ class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
                 children: [
                   const ProgressBar(select: 2),
                   SizedBox(height: 1.h),
-                  CustomDropDown(
+                  CustomDropDownApi(
                     title: "Highest Education *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: educations,
+                    value: education,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        education = value;
                       });
                     },
                   ),
-                  CustomDropDown(
-                    title: "College / School *",
-                    items: const [1, 2],
-                    value: _minAge,
-                    color: AppColors.whiteColor,
-                    // width: 40.w,
-                    onChanged: (value) {
-                      debugPrint("Value $value");
-                      setState(() {
-                        _minAge = value;
-                      });
-                    },
+                  // CustomDropDown(
+                  //   title: "College / School *",
+                  //   items: const [1, 2],
+                  //   value: _minAge,
+                  //   color: AppColors.whiteColor,
+                  //   // width: 40.w,
+                  //   onChanged: (value) {
+                  //     debugPrint("Value $value");
+                  //     setState(() {
+                  //       _minAge = value;
+                  //     });
+                  //   },
+                  // ),
+                  CustomTextField(
+                    controller: college,
+                    hintText: "College / School *",
+                    hintColor: AppColors.whiteColor,
+                    borderColor: AppColors.whiteColor,
                   ),
+                  SizedBox(height: 1.h),
                   CustomDropDown(
                     title: "Employed In *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: const [
+                      "Government",
+                      "Private",
+                      "Business",
+                      "Defence",
+                      "Self Employed",
+                      "Not Working",
+                    ],
+                    value: job,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        job = value;
                       });
                     },
                   ),
-                  CustomDropDown(
-                    title: "Occuption *",
-                    items: const [1, 2],
-                    value: _minAge,
+                  CustomDropDownApi(
+                    title: "Occupation *",
+                    items: occupations,
+                    value: occupation,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        occupation = value;
                       });
                     },
                   ),
-                  CustomDropDown(
+                  CustomDropDownApi(
                     title: "Annual Income *",
-                    items: const [1, 2],
-                    value: _minAge,
+                    items: incomes,
+                    value: income,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        _minAge = value;
+                        income = value;
                       });
                     },
                   ),
@@ -120,7 +191,10 @@ class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
                       color: AppColors.whiteColor,
                     ),
                   ),
-                  const CustomTextField(hintText: ""),
+                  CustomTextField(
+                    hintText: "",
+                    controller: about,
+                  ),
                 ],
               ),
             ),

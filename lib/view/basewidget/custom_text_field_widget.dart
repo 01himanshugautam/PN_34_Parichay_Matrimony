@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
+  final Function()? onTap;
   final double? height;
   final double? width;
   final double? iconSize;
@@ -16,6 +17,7 @@ class CustomTextField extends StatelessWidget {
   final Color? hintColor;
   final bool? searchAble;
   final bool isPadding;
+  final bool readOnly;
   final Icon? icon;
   const CustomTextField({
     Key? key,
@@ -24,6 +26,7 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.onChanged,
     this.onSubmitted,
+    this.onTap,
     this.radius,
     this.height,
     this.width,
@@ -34,6 +37,7 @@ class CustomTextField extends StatelessWidget {
     this.iconSize,
     this.icon,
     this.isPadding = true,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -46,7 +50,7 @@ class CustomTextField extends StatelessWidget {
         height: height ?? 5.5.h,
         width: width ?? 25.w,
         child: TextField(
-          controller: controller,
+          controller: controller, readOnly: readOnly,
           // expands: true,
           style: TextStyle(
             color: hintColor ?? AppColors.whiteColor,
@@ -95,6 +99,7 @@ class CustomTextField extends StatelessWidget {
           ),
           onChanged: onChanged,
           onSubmitted: onSubmitted,
+          onTap: onTap,
         ),
       ),
     );

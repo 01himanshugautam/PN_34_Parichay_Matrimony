@@ -25,11 +25,13 @@ class ColumnText extends StatelessWidget {
           ),
         ),
         Text(
-          value,
+          value != 'null' ? value : "Not Filled",
           textAlign: TextAlign.start,
           style: TextStyle(
             fontSize: 1.6.h,
-            color: AppColors.blackColor.withOpacity(.8),
+            color: value != 'null'
+                ? AppColors.blackColor.withOpacity(.8)
+                : AppColors.primaryColor.withOpacity(.8),
           ),
         ),
         SizedBox(height: 1.h),

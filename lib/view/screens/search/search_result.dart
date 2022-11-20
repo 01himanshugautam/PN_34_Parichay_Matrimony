@@ -1,11 +1,13 @@
-import 'dart:developer';
-
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SearchResult extends StatefulWidget {
-  const SearchResult({super.key});
+  final data;
+  const SearchResult({
+    super.key,
+    required this.data,
+  });
 
   @override
   State<SearchResult> createState() => _SearchResultState();
@@ -56,11 +58,10 @@ class _SearchResultState extends State<SearchResult> {
           }
         },
         child: PageView.builder(
-          itemCount: 10,
+          itemCount: widget.data.length,
           controller: _pageController,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            log("Index $index");
             return SizedBox(
               height: 100.h,
               width: 100.w,
@@ -97,8 +98,9 @@ class _SearchResultState extends State<SearchResult> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Example ABCD(PM2321)",
-                                  textAlign: TextAlign.center,
+                                  "${widget.data[index]['name']}",
+                                  textAlign: TextAlign.start,
+                                  maxLines: 1,
                                   style: TextStyle(
                                     fontSize: 2.h,
                                     color: AppColors.blackColor,
@@ -116,7 +118,8 @@ class _SearchResultState extends State<SearchResult> {
                                         children: [
                                           Text(
                                             "Age / Height",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -125,7 +128,8 @@ class _SearchResultState extends State<SearchResult> {
                                           SizedBox(height: 1.h),
                                           Text(
                                             "Religion / Caste",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -134,7 +138,8 @@ class _SearchResultState extends State<SearchResult> {
                                           SizedBox(height: 1.h),
                                           Text(
                                             "Mother Tongue",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -143,7 +148,8 @@ class _SearchResultState extends State<SearchResult> {
                                           SizedBox(height: 1.h),
                                           Text(
                                             "Education",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -152,7 +158,8 @@ class _SearchResultState extends State<SearchResult> {
                                           SizedBox(height: 1.h),
                                           Text(
                                             "Occupation",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -161,7 +168,8 @@ class _SearchResultState extends State<SearchResult> {
                                           SizedBox(height: 1.h),
                                           Text(
                                             "Income",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -170,7 +178,8 @@ class _SearchResultState extends State<SearchResult> {
                                           SizedBox(height: 1.h),
                                           Text(
                                             "Location",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -179,7 +188,8 @@ class _SearchResultState extends State<SearchResult> {
                                           SizedBox(height: 1.h),
                                           Text(
                                             "Marital Status",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -189,14 +199,15 @@ class _SearchResultState extends State<SearchResult> {
                                       ),
                                     ),
                                     SizedBox(
-                                      width: 35.w,
+                                      width: 50.w,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            ": 31 years, (5'5)",
-                                            textAlign: TextAlign.center,
+                                            ":  ${widget.data[index]['age']} ${widget.data[index]['height']}",
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -204,8 +215,9 @@ class _SearchResultState extends State<SearchResult> {
                                           ),
                                           SizedBox(height: 1.h),
                                           Text(
-                                            ": Hindu/Jat",
-                                            textAlign: TextAlign.center,
+                                            ": ${widget.data[index]['religion']} ${widget.data[index]['caste']}",
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -213,8 +225,9 @@ class _SearchResultState extends State<SearchResult> {
                                           ),
                                           SizedBox(height: 1.h),
                                           Text(
-                                            ": Hindi",
-                                            textAlign: TextAlign.center,
+                                            ": ${widget.data[index]['mothertong']}",
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -222,8 +235,9 @@ class _SearchResultState extends State<SearchResult> {
                                           ),
                                           SizedBox(height: 1.h),
                                           Text(
-                                            ": Not Specified",
-                                            textAlign: TextAlign.center,
+                                            ": ${widget.data[index]['education']}",
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -231,8 +245,9 @@ class _SearchResultState extends State<SearchResult> {
                                           ),
                                           SizedBox(height: 1.h),
                                           Text(
-                                            ": Not Specified",
-                                            textAlign: TextAlign.center,
+                                            ": ${widget.data[index]['occupation']}",
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -240,8 +255,9 @@ class _SearchResultState extends State<SearchResult> {
                                           ),
                                           SizedBox(height: 1.h),
                                           Text(
-                                            ": Rs. 4 - 5 Lakh",
-                                            textAlign: TextAlign.center,
+                                            ": ${widget.data[index]['income']}",
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -249,8 +265,9 @@ class _SearchResultState extends State<SearchResult> {
                                           ),
                                           SizedBox(height: 1.h),
                                           Text(
-                                            ": Karnal(Haryana)",
-                                            textAlign: TextAlign.center,
+                                            ": ${widget.data[index]['contactaddress']}",
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -258,8 +275,9 @@ class _SearchResultState extends State<SearchResult> {
                                           ),
                                           SizedBox(height: 1.h),
                                           Text(
-                                            ": Never Married",
-                                            textAlign: TextAlign.center,
+                                            ": ${widget.data[index]['maritalstatus']}",
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
                                             style: TextStyle(
                                               fontSize: 1.8.h,
                                               color: AppColors.blackColor,
@@ -284,8 +302,6 @@ class _SearchResultState extends State<SearchResult> {
                               ),
                               color: AppColors.primaryColor,
                             ),
-
-                            // padding: EdgeInsets.symmetric(horizontal: 2.w),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -296,7 +312,8 @@ class _SearchResultState extends State<SearchResult> {
                                         color: AppColors.whiteColor),
                                     Text(
                                       "Express Interest",
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.start,
+                                      maxLines: 1,
                                       style: TextStyle(
                                         fontSize: 1.5.h,
                                         color: AppColors.whiteColor,
@@ -311,7 +328,8 @@ class _SearchResultState extends State<SearchResult> {
                                         color: AppColors.whiteColor),
                                     Text(
                                       "Shortlist",
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.start,
+                                      maxLines: 1,
                                       style: TextStyle(
                                         fontSize: 1.5.h,
                                         color: AppColors.whiteColor,
@@ -326,7 +344,8 @@ class _SearchResultState extends State<SearchResult> {
                                         color: AppColors.whiteColor),
                                     Text(
                                       "View Profile",
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.start,
+                                      maxLines: 1,
                                       style: TextStyle(
                                         fontSize: 1.5.h,
                                         color: AppColors.whiteColor,
@@ -341,7 +360,8 @@ class _SearchResultState extends State<SearchResult> {
                                         color: AppColors.whiteColor),
                                     Text(
                                       "View",
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.start,
+                                      maxLines: 1,
                                       style: TextStyle(
                                         fontSize: 1.5.h,
                                         color: AppColors.whiteColor,

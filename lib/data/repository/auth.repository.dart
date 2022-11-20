@@ -17,9 +17,18 @@ class AuthRepository {
     }
   }
 
-  profile(int id) async {
+  register(body) async {
     try {
-      var response = await http.get(Uri.parse(AppUrls.profile));
+      var response = await http.post(Uri.parse(AppUrls.register), body: body);
+      return jsonDecode(response.body);
+    } catch (e) {
+      return e;
+    }
+  }
+
+  profile(String id) async {
+    try {
+      var response = await http.get(Uri.parse("${AppUrls.profile}/$id"));
       return jsonDecode(response.body);
     } catch (e) {
       return e;

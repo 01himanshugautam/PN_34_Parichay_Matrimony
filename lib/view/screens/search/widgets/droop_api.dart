@@ -2,15 +2,16 @@ import 'package:app/utils/constants/colors_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class CustomDropDown extends StatelessWidget {
+class CustomDropDownApi extends StatelessWidget {
   final String title;
   final String? hint;
   final List items;
   final dynamic value;
   final double? width;
   final Color? color;
+  final bool id;
   final Function(dynamic) onChanged;
-  const CustomDropDown({
+  const CustomDropDownApi({
     Key? key,
     required this.title,
     required this.items,
@@ -19,6 +20,7 @@ class CustomDropDown extends StatelessWidget {
     this.hint,
     this.width,
     this.color,
+    this.id = false,
   }) : super(key: key);
 
   @override
@@ -56,8 +58,8 @@ class CustomDropDown extends StatelessWidget {
               value: value,
               items: items.map((value) {
                 return DropdownMenuItem(
-                  value: value,
-                  child: Text("$value"),
+                  value: id ? value['id'] : value['name'],
+                  child: Text("${value['name']}"),
                 );
               }).toList(),
               onChanged: onChanged,

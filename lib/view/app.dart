@@ -1,4 +1,5 @@
 import 'package:app/provider/auth_provider.dart';
+import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/screens/auth/auth_screen.dart';
 import 'package:app/view/screens/auth/login_screen.dart';
@@ -21,7 +22,7 @@ class _AppState extends State<App> {
   bool? isLogin;
   login() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isLogin = prefs.getBool('is_login')!;
+    bool? isLogin = prefs.getBool('is_login');
     setState(() {
       this.isLogin = isLogin;
     });
@@ -41,6 +42,9 @@ class _AppState extends State<App> {
           providers: [
             ChangeNotifierProvider(
               create: (context) => AuthProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => SearchProvider(),
             ),
           ],
           child: MaterialApp(
