@@ -489,6 +489,30 @@ class _AdvanceSearchState extends State<AdvanceSearch> {
             color: AppColors.primaryColor,
             textColor: AppColors.whiteColor,
             onPressed: () async {
+              var data = {
+                'lookingfor': isMale ? "male" : "female",
+                'minage': "$minAge",
+                'maxage': "$maxAge",
+                'min_height': "$minHeight",
+                'max_height': "$maxHeight",
+                'religion': "$religion",
+                'cast': "$caste",
+                'language': "$motherToungue",
+                'city': "$city",
+                'country': "$motherToungue",
+                'religionstate': "$state",
+                'income_from': "$minIncome",
+                'income_to': "$maxIncome",
+                'profileid': "",
+                'maritial_status': "$marital",
+                'maglik_status': "$manglik",
+                'education': "$education",
+                'occupation': "$occupation",
+                'diet': "$diet",
+                'smoke': "$smoke",
+                'abroad': "",
+                'hiv': "$hiv"
+              };
               var response =
                   await Provider.of<SearchProvider>(context, listen: false)
                       .filter();
