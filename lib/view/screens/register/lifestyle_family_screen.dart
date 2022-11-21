@@ -113,7 +113,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     items: const ["Joint", "Nuclear", "Other"],
                     value: fType,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -132,7 +131,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     ],
                     value: fOccupation,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -152,7 +150,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     ],
                     value: mOccupation,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -169,7 +166,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     ],
                     value: fStatus,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -182,7 +178,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     items: const ["1", "2", "3", "3+"],
                     value: brother,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -195,7 +190,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     items: const ["1", "2", "3", "3+"],
                     value: sister,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -208,12 +202,13 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     items: countries,
                     value: fLiving,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
+                        state = null;
                         fLiving = value;
                       });
+                      getState(value);
                     },
                   ),
                   CustomDropDown(
@@ -221,12 +216,13 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     items: states,
                     value: state,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
+                        city = null;
                         state = value;
                       });
+                      getCity(value);
                     },
                   ),
                   CustomDropDown(
@@ -234,7 +230,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     items: cities,
                     value: city,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -268,7 +263,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     ],
                     value: diet,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -281,7 +275,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     items: const ['Yes', 'No', 'Occasionally'],
                     value: drink,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -294,7 +287,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     items: const ['Yes', 'No', 'Occasionally'],
                     value: smoke,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -307,7 +299,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     items: const ["Slim", "Average", "Athletic", "Heavy"],
                     value: body,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -326,7 +317,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     ],
                     value: complexion,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -343,7 +333,6 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     ],
                     value: physical,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {

@@ -283,7 +283,6 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                     items: castes,
                     value: caste,
                     color: AppColors.whiteColor,
-                    // width: 40.w,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
@@ -329,10 +328,12 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                     color: AppColors.whiteColor,
                     onChanged: (value) {
                       debugPrint("Country $value");
-                      getState(value);
+
                       setState(() {
+                        state = null;
                         country = value;
                       });
+                      getState(value);
                     },
                   ),
                   CustomDropDownApi(
@@ -343,10 +344,11 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                     id: true,
                     onChanged: (value) {
                       debugPrint("State $value");
-                      getCity(value);
                       setState(() {
                         state = value;
+                        city = null;
                       });
+                      getCity(value);
                     },
                   ),
                   CustomDropDownApi(

@@ -111,18 +111,18 @@ class _BasicSearchState extends State<BasicSearch> {
     log("languages ${this.languages}");
   }
 
-  getState() async {
+  getState(String id) async {
     var states =
-        await Provider.of<SearchProvider>(context, listen: false).state('101');
+        await Provider.of<SearchProvider>(context, listen: false).state(id);
     log("States $states");
     setState(() {
       this.states = states['data'];
     });
   }
 
-  getCity() async {
+  getCity(String id) async {
     var cities =
-        await Provider.of<SearchProvider>(context, listen: false).city('1');
+        await Provider.of<SearchProvider>(context, listen: false).city(id);
     log("Cities $cities");
     setState(() {
       this.cities = cities['data'];
@@ -286,10 +286,12 @@ class _BasicSearchState extends State<BasicSearch> {
                       value: country,
                       onChanged: (value) {
                         debugPrint("Value $value");
-                        getState();
+
                         setState(() {
+                          state = null;
                           country = value;
                         });
+                        getState(value);
                       },
                     ),
                     CustomDropDownApi(
@@ -299,10 +301,12 @@ class _BasicSearchState extends State<BasicSearch> {
                       id: true,
                       onChanged: (value) {
                         debugPrint("Value $value");
+
                         setState(() {
+                          city = null;
                           state = value;
                         });
-                        getCity();
+                        getCity(value);
                       },
                     ),
                     CustomDropDownApi(

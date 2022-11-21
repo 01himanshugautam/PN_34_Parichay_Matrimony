@@ -126,7 +126,7 @@ class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
                   //   items: const [1, 2],
                   //   value: _minAge,
                   //   color: AppColors.whiteColor,
-                  //   // width: 40.w,
+                  //
                   //   onChanged: (value) {
                   //     debugPrint("Value $value");
                   //     setState(() {
