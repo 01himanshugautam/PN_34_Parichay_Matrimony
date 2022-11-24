@@ -24,6 +24,18 @@ class AuthProvider with ChangeNotifier {
     return response;
   }
 
+  education(data) async {
+    var response = await authRepository.education(data);
+    notifyListeners();
+    return response;
+  }
+
+  lifeStyle(data) async {
+    var response = await authRepository.lifeStyle(data);
+    notifyListeners();
+    return response;
+  }
+
   profile(String id) async {
     var response = await authRepository.profile(id);
     notifyListeners();

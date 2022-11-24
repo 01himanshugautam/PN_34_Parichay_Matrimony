@@ -15,7 +15,11 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ProfileDetailScreen extends StatefulWidget {
-  const ProfileDetailScreen({Key? key}) : super(key: key);
+  String userId;
+  ProfileDetailScreen({
+    Key? key,
+    required this.userId,
+  }) : super(key: key);
 
   @override
   State<ProfileDetailScreen> createState() => _ProfileDetailScreenState();
@@ -377,7 +381,9 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const EducationProfessionScreen()),
+                    builder: (context) => EducationProfessionScreen(
+                          userId: widget.userId,
+                        )),
               ),
             ),
           ],

@@ -495,27 +495,27 @@ class _AdvanceSearchState extends State<AdvanceSearch> {
                 'maxage': "$maxAge",
                 'min_height': "$minHeight",
                 'max_height': "$maxHeight",
-                'religion': "$religion",
-                'cast': "$caste",
-                'language': "$motherToungue",
-                'city': "$city",
-                'country': "$motherToungue",
-                'religionstate': "$state",
-                'income_from': "$minIncome",
-                'income_to': "$maxIncome",
-                'profileid': "",
-                'maritial_status': "$marital",
-                'maglik_status': "$manglik",
-                'education': "$education",
-                'occupation': "$occupation",
-                'diet': "$diet",
-                'smoke': "$smoke",
-                'abroad': "",
-                'hiv': "$hiv"
+                // 'religion': "$religion",
+                // 'cast': "$caste",
+                // 'language': "$motherToungue",
+                // 'city': "$city",
+                // 'country': "$motherToungue",
+                // 'religionstate': "$state",
+                // 'income_from': "$minIncome",
+                // 'income_to': "$maxIncome",
+                // 'profileid': "",
+                // 'maritial_status': "$marital",
+                // 'maglik_status': "$manglik",
+                // 'education': "$education",
+                // 'occupation': "$occupation",
+                // 'diet': "$diet",
+                // 'smoke': "$smoke",
+                // 'abroad': "",
+                // 'hiv': "$hiv"
               };
               var response =
                   await Provider.of<SearchProvider>(context, listen: false)
-                      .filter();
+                      .filter(data);
               Navigator.push(
                 context,
                 MaterialPageRoute(

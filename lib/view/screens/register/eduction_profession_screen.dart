@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:app/helper/common-function.dart';
+import 'package:app/provider/auth_provider.dart';
 import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
@@ -14,7 +16,11 @@ import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class EducationProfessionScreen extends StatefulWidget {
-  const EducationProfessionScreen({Key? key}) : super(key: key);
+  String userId;
+  EducationProfessionScreen({
+    Key? key,
+    required this.userId,
+  }) : super(key: key);
 
   @override
   State<EducationProfessionScreen> createState() =>
@@ -199,17 +205,45 @@ class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
               ),
             ),
             CustomButton(
-              width: 100.w,
-              height: 6.h,
-              text: 'Continue',
-              fontSize: 3.h,
-              color: AppColors.primaryColor,
-              textColor: AppColors.whiteColor,
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LifestyleFamilyScreen())),
-            ),
+                width: 100.w,
+                height: 6.h,
+                text: 'Continue',
+                fontSize: 3.h,
+                color: AppColors.primaryColor,
+                textColor: AppColors.whiteColor,
+                onPressed: () async {
+                  var data = {
+                    'user_id': widget.userId,
+                    'education': education,
+                    'educationdetail': college.text,
+                    'occupation': occupation,
+                    'employee_in': job,
+                    'income': income,
+                    'myself': about.text,
+                  };
+                  log("$data");
+                  var response =
+                      await Provider.of<AuthProvider>(context, listen: false)
+                          .lifeStyle(data);
+                  response['success']['msg'] == 'true'
+                      ? log("Response ${response['success']}")
+                      : log("Failoedx");
+                  if (response['success']['msg'] == 'true') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LifestyleFamilyScreen(
+                          userId: widget.userId,
+                          otp: "${response['success']['otp']}",
+                        ),
+                      ),
+                    );
+                    CommonFunctions.showSuccessToast(
+                        "Profile Successfully Updated.");
+                  } else {
+                    CommonFunctions.showErrorDialog("Error", "Failed", context);
+                  }
+                }),
           ],
         ),
       ),

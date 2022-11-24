@@ -19,7 +19,7 @@ class ByIdSearch extends StatefulWidget {
 }
 
 class _ByIdSearchState extends State<ByIdSearch> {
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController id = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _ByIdSearchState extends State<ByIdSearch> {
               ),
               CustomTextField(
                 width: 90.w,
-                controller: controller,
+                controller: id,
                 hintText: 'Profile ID',
                 hintColor: AppColors.blackColor,
                 isPadding: false,
@@ -59,7 +59,7 @@ class _ByIdSearchState extends State<ByIdSearch> {
             onPressed: () async {
               var response =
                   await Provider.of<SearchProvider>(context, listen: false)
-                      .filterById();
+                      .filterById(id.text);
               log("Response  ${response['profile']['data']}");
               Navigator.push(
                 context,

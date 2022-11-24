@@ -99,18 +99,19 @@ class SearchRepository {
     }
   }
 
-  filter() async {
+  filter(data) async {
     try {
-      var response = await http.post(Uri.parse(AppUrls.filter));
+      var response = await http.post(Uri.parse(AppUrls.filter), body: data);
       return jsonDecode(response.body);
     } catch (e) {
       return e;
     }
   }
 
-  filterById() async {
+  filterById(String id) async {
     try {
-      var response = await http.post(Uri.parse(AppUrls.filterById));
+      var response = await http
+          .post(Uri.parse(AppUrls.filterById), body: {'profileid': id});
       return jsonDecode(response.body);
     } catch (e) {
       return e;

@@ -1,19 +1,29 @@
 import 'dart:developer';
 
+import 'package:app/helper/common-function.dart';
+import 'package:app/provider/auth_provider.dart';
 import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
 import 'package:app/view/screens/dashboard/dashboard_screen.dart';
 import 'package:app/view/screens/register/widgets/progress_bar_screen.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
+import 'package:app/view/screens/search/widgets/droop_api.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LifestyleFamilyScreen extends StatefulWidget {
-  const LifestyleFamilyScreen({Key? key}) : super(key: key);
+  String userId;
+  String otp;
+  LifestyleFamilyScreen({
+    Key? key,
+    required this.userId,
+    required this.otp,
+  }) : super(key: key);
 
   @override
   State<LifestyleFamilyScreen> createState() => _LifestyleFamilyScreenState();
@@ -58,6 +68,7 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
   }
 
   getState(String id) async {
+    log("Id $id");
     var states =
         await Provider.of<SearchProvider>(context, listen: false).state(id);
     log("States $states");
@@ -197,10 +208,11 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                       });
                     },
                   ),
-                  CustomDropDown(
+                  CustomDropDownApi(
                     title: "Family Living In *",
                     items: countries,
                     value: fLiving,
+                    id: true,
                     color: AppColors.whiteColor,
                     onChanged: (value) {
                       debugPrint("Value $value");
@@ -211,10 +223,11 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                       getState(value);
                     },
                   ),
-                  CustomDropDown(
+                  CustomDropDownApi(
                     title: "State *",
                     items: states,
                     value: state,
+                    id: true,
                     color: AppColors.whiteColor,
                     onChanged: (value) {
                       debugPrint("Value $value");
@@ -225,7 +238,7 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                       getCity(value);
                     },
                   ),
-                  CustomDropDown(
+                  CustomDropDownApi(
                     title: "City *",
                     items: cities,
                     value: city,
@@ -350,11 +363,54 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
               fontSize: 3.h,
               color: AppColors.primaryColor,
               textColor: AppColors.whiteColor,
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const DashboardScreen()),
-              ),
+              onPressed: () async {
+                Map<String, dynamic> data = {
+                  'user_id': widget.userId,
+                  'familytype': fType,
+                  'fatheroccupation': fOccupation,
+                  'motheroccupation': mOccupation,
+                  'familystatus': fStatus,
+                  'familyvalues': "",
+                  'famincome': "",
+                  'noofbrother': "$brother",
+                  'married1': "",
+                  'noofsisters': "$sister",
+                  'married': "",
+                  'famcountry': fLiving,
+                  'famstate': state,
+                  'famcity': city,
+                  'contactaddress': address.text,
+                  'myfamily': fType,
+                  'diet': drink,
+                  'drinkh': drink,
+                  'smokha': smoke,
+                  'btype': body,
+                  'complexion': complexion,
+                  'physicalstatus': physical,
+                  'physical_type': "",
+                  'otp': widget.otp
+                };
+                var response =
+                    await Provider.of<AuthProvider>(context, listen: false)
+                        .register(data);
+                log("Response $response");
+                if (response['success'] == true) {
+                  final SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.setBool('is_login', true);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DashboardScreen(),
+                    ),
+                  );
+                  CommonFunctions.showSuccessToast(
+                      "Profile Successfully Updated.");
+                } else {
+                  CommonFunctions.showErrorDialog(
+                      "Error", response['message'], context);
+                }
+              },
             ),
           ],
         ),

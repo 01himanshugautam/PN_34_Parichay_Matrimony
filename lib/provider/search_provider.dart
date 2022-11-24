@@ -72,14 +72,14 @@ class SearchProvider with ChangeNotifier {
     return response;
   }
 
-  filter() async {
-    var response = await searchRepository.filter();
+  filter(data) async {
+    var response = await searchRepository.filter(data);
     notifyListeners();
     return response;
   }
 
-  filterById() async {
-    var response = await searchRepository.filterById();
+  filterById(String id) async {
+    var response = await searchRepository.filterById(id);
     notifyListeners();
     return response;
   }

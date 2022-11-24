@@ -26,6 +26,26 @@ class AuthRepository {
     }
   }
 
+  education(body) async {
+    try {
+      var response =
+          await http.post(Uri.parse(AppUrls.educationForm), body: body);
+      return jsonDecode(response.body);
+    } catch (e) {
+      return e;
+    }
+  }
+
+  lifeStyle(body) async {
+    try {
+      var response =
+          await http.post(Uri.parse(AppUrls.lifeStyleForm), body: body);
+      return jsonDecode(response.body);
+    } catch (e) {
+      return e;
+    }
+  }
+
   profile(String id) async {
     try {
       var response = await http.get(Uri.parse("${AppUrls.profile}/$id"));

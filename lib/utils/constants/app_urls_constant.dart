@@ -5,6 +5,8 @@ class AppUrls {
 
   static const String login = "${baseUrl}applogin";
   static const String register = "${baseUrl}appregister";
+  static const String educationForm = "${baseUrl}appeducation";
+  static const String lifeStyleForm = "${baseUrl}applifestyle";
   static const String profile = "${baseUrl}appprofile";
 
   static const String filter = "${baseUrl}appfilter";

@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
     if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
       var response = await Provider.of<AuthProvider>(context, listen: false)
           .login(_email.text, _password.text);
-      log("response ${response['success']}");
+      log("response $response");
       if (response['success'] == true) {
         String user = jsonEncode(Users.fromJson(response['data']));
         prefs.setString('userData', user);

@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:app/helper/common-function.dart';
+import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/register/profile_details.screen.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
@@ -8,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -198,50 +201,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
               color: AppColors.primaryColor,
               textColor: AppColors.whiteColor,
               onPressed: () async {
-                // if (name.text.isNotEmpty &&
-                //     email.text.isNotEmpty &&
-                //     password.text.isNotEmpty &&
-                //     phone.text.isNotEmpty &&
-                //     date.text.isNotEmpty &&
-                //     _gender != null &&
-                //     profileFor != null) {
-                //   var dateArray = date.text.split('-');
-                //   Map<String, dynamic> data = {
-                //     "fullname": name.text,
-                //     "email": email.text,
-                //     "password": password.text,
-                //     "profile_for": profileFor,
-                //     "phone": phone.text,
-                //     "gender": _gender,
-                //     "birth_date": dateArray[0],
-                //     "birth_month": dateArray[1],
-                //     "birth_year": dateArray[2]
-                //   };
-                //   var response =
-                //       await Provider.of<AuthProvider>(context, listen: false)
-                //           .register(data);
-                //   if (response['success'] == true) {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => const ProfileDetailScreen(),
-                //       ),
-                //     );
-                //     CommonFunctions.showSuccessToast(
-                //         "Profile Successfully Created.");
-                //   } else {
-                //     CommonFunctions.showErrorDialog(
-                //         "Error", response['message'], context);
-                //   }
-                // } else {
-                //   CommonFunctions.showSuccessToast("All fields are mandatory!");
-                // }
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileDetailScreen(),
-                  ),
-                );
+                if (name.text.isNotEmpty &&
+                    email.text.isNotEmpty &&
+                    password.text.isNotEmpty &&
+                    phone.text.isNotEmpty &&
+                    date.text.isNotEmpty &&
+                    _gender != null &&
+                    profileFor != null) {
+                  var dateArray = date.text.split('-');
+                  Map<String, dynamic> data = {
+                    "fullname": name.text,
+                    "email": email.text,
+                    "password": password.text,
+                    "profile_for": profileFor,
+                    "phone": phone.text,
+                    "gender": _gender,
+                    "birth_date": dateArray[0],
+                    "birth_month": dateArray[1],
+                    "birth_year": dateArray[2]
+                  };
+                  var response =
+                      await Provider.of<AuthProvider>(context, listen: false)
+                          .register(data);
+                  if (response['success'] == true) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileDetailScreen(
+                          userId: "${response['data']['userid']}",
+                        ),
+                      ),
+                    );
+                    CommonFunctions.showSuccessToast(
+                        "Profile Successfully Created.");
+                  } else {
+                    CommonFunctions.showErrorDialog(
+                        "Error", response['message'], context);
+                  }
+                } else {
+                  CommonFunctions.showSuccessToast("All fields are mandatory!");
+                }
               },
             ),
           ],

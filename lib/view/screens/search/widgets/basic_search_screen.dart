@@ -341,29 +341,18 @@ class _BasicSearchState extends State<BasicSearch> {
                 'maxage': "$maxAge",
                 'min_height': "$minHeight",
                 'max_height': "$maxHeight",
-                'religion': "$religion",
-                'cast': "$caste",
-                'language': "$motherToungue",
-                'city': "$city",
-                'country': "$motherToungue",
-                'religionstate': "$state",
-                'income_from': "",
-                'income_to': "",
-                'profileid': "",
-                'maritial_status': "$marital",
-                'maglik_status': "",
-                'education': "",
-                'occupation': "",
-                'diet': "",
-                'drink': "",
-                'smoke': "",
-                'abroad': "",
-                'hiv': ""
+                // 'religion': "$religion",
+                // 'cast': "$caste",
+                // 'language': "$motherToungue",
+                // 'city': "$city",
+                // 'country': "$motherToungue",
+                // 'religionstate': "$state",
               };
+              log("Data $data");
               var response =
                   await Provider.of<SearchProvider>(context, listen: false)
-                      .filter();
-              // log("Filter Response ${response['success'][0]['data']}");
+                      .filter(data);
+              log("Filter Response $response");
               Navigator.push(
                 context,
                 MaterialPageRoute(
