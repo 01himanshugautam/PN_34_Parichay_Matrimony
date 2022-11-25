@@ -13,26 +13,45 @@ import 'package:app/view/basewidget/custom_text_field_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vibration/vibration.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool isLoading = false;
 
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
   login(email, password, context) async {
+    Vibration.vibrate(duration: 1, amplitude: 100);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    FocusScope.of(context).unfocus();
     if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
+      setState(() {
+        isLoading = true;
+      });
       var response = await Provider.of<AuthProvider>(context, listen: false)
           .login(_email.text, _password.text);
-      log("response $response");
+      FocusScope.of(context).unfocus();
+      log("User Data $response");
       if (response['success'] == true) {
+        setState(() {
+          isLoading = false;
+        });
+
         String user = jsonEncode(Users.fromJson(response['data']));
         prefs.setString('userData', user);
         prefs.setBool('is_login', true);
         Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
       } else {
+        setState(() {
+          isLoading = false;
+        });
         CommonFunctions.showErrorDialog("Error", response['message'], context);
       }
     }
@@ -94,14 +113,17 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 3.h),
-                CustomButton(
-                  width: 90.w,
-                  height: 6.h,
-                  text: 'Login',
-                  fontSize: 3.h,
-                  color: AppColors.primaryColor,
-                  textColor: AppColors.whiteColor,
-                  onPressed: () => login(_email, _password, context),
+                SizedBox(
+                  child: CustomButton(
+                    width: 90.w,
+                    height: 6.h,
+                    text: 'Login',
+                    fontSize: 3.h,
+                    isLoading: isLoading,
+                    color: AppColors.primaryColor,
+                    textColor: AppColors.whiteColor,
+                    onPressed: () => login(_email, _password, context),
+                  ),
                 ),
               ],
             ),
