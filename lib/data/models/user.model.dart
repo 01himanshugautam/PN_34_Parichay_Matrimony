@@ -322,7 +322,7 @@ class Users {
   });
 
   Users.fromJson(Map<dynamic, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     dOB = json['DOB'];
     name = json['name'];
     gender = json['gender'];
