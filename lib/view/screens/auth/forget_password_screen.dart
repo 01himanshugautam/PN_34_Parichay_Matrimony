@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
-import 'package:app/view/screens/dashboard/dashboard_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -45,10 +44,10 @@ class ForgetPasswordScreen extends StatelessWidget {
               fontSize: 3.h,
               color: AppColors.primaryColor,
               textColor: AppColors.whiteColor,
-              onPressed: () => Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const DashboardScreen())),
+              // onPressed: () => Navigator.pushReplacement(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => const DashboardScreen())),
             ),
           ],
         ),
