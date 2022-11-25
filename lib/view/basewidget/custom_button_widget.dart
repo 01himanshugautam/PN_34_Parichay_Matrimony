@@ -12,23 +12,25 @@ class CustomButton extends StatelessWidget {
   final Color? textColor;
   final bool? fontWeight;
   final bool isPadding;
+  final bool isLoading;
   final bool enableBoxShadow;
   final Function()? onPressed;
 
-  const CustomButton(
-      {Key? key,
-      required this.text,
-      this.width,
-      this.height,
-      this.color,
-      this.textColor,
-      this.onPressed,
-      this.radius,
-      this.fontWeight,
-      this.isPadding = true,
-      this.enableBoxShadow = false,
-      this.fontSize})
-      : super(key: key);
+  const CustomButton({
+    Key? key,
+    required this.text,
+    this.width,
+    this.height,
+    this.color,
+    this.textColor,
+    this.onPressed,
+    this.radius,
+    this.fontWeight,
+    this.isPadding = true,
+    this.isLoading = false,
+    this.enableBoxShadow = false,
+    this.fontSize,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +55,22 @@ class CustomButton extends StatelessWidget {
                 ),
               ]),
           child: Center(
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  color: textColor ?? Colors.black.withOpacity(.7),
-                  fontSize: fontSize ?? 2.h,
-                  fontWeight:
-                      fontWeight == true ? FontWeight.w500 : FontWeight.normal),
-            ),
+            child: isLoading
+                ? CircularProgressIndicator(
+                    color: AppColors.whiteColor,
+                  )
+                : Text(
+                    text,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: textColor ?? Colors.black.withOpacity(.7),
+                      fontSize: fontSize ?? 2.h,
+                      fontWeight: fontWeight == true
+                          ? FontWeight.w500
+                          : FontWeight.normal,
+                    ),
+                  ),
           ),
         ),
       ),
