@@ -37,22 +37,22 @@ class _BasicSearchState extends State<BasicSearch> {
     {"id": "101", "name": "India"},
   ];
   List states = [
-    {"id": "1", "name": "Andaman and Nicobar Islands"}
+    {"id": "1", "name": ""}
   ];
   List cities = [
-    {"id": "1", "name": "Sed ea dolore offici"}
+    {"id": "1", "name": ""}
   ];
   List castes = [
-    {"id": "251", "name": "Kudumbi", "status": "1"},
+    {"id": "251", "name": "", "status": "1"},
   ];
   List heights = [
-    {"id": "1", "name": "4 feet", "value": "40", "name": "4 feet"},
+    {"id": "1", "name": "", "value": "40"},
   ];
   List religions = [
-    {"id": "12", "name": "Hindu", "status": "1"},
+    {"id": "12", "name": "", "status": "1"},
   ];
   List languages = [
-    {"id": "1", "name": "Hindi"},
+    {"id": "1", "name": ""},
   ];
 
   @override

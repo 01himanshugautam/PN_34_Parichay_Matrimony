@@ -48,13 +48,13 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
       state,
       city;
   List countries = [
-    {"id": "101", "name": "India"},
+    {"id": "101", "name": ""},
   ];
   List states = [
-    {"id": "1", "name": "Andaman and Nicobar Islands"}
+    {"id": "1", "name": ""}
   ];
   List cities = [
-    {"id": "1", "name": "Sed ea dolore offici"}
+    {"id": "1", "name": ""}
   ];
 
   getCountry() async {

@@ -37,20 +37,20 @@ class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
   String? income;
 
   List educations = [
-    {"id": 1, "name": "Aeronautical Engineering"},
+    {"id": 1, "name": ""},
   ];
   List occupations = [
-    {"id": "1", "name": "Sed ea dolore offici"}
+    {"id": "1", "name": ""}
   ];
 
   List incomes = [
-    {"id": "1", "name": "Rs 1 Lakh"},
+    {"id": "1", "name": ""},
   ];
   List religions = [
-    {"id": "12", "name": "Hindu", "status": "1"},
+    {"id": "12", "name": "", "status": "1"},
   ];
   List languages = [
-    {"id": "1", "name": "Hindi"},
+    {"id": "1", "name": ""},
   ];
 
   getEducation() async {
