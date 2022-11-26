@@ -10,6 +10,7 @@ class AppUrls {
   static const String profile = "${baseUrl}appprofile";
 
   static const String userMatches = "${baseUrl}appmatches";
+  static const String successStories = "${baseUrl}appsuccessstories";
 
   static const String filter = "${baseUrl}appfilter";
   static const String filterById = "${baseUrl}appfilterbyprofile";
