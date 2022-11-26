@@ -1,5 +1,6 @@
-import 'dart:developer';
+// ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
 import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
@@ -34,7 +35,7 @@ class _BasicSearchState extends State<BasicSearch> {
   bool isMale = true;
 
   List countries = [
-    {"id": "101", "name": "India"},
+    {"id": "101", "name": ""},
   ];
   List states = [
     {"id": "1", "name": ""}
