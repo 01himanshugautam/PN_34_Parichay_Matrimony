@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:app/data/models/user.model.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
@@ -282,7 +281,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                           ],
                           rightChildren: [
                             ColumnText(
-                              text: 'Date Off Birth',
+                              text: 'Date of Birth',
                               value: "${user.dOB}",
                             ),
                             ColumnText(

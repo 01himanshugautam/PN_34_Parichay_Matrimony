@@ -495,7 +495,7 @@ class _AdvanceSearchState extends State<AdvanceSearch> {
                 'maxage': maxAge ?? '',
                 'min_height': minHeight ?? '',
                 'max_height': maxHeight ?? '',
-                'religion[]': religion ?? "",
+                'religion': religion ?? "",
                 'cast[]': caste ?? '',
                 'language[]': motherToungue ?? '',
                 'city[]': city ?? '',

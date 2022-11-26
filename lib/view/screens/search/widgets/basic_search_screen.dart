@@ -341,7 +341,7 @@ class _BasicSearchState extends State<BasicSearch> {
                 'maxage': maxAge ?? '',
                 'min_height': minHeight ?? '',
                 'max_height': maxHeight ?? '',
-                'religion[]': religion ?? "",
+                'religion': religion ?? "",
                 'cast[]': caste ?? '',
                 'language[]': motherToungue ?? '',
                 'city[]': city ?? '',
@@ -352,7 +352,6 @@ class _BasicSearchState extends State<BasicSearch> {
               var response =
                   await Provider.of<SearchProvider>(context, listen: false)
                       .filter(data);
-              log("Filter Response $response");
               Navigator.push(
                 context,
                 MaterialPageRoute(

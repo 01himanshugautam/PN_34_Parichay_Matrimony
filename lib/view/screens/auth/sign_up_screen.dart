@@ -105,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     CustomTextField(
                       width: 100.w,
                       controller: date,
-                      hintText: 'Date off Birth*',
+                      hintText: 'Date of Birth*',
                       hintColor: AppColors.whiteColor,
                       readOnly: true,
                       onTap: () async {
