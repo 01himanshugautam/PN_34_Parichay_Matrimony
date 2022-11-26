@@ -520,6 +520,7 @@ class _AdvanceSearchState extends State<AdvanceSearch> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => SearchResult(
+                    title: "Search",
                     data: response['success'][0]['data'],
                   ),
                 ),

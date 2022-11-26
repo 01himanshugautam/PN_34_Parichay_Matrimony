@@ -4,10 +4,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SearchResult extends StatefulWidget {
   final data;
-  const SearchResult({
-    super.key,
-    required this.data,
-  });
+  final String title;
+  const SearchResult({super.key, required this.data, required this.title});
 
   @override
   State<SearchResult> createState() => _SearchResultState();
@@ -40,13 +38,13 @@ class _SearchResultState extends State<SearchResult> {
       appBar: AppBar(
         backgroundColor: AppColors.basicColor,
         centerTitle: true,
-        title: const Text("Search"),
+        title: Text(widget.title),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: AppColors.basicColor,
-        child: const Icon(Icons.search),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {},
+      //   backgroundColor: AppColors.basicColor,
+      //   child: const Icon(Icons.search),
+      // ),
       body: widget.data.length == 0
           ? Center(
               child: Text(

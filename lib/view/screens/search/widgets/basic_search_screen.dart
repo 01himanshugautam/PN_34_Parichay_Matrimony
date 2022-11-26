@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
+import 'package:app/view/screens/search/search_result.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:app/view/screens/search/widgets/droop_api.dart';
 import 'package:flutter/material.dart';
@@ -352,14 +353,15 @@ class _BasicSearchState extends State<BasicSearch> {
                   await Provider.of<SearchProvider>(context, listen: false)
                       .filter(data);
               log("Filter Response $response");
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => SearchResult(
-              //       data: response['success'][0]['data'],
-              //     ),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchResult(
+                    title: "Search",
+                    data: response['success'][0]['data'],
+                  ),
+                ),
+              );
             },
           ),
         ],

@@ -65,6 +65,7 @@ class _ByIdSearchState extends State<ByIdSearch> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => SearchResult(
+                    title: "Search",
                     data: response['profile']['data'],
                   ),
                 ),

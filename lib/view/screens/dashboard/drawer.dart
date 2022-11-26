@@ -1,11 +1,16 @@
+import 'dart:developer';
+
+import 'package:app/provider/match_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/screens/contact/contact_screen.dart';
 import 'package:app/view/screens/dashboard/widgets/custom_list_tile_widget.dart';
 import 'package:app/view/screens/membership_plan/membership_plan_screen.dart';
+import 'package:app/view/screens/search/search_result.dart';
 import 'package:app/view/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -88,13 +93,29 @@ class HomeDrawer extends StatelessWidget {
         CustomListTile(
           title: 'My Matches',
           image: Images.matches,
-          onTap: () {},
+          onTap: () async {
+            log("message");
+          },
           trailing: true,
         ),
         CustomListTile(
           title: 'Shortlisted',
           image: Images.star,
-          onTap: () {},
+          onTap: () async {
+            var response =
+                await Provider.of<MatchProvider>(context, listen: false)
+                    .userMatches("596");
+            log("Response ${response['0']['profile']['data'].length}");
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchResult(
+                  title: "Shortlist",
+                  data: response['0']['profile']['data'],
+                ),
+              ),
+            );
+          },
         ),
         CustomListTile(
           title: 'Profile Visitors',

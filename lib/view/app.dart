@@ -1,4 +1,5 @@
 import 'package:app/provider/auth_provider.dart';
+import 'package:app/provider/match_provider.dart';
 import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/screens/auth/auth_screen.dart';
@@ -46,6 +47,9 @@ class _AppState extends State<App> {
             ChangeNotifierProvider(
               create: (context) => SearchProvider(),
             ),
+            ChangeNotifierProvider(
+              create: (context) => MatchProvider(),
+            ),
           ],
           child: MaterialApp(
             title: 'app',
@@ -57,7 +61,7 @@ class _AppState extends State<App> {
                 isLogin == true ? const DashboardScreen() : const AuthScreen(),
             routes: {
               "/home": (context) => const DashboardScreen(),
-              "/login": (context) => LoginScreen(),
+              "/login": (context) => const LoginScreen(),
               "/signUp": (context) => const SignUpScreen(),
               "/search": (context) => const SearchScreen(),
             },

@@ -4,6 +4,7 @@ import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_map_iframe/google_map_iframe.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -119,22 +120,14 @@ class _ContactScreenState extends State<ContactScreen> {
                     color: AppColors.blackColor,
                   ),
                 ),
-                // Container(
-                //   height: 40.h,
-                //   color: AppColors.greyColor,
-                //   child: GoogleMap(
-                //     mapType: MapType.hybrid,
-                //     initialCameraPosition: _kGooglePlex,
-                //     onMapCreated: (GoogleMapController controller) {
-                //       _controller.complete(controller);
-                //     },
-                //   ),
-                // ),
-                // GoogleMapIframe(
-                //   apiKey: 'AIzaSyAQnYinSuCc5pBRQxDsH2jeSWO5E7vcNto',
-                //   width: 80.w,
-                //   height: 50.h,
-                // ).fromLatLng('10.305385', '77.923029'),
+                Container(
+                  height: 40.h,
+                  width: 100.w,
+                  alignment: Alignment.center,
+                  child: GoogleMapIframe(
+                    apiKey: 'AIzaSyAQnYinSuCc5pBRQxDsH2jeSWO5E7vcNto',
+                  ).fromLatLng('10.305385', '77.923029'),
+                ),
               ],
             ),
           ),

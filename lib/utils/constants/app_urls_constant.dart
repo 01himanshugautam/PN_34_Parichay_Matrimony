@@ -9,6 +9,8 @@ class AppUrls {
   static const String lifeStyleForm = "${baseUrl}applifestyle";
   static const String profile = "${baseUrl}appprofile";
 
+  static const String userMatches = "${baseUrl}appmatches";
+
   static const String filter = "${baseUrl}appfilter";
   static const String filterById = "${baseUrl}appfilterbyprofile";
 
