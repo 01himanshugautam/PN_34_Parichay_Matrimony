@@ -1,4 +1,7 @@
+import 'package:app/data/models/user.model.dart';
+import 'package:app/helper/common-function.dart';
 import 'package:app/utils/constants/colors_constant.dart';
+import 'package:app/view/screens/profile/profile_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -95,8 +98,13 @@ class _SearchResultState extends State<SearchResult> {
                                 Container(
                                   height: 45.h,
                                   decoration: BoxDecoration(
-                                    color: AppColors.primaryColor,
+                                    // color: AppColors.primaryColor,
                                     borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          'https://parichaymatrimony.com/uploads/stories/${widget.data[index]['image']}'),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: 2.h),
@@ -317,56 +325,82 @@ class _SearchResultState extends State<SearchResult> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.thumb_up,
-                                              color: AppColors.whiteColor),
-                                          Text(
-                                            "Express Interest",
-                                            textAlign: TextAlign.start,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              fontSize: 1.5.h,
-                                              color: AppColors.whiteColor,
+                                      GestureDetector(
+                                        onTap: () {
+                                          CommonFunctions.showSuccessToast(
+                                              "Interest Sent Successfully..",
+                                              context);
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.thumb_up,
+                                                color: AppColors.whiteColor),
+                                            Text(
+                                              "Express Interest",
+                                              textAlign: TextAlign.start,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                fontSize: 1.5.h,
+                                                color: AppColors.whiteColor,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.notes,
-                                              color: AppColors.whiteColor),
-                                          Text(
-                                            "Shortlist",
-                                            textAlign: TextAlign.start,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              fontSize: 1.5.h,
-                                              color: AppColors.whiteColor,
+                                      GestureDetector(
+                                        onTap: () {
+                                          CommonFunctions.showSuccessToast(
+                                              "Shortlisted Successfully..",
+                                              context);
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.notes,
+                                                color: AppColors.whiteColor),
+                                            Text(
+                                              "Shortlist",
+                                              textAlign: TextAlign.start,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                fontSize: 1.5.h,
+                                                color: AppColors.whiteColor,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.remove_red_eye,
-                                              color: AppColors.whiteColor),
-                                          Text(
-                                            "View Profile",
-                                            textAlign: TextAlign.start,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              fontSize: 1.5.h,
-                                              color: AppColors.whiteColor,
+                                      GestureDetector(
+                                        onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProfileViewScreen(
+                                              user: Users.fromJson(
+                                                  widget.data[index]),
                                             ),
                                           ),
-                                        ],
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.remove_red_eye,
+                                                color: AppColors.whiteColor),
+                                            Text(
+                                              "View Profile",
+                                              textAlign: TextAlign.start,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                fontSize: 1.5.h,
+                                                color: AppColors.whiteColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       Column(
                                         mainAxisAlignment:
