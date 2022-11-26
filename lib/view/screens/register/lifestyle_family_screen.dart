@@ -408,7 +408,7 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/home', (r) => false);
                   CommonFunctions.showSuccessToast(
-                      "Profile Successfully Updated.");
+                      "Profile Successfully Updated.", context);
                 } else {
                   CommonFunctions.showErrorDialog(
                       "Error", response['message'], context);
