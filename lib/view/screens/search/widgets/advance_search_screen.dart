@@ -138,7 +138,7 @@ class _AdvanceSearchState extends State<AdvanceSearch> {
 
   getReligion() async {
     var religions =
-        await Provider.of<SearchProvider>(context, listen: false).caste();
+        await Provider.of<SearchProvider>(context, listen: false).religion();
     setState(() {
       this.religions = religions['data'];
     });
@@ -491,31 +491,31 @@ class _AdvanceSearchState extends State<AdvanceSearch> {
             onPressed: () async {
               var data = {
                 'lookingfor': isMale ? "male" : "female",
-                'minage': "$minAge",
-                'maxage': "$maxAge",
-                'min_height': "$minHeight",
-                'max_height': "$maxHeight",
-                // 'religion': "$religion",
-                // 'cast': "$caste",
-                // 'language': "$motherToungue",
-                // 'city': "$city",
-                // 'country': "$motherToungue",
-                // 'religionstate': "$state",
-                // 'income_from': "$minIncome",
-                // 'income_to': "$maxIncome",
-                // 'profileid': "",
-                // 'maritial_status': "$marital",
-                // 'maglik_status': "$manglik",
-                // 'education': "$education",
-                // 'occupation': "$occupation",
-                // 'diet': "$diet",
-                // 'smoke': "$smoke",
-                // 'abroad': "",
-                // 'hiv': "$hiv"
+                'minage': minAge ?? '',
+                'maxage': maxAge ?? '',
+                'min_height': minHeight ?? '',
+                'max_height': maxHeight ?? '',
+                'religion[]': religion ?? "",
+                'cast[]': caste ?? '',
+                'language[]': motherToungue ?? '',
+                'city[]': city ?? '',
+                'country[]': motherToungue ?? '',
+                'religionstate[]': state ?? '',
+                'income_from': minIncome ?? '',
+                'income_to': maxIncome ?? '',
+                'maritial_status': marital ?? '',
+                'maglik_status': manglik ?? '',
+                'education': education ?? '',
+                'occupation': occupation ?? '',
+                'diet': diet ?? '',
+                'smoke': smoke ?? '',
+                'hiv': hiv ?? ''
               };
+              log("Data $data");
               var response =
                   await Provider.of<SearchProvider>(context, listen: false)
                       .filter(data);
+              log("Filter Response $response");
               Navigator.push(
                 context,
                 MaterialPageRoute(

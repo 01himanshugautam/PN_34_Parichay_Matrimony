@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
-import 'package:app/view/screens/search/search_result.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:app/view/screens/search/widgets/droop_api.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +85,7 @@ class _BasicSearchState extends State<BasicSearch> {
 
   getReligion() async {
     var religions =
-        await Provider.of<SearchProvider>(context, listen: false).caste();
+        await Provider.of<SearchProvider>(context, listen: false).religion();
     setState(() {
       this.religions = religions['data'];
     });
@@ -337,30 +336,30 @@ class _BasicSearchState extends State<BasicSearch> {
             onPressed: () async {
               var data = {
                 'lookingfor': isMale ? "male" : "female",
-                'minage': "$minAge",
-                'maxage': "$maxAge",
-                'min_height': "$minHeight",
-                'max_height': "$maxHeight",
-                'religion': "$religion",
-                'cast': "$caste",
-                'language': "$motherToungue",
-                'city': "$city",
-                'country': "$motherToungue",
-                'religionstate': "$state",
+                'minage': minAge ?? '',
+                'maxage': maxAge ?? '',
+                'min_height': minHeight ?? '',
+                'max_height': maxHeight ?? '',
+                'religion[]': religion ?? "",
+                'cast[]': caste ?? '',
+                'language[]': motherToungue ?? '',
+                'city[]': city ?? '',
+                'country[]': motherToungue ?? '',
+                'religionstate[]': state ?? '',
               };
               log("Data $data");
               var response =
                   await Provider.of<SearchProvider>(context, listen: false)
                       .filter(data);
               log("Filter Response $response");
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchResult(
-                    data: response['success'][0]['data'],
-                  ),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => SearchResult(
+              //       data: response['success'][0]['data'],
+              //     ),
+              //   ),
+              // );
             },
           ),
         ],
