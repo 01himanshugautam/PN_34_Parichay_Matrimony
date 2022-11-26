@@ -233,13 +233,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     );
                     CommonFunctions.showSuccessToast(
-                        "Profile Successfully Created.");
+                        "Profile Successfully Created.", context);
                   } else {
                     CommonFunctions.showErrorDialog(
                         "Error", response['message'], context);
                   }
                 } else {
-                  CommonFunctions.showSuccessToast("All fields are mandatory!");
+                  CommonFunctions.showSuccessToast(
+                      "All fields are mandatory!", context);
                 }
               },
             ),
