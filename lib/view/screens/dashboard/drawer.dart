@@ -1,7 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
 import 'dart:developer';
+import 'package:app/data/models/user.model.dart';
 import 'package:app/provider/match_provider.dart';
+import 'package:app/provider/success_story_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
@@ -10,15 +13,37 @@ import 'package:app/view/screens/dashboard/widgets/custom_list_tile_widget.dart'
 import 'package:app/view/screens/membership_plan/membership_plan_screen.dart';
 import 'package:app/view/screens/search/search_result.dart';
 import 'package:app/view/screens/search/search_screen.dart';
+import 'package:app/view/screens/story_success/success_story_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeDrawer extends StatelessWidget {
+class HomeDrawer extends StatefulWidget {
   const HomeDrawer({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<HomeDrawer> createState() => _HomeDrawerState();
+}
+
+class _HomeDrawerState extends State<HomeDrawer> {
+  Users user = Users();
+  getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map json = jsonDecode(prefs.getString('userData')!);
+    setState(() {
+      user = Users.fromJson(json);
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +120,19 @@ class HomeDrawer extends StatelessWidget {
           title: 'My Matches',
           image: Images.matches,
           onTap: () async {
-            log("message");
+            var response =
+                await Provider.of<MatchProvider>(context, listen: false)
+                    .userMatches('${user.id}');
+            log("Response ${response['0']['profile']['data'].length}");
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchResult(
+                  title: "Matches",
+                  data: response['0']['profile']['data'],
+                ),
+              ),
+            );
           },
           trailing: true,
         ),
@@ -105,7 +142,7 @@ class HomeDrawer extends StatelessWidget {
           onTap: () async {
             var response =
                 await Provider.of<MatchProvider>(context, listen: false)
-                    .userMatches("596");
+                    .userMatches('${user.id}');
             log("Response ${response['0']['profile']['data'].length}");
             Navigator.push(
               context,
@@ -124,10 +161,20 @@ class HomeDrawer extends StatelessWidget {
           onTap: () {},
         ),
         CustomListTile(
-          title: 'Success Stories',
-          image: Images.success,
-          onTap: () {},
-        ),
+            title: 'Success Stories',
+            image: Images.success,
+            onTap: () async {
+              var response =
+                  await Provider.of<SuccessProvider>(context, listen: false)
+                      .successStory();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      SuccessStoryScreen(data: response['data']),
+                ),
+              );
+            }),
         CustomListTile(
           title: 'Inbox',
           image: Images.inbox,
