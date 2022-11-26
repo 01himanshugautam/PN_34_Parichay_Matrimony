@@ -239,7 +239,7 @@ class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
                       ),
                     );
                     CommonFunctions.showSuccessToast(
-                        "Profile Successfully Updated.");
+                        "Profile Successfully Updated.", context);
                   } else {
                     CommonFunctions.showErrorDialog("Error", "Failed", context);
                   }
