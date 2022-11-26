@@ -19,7 +19,6 @@ dependencies:
   shared_preferences: ^2.0.15
   dio: ^4.0.6
   http: ^0.13.5
-  fluttertoast: ^8.0.9
   permission_handler: ^10.1.0
   flutter_dotenv: ^5.0.2
   icons_launcher: ^2.0.5
@@ -28,6 +27,9 @@ dependencies:
   vibration: ^1.7.6
   google_map_iframe: ^0.0.2
   google_maps_flutter: ^2.2.1
+  carousel_slider: ^4.1.1
+  fluttertoast: ^8.1.1
+  motion_toast: ^2.5.4
 
 dev_dependencies:
   flutter_test:
