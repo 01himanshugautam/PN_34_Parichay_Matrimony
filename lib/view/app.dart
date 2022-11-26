@@ -1,6 +1,7 @@
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/provider/match_provider.dart';
 import 'package:app/provider/search_provider.dart';
+import 'package:app/provider/success_story_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/screens/auth/auth_screen.dart';
 import 'package:app/view/screens/auth/login_screen.dart';
@@ -49,6 +50,9 @@ class _AppState extends State<App> {
             ),
             ChangeNotifierProvider(
               create: (context) => MatchProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => SuccessProvider(),
             ),
           ],
           child: MaterialApp(
