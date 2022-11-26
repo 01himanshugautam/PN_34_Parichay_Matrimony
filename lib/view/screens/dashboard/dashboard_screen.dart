@@ -41,13 +41,12 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   profile() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    Map json = jsonDecode(pref.getString('userData')!);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map json = jsonDecode(prefs.getString('userData')!);
     setState(() {
       user = Users.fromJson(json);
     });
     log("User $user");
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
     var response = await Provider.of<AuthProvider>(context, listen: false)
         .profile("${user.id}");
     if (response['success'] == true) {
