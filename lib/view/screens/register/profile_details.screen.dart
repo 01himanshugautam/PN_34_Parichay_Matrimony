@@ -84,7 +84,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
 
   getReligion() async {
     var religions =
-        await Provider.of<SearchProvider>(context, listen: false).caste();
+        await Provider.of<SearchProvider>(context, listen: false).religion();
     setState(() {
       this.religions = religions['data'];
     });

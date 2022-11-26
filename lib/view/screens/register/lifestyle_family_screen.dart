@@ -1,11 +1,12 @@
+import 'dart:convert';
 import 'dart:developer';
 
+import 'package:app/data/models/user.model.dart';
 import 'package:app/helper/common-function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
-import 'package:app/view/screens/dashboard/dashboard_screen.dart';
 import 'package:app/view/screens/register/widgets/progress_bar_screen.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:app/view/screens/search/widgets/droop_api.dart';
@@ -392,18 +393,20 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                 };
                 var response =
                     await Provider.of<AuthProvider>(context, listen: false)
-                        .register(data);
+                        .lifeStyle(data);
                 log("Response $response");
-                if (response['success'] == true) {
+                if (response['success']['msg'] == 'true') {
                   final SharedPreferences prefs =
                       await SharedPreferences.getInstance();
+                  var userResponse =
+                      await Provider.of<AuthProvider>(context, listen: false)
+                          .profile(widget.userId);
+                  String user =
+                      jsonEncode(Users.fromJson(userResponse['data']));
+                  prefs.setString('userData', user);
                   prefs.setBool('is_login', true);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DashboardScreen(),
-                    ),
-                  );
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/home', (r) => false);
                   CommonFunctions.showSuccessToast(
                       "Profile Successfully Updated.");
                 } else {

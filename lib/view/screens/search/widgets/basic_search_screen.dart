@@ -341,12 +341,12 @@ class _BasicSearchState extends State<BasicSearch> {
                 'maxage': "$maxAge",
                 'min_height': "$minHeight",
                 'max_height': "$maxHeight",
-                // 'religion': "$religion",
-                // 'cast': "$caste",
-                // 'language': "$motherToungue",
-                // 'city': "$city",
-                // 'country': "$motherToungue",
-                // 'religionstate': "$state",
+                'religion': "$religion",
+                'cast': "$caste",
+                'language': "$motherToungue",
+                'city': "$city",
+                'country': "$motherToungue",
+                'religionstate': "$state",
               };
               log("Data $data");
               var response =
