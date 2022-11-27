@@ -4,6 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
+  final String? initialValue;
   final TextEditingController? controller;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
@@ -23,6 +24,7 @@ class CustomTextField extends StatelessWidget {
     Key? key,
     required,
     required this.hintText,
+    this.initialValue,
     this.controller,
     this.onChanged,
     this.onSubmitted,
@@ -50,7 +52,9 @@ class CustomTextField extends StatelessWidget {
         height: height ?? 5.5.h,
         width: width ?? 25.w,
         child: TextField(
-          controller: controller, readOnly: readOnly,
+          controller: controller,
+          readOnly: readOnly,
+
           // expands: true,
           style: TextStyle(
             color: hintColor ?? AppColors.whiteColor,
@@ -98,7 +102,7 @@ class CustomTextField extends StatelessWidget {
             // ),
           ),
           onChanged: onChanged,
-          onSubmitted: onSubmitted,
+          // onSubmitted: onSubmitted,
           onTap: onTap,
         ),
       ),
