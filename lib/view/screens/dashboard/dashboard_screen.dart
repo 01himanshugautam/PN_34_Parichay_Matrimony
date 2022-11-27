@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:app/data/models/user.model.dart';
 import 'package:app/provider/auth_provider.dart';
+import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/dashboard/drawer.dart';
 import 'package:app/view/screens/dashboard/widgets/column_text.dart';
 import 'package:app/view/screens/dashboard/widgets/custom_card.dart';
+import 'package:app/view/screens/search/search_result.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +27,18 @@ class _DashboardScreenState extends State<DashboardScreen>
   int selectIndex = 0;
   bool isAboutMeTab = true;
   Users user = Users();
+  TextEditingController name = TextEditingController();
+  TextEditingController gender = TextEditingController();
+  TextEditingController age = TextEditingController();
+  TextEditingController marital = TextEditingController();
+  TextEditingController complexion = TextEditingController();
+  TextEditingController physical = TextEditingController();
+  TextEditingController dob = TextEditingController();
+  TextEditingController height = TextEditingController();
+  TextEditingController diet = TextEditingController();
+  TextEditingController smoke = TextEditingController();
+  TextEditingController drink = TextEditingController();
+  TextEditingController body = TextEditingController();
 
   @override
   void initState() {
@@ -46,7 +60,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     setState(() {
       user = Users.fromJson(json);
     });
-    log("User $user");
     var response = await Provider.of<AuthProvider>(context, listen: false)
         .profile("${user.id}");
     if (response['success'] == true) {
@@ -56,6 +69,8 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   final ScrollController _scrollController = ScrollController();
+  bool profileEdit = false, basicInformation = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +109,21 @@ class _DashboardScreenState extends State<DashboardScreen>
                     color: AppColors.whiteColor,
                   ),
                 ),
+                onSubmitted: (value) async {
+                  var response =
+                      await Provider.of<SearchProvider>(context, listen: false)
+                          .filterById(value);
+                  log("Response  ${response['profile']['data']}");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchResult(
+                        title: "Search",
+                        data: response['profile']['data'],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -166,10 +196,17 @@ class _DashboardScreenState extends State<DashboardScreen>
                           ),
                         ],
                       ),
-                      Icon(
-                        Icons.edit,
-                        color: AppColors.whiteColor,
-                        size: 3.5.h,
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            profileEdit = true;
+                          });
+                        },
+                        child: Icon(
+                          Icons.edit,
+                          color: AppColors.whiteColor,
+                          size: 3.5.h,
+                        ),
                       ),
                     ],
                   ),
@@ -252,56 +289,109 @@ class _DashboardScreenState extends State<DashboardScreen>
                         CustomCard(
                           image: Images.people,
                           title: "Basic information",
+                          isEdit: basicInformation,
+                          onEdit: () {
+                            if (basicInformation) {
+                              var data = {
+                                'name': name.text,
+                              };
+                              log("Save Data: $data");
+                              setState(() {
+                                basicInformation = false;
+                              });
+                            } else {
+                              name.text = user.name.toString();
+                              gender.text = user.gender.toString();
+                              age.text = user.age.toString();
+                              marital.text = user.maritalstatus.toString();
+                              complexion.text = user.complexion.toString();
+                              physical.text = user.physicalstatus.toString();
+                              dob.text = user.dOB.toString();
+                              height.text = user.height.toString();
+                              diet.text = user.diet.toString();
+                              drink.text = user.drinkh.toString();
+                              smoke.text = user.smokha.toString();
+                              body.text = user.bodyType.toString();
+                              log("Edit");
+                              setState(() {
+                                basicInformation = true;
+                              });
+                            }
+                          },
                           leftChildren: [
                             ColumnText(
                               text: 'Name',
                               value: "${user.name}",
+                              controller: name,
+                              edit: basicInformation,
                             ),
                             ColumnText(
                               text: 'Gender',
                               value: "${user.gender}",
+                              edit: basicInformation,
+                              controller: gender,
                             ),
                             ColumnText(
                               text: 'Age',
                               value: "${user.age}",
+                              edit: basicInformation,
+                              controller: age,
                             ),
                             ColumnText(
                               text: 'Marital Status',
                               value: "${user.maritalstatus}",
+                              edit: basicInformation,
+                              controller: marital,
                             ),
                             ColumnText(
                               text: 'Complexion',
                               value: "${user.complexion}",
+                              edit: basicInformation,
+                              controller: complexion,
                             ),
                             ColumnText(
                               text: 'Physical Status',
                               value: "${user.physicalType}",
+                              edit: basicInformation,
+                              controller: physical,
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Date of Birth',
                               value: "${user.dOB}",
+                              edit: basicInformation,
+                              controller: dob,
                             ),
                             ColumnText(
                               text: 'Height',
                               value: "${user.height}",
+                              edit: basicInformation,
+                              controller: height,
                             ),
                             ColumnText(
                               text: 'Dietary Habits',
                               value: "${user.diet}",
+                              edit: basicInformation,
+                              controller: diet,
                             ),
                             ColumnText(
                               text: 'Drinking Habits',
                               value: "${user.drinkh}",
+                              edit: basicInformation,
+                              controller: drink,
                             ),
                             ColumnText(
                               text: 'Smoking Habits',
                               value: "${user.smokha}",
+                              edit: basicInformation,
+                              controller: smoke,
                             ),
                             ColumnText(
                               text: 'Body Type',
                               value: "${user.bodyType}",
+                              edit: basicInformation,
+                              controller: body,
                             ),
                           ],
                         ),
