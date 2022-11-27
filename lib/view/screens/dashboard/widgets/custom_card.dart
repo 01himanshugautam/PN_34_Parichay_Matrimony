@@ -9,12 +9,16 @@ class CustomCard extends StatelessWidget {
     required this.title,
     required this.leftChildren,
     required this.rightChildren,
+    this.isEdit = false,
+    this.onEdit,
   }) : super(key: key);
 
   final String image;
   final String title;
+  final bool isEdit;
   final List<Widget> leftChildren;
   final List<Widget> rightChildren;
+  final Function()? onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +56,13 @@ class CustomCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Icon(
-                    Icons.edit,
-                    color: AppColors.blackColor,
-                    size: 3.5.h,
+                  InkWell(
+                    onTap: onEdit,
+                    child: Icon(
+                      isEdit ? Icons.done : Icons.edit,
+                      color: AppColors.blackColor,
+                      size: 3.5.h,
+                    ),
                   ),
                 ],
               ),
