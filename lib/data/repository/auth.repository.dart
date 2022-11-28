@@ -17,6 +17,15 @@ class AuthRepository {
     }
   }
 
+  update(data) async {
+    try {
+      var response = await http.post(Uri.parse(AppUrls.update), body: data);
+      return jsonDecode(response.body);
+    } catch (e) {
+      return e;
+    }
+  }
+
   register(body) async {
     try {
       var response = await http.post(Uri.parse(AppUrls.register), body: body);
