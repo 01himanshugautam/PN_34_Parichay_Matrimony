@@ -59,6 +59,25 @@ class _DashboardScreenState extends State<DashboardScreen>
   TextEditingController caste = TextEditingController();
   TextEditingController subCaste = TextEditingController();
 
+  TextEditingController education = TextEditingController();
+  TextEditingController occupation = TextEditingController();
+  TextEditingController employedIn = TextEditingController();
+  TextEditingController annualIncome = TextEditingController();
+
+  TextEditingController country = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController state = TextEditingController();
+  TextEditingController postalCode = TextEditingController();
+
+  TextEditingController horoscope = TextEditingController();
+  TextEditingController pob = TextEditingController();
+  TextEditingController tob = TextEditingController();
+  TextEditingController nakshtra = TextEditingController();
+  TextEditingController rishi = TextEditingController();
+  TextEditingController manglik = TextEditingController();
+
+  TextEditingController email = TextEditingController();
+  TextEditingController phone = TextEditingController();
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
