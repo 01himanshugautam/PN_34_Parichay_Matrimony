@@ -27,6 +27,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   int selectIndex = 0;
   bool isAboutMeTab = true;
   Users user = Users();
+
   TextEditingController name = TextEditingController();
   TextEditingController gender = TextEditingController();
   TextEditingController age = TextEditingController();
@@ -69,7 +70,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   final ScrollController _scrollController = ScrollController();
-  bool profileEdit = false, basicInformation = false;
+  bool profileEdit = false, basicInformation = false, familyDetail = false;
 
   @override
   Widget build(BuildContext context) {
@@ -398,6 +399,34 @@ class _DashboardScreenState extends State<DashboardScreen>
                         CustomCard(
                           image: Images.family,
                           title: "Family Details",
+                          onEdit: () {
+                            if (familyDetail) {
+                              var data = {
+                                'name': name.text,
+                              };
+                              log("Save Data: $data");
+                              setState(() {
+                                familyDetail = false;
+                              });
+                            } else {
+                              name.text = user.name.toString();
+                              gender.text = user.gender.toString();
+                              age.text = user.age.toString();
+                              marital.text = user.maritalstatus.toString();
+                              complexion.text = user.complexion.toString();
+                              physical.text = user.physicalstatus.toString();
+                              dob.text = user.dOB.toString();
+                              height.text = user.height.toString();
+                              diet.text = user.diet.toString();
+                              drink.text = user.drinkh.toString();
+                              smoke.text = user.smokha.toString();
+                              body.text = user.bodyType.toString();
+                              log("Edit");
+                              setState(() {
+                                familyDetail = true;
+                              });
+                            }
+                          },
                           leftChildren: [
                             ColumnText(
                               text: 'Family Type',
