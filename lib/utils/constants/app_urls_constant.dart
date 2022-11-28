@@ -8,6 +8,7 @@ class AppUrls {
   static const String educationForm = "${baseUrl}appeducation";
   static const String lifeStyleForm = "${baseUrl}applifestyle";
   static const String profile = "${baseUrl}appprofile";
+  static const String update = "${baseUrl}appupdate";
 
   static const String userMatches = "${baseUrl}appmatches";
   static const String successStories = "${baseUrl}appsuccessstories";
