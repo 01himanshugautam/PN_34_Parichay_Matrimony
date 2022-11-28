@@ -41,6 +41,19 @@ class _DashboardScreenState extends State<DashboardScreen>
   TextEditingController drink = TextEditingController();
   TextEditingController body = TextEditingController();
 
+  TextEditingController familyType = TextEditingController();
+  TextEditingController fOccupation = TextEditingController();
+  TextEditingController fAge = TextEditingController();
+  TextEditingController mOccupation = TextEditingController();
+  TextEditingController nBrother = TextEditingController();
+  TextEditingController mBrother = TextEditingController();
+  TextEditingController fValue = TextEditingController();
+  TextEditingController fIncome = TextEditingController();
+  TextEditingController fHabit = TextEditingController();
+  TextEditingController fStatus = TextEditingController();
+  TextEditingController nSister = TextEditingController();
+  TextEditingController mSister = TextEditingController();
+
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
