@@ -92,22 +92,80 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.dispose();
   }
 
+  profileUpdate(data) {
+    var profileUpdate = {
+      "image": "data",
+      "mothertong": "data",
+      "religion": "data",
+      "caste": "data",
+      "subcast": "data",
+      "manglik": "data",
+      "maritalstatus": "data",
+      "height": "data",
+      "country": "data",
+      "religionstate": "data",
+      "city": "data",
+      "no_of_childe": "data",
+      "education": "data",
+      "educationdetail": "data",
+      "occupation": "data",
+      "employee_in": "data",
+      "income": "data",
+      "myself": "data",
+      "familytype": "data",
+      "fatheroccupation": "data",
+      "motheroccupation": "data",
+      "familystatus": "data",
+      "familyvalues": "data",
+      "famincome": "data",
+      "noofbrother": "data",
+      "married1": "data",
+      "noofsisters": "data",
+      "married": "data",
+      "famcountry": "data",
+      "famstate": "data",
+      "famcity": "data",
+      "contactaddress": "data",
+      "myfamily": "data",
+      "diet": "data",
+      "drinkh": "data",
+      "smokha": "data",
+      "btype": "data",
+      "complexion": "data",
+      "physicalstatus": "data",
+      "physical_type": "data",
+    };
+  }
+
   profile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map json = jsonDecode(prefs.getString('userData')!);
+
     setState(() {
       user = Users.fromJson(json);
     });
     var response = await Provider.of<AuthProvider>(context, listen: false)
         .profile("${user.id}");
+    log("Response ${response['data']}");
     if (response['success'] == true) {
       String user = jsonEncode(Users.fromJson(response['data']));
+
       prefs.setString('userData', user);
+      setState(() {
+        user = Users.fromJson(response['data']) as String;
+      });
     }
   }
 
   final ScrollController _scrollController = ScrollController();
-  bool profileEdit = false, basicInformation = false, familyDetail = false;
+  bool profileEdit = false,
+      basicInformation = false,
+      familyDetail = false,
+      religionBackground = false,
+      educationCareer = false,
+      location = false,
+      astrology = false,
+      contactInfo = false;
 
   @override
   Widget build(BuildContext context) {
@@ -328,12 +386,31 @@ class _DashboardScreenState extends State<DashboardScreen>
                           image: Images.people,
                           title: "Basic information",
                           isEdit: basicInformation,
-                          onEdit: () {
+                          onEdit: () async {
                             if (basicInformation) {
                               var data = {
+                                "user_id": user.id,
                                 'name': name.text,
+                                'diet': diet.text,
+                                'drinkh': drink.text,
+                                'smokha': smoke.text,
+                                'btype': body.text,
+                                'height': height.text,
+                                'age': age.text,
+                                "complexion": complexion.text,
+                                "diet": diet.text,
+                                "drink": drink.text,
+                                "smoke": smoke.text,
+                                "btype": body.text,
+                                "maritalstatus": marital.text
                               };
+                              var response = await Provider.of<AuthProvider>(
+                                      context,
+                                      listen: false)
+                                  .update(data);
                               log("Save Data: $data");
+                              log("Response: $response");
+                              profile();
                               setState(() {
                                 basicInformation = false;
                               });
@@ -436,28 +513,50 @@ class _DashboardScreenState extends State<DashboardScreen>
                         CustomCard(
                           image: Images.family,
                           title: "Family Details",
-                          onEdit: () {
+                          isEdit: familyDetail,
+                          onEdit: () async {
                             if (familyDetail) {
                               var data = {
-                                'name': name.text,
+                                'familytype': familyType.text,
+                                'fatheroccupation': fOccupation.text,
+                                'age': age.text,
+                                'motheroccupation': mOccupation.text,
+                                'noofbrother': nBrother.text,
+                                'married1': mBrother.text,
+                                'famvalue': fValue.text,
+                                'famincome': fIncome.text,
+                                'diet': diet.text,
+                                'famstatus': fStatus.text,
+                                'noofsisters': nSister.text,
+                                'married': mSister.text,
                               };
+                              var response = await Provider.of<AuthProvider>(
+                                      context,
+                                      listen: false)
+                                  .update(data);
+                              log("Save Data: $data");
+                              log("Response: $response");
+                              profile();
+
                               log("Save Data: $data");
                               setState(() {
                                 familyDetail = false;
                               });
                             } else {
-                              name.text = user.name.toString();
-                              gender.text = user.gender.toString();
+                              familyType.text = user.familytype.toString();
+                              fOccupation.text =
+                                  user.fatheroccupation.toString();
                               age.text = user.age.toString();
-                              marital.text = user.maritalstatus.toString();
-                              complexion.text = user.complexion.toString();
-                              physical.text = user.physicalstatus.toString();
-                              dob.text = user.dOB.toString();
-                              height.text = user.height.toString();
+                              mOccupation.text =
+                                  user.motheroccupation.toString();
+                              nBrother.text = user.noofbrother.toString();
+                              mBrother.text = user.married1.toString();
+                              fValue.text = user.famvalue.toString();
+                              fIncome.text = user.famincome.toString();
                               diet.text = user.diet.toString();
-                              drink.text = user.drinkh.toString();
-                              smoke.text = user.smokha.toString();
-                              body.text = user.bodyType.toString();
+                              fStatus.text = user.famstatus.toString();
+                              nSister.text = user.noofsisters.toString();
+                              mSister.text = user.married.toString();
                               log("Edit");
                               setState(() {
                                 familyDetail = true;
@@ -468,172 +567,387 @@ class _DashboardScreenState extends State<DashboardScreen>
                             ColumnText(
                               text: 'Family Type',
                               value: "${user.familytype}",
+                              edit: familyDetail,
+                              controller: familyType,
                             ),
                             ColumnText(
                               text: 'Father Occupation',
                               value: "${user.fatheroccupation}",
+                              edit: familyDetail,
+                              controller: fOccupation,
                             ),
                             ColumnText(
                               text: 'Age',
                               value: "${user.age}",
+                              edit: familyDetail,
+                              controller: age,
                             ),
                             ColumnText(
                               text: 'Mother Occupation ',
                               value: "${user.motheroccupation}",
+                              edit: familyDetail,
+                              controller: mOccupation,
                             ),
                             ColumnText(
                               text: 'No of brothers',
                               value: "${user.noofbrother}",
+                              edit: familyDetail,
+                              controller: nBrother,
                             ),
                             ColumnText(
                               text: 'How many brothers married',
                               value: "${user.married1}",
+                              edit: familyDetail,
+                              controller: mBrother,
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Family Values',
                               value: "${user.famvalue}",
+                              edit: familyDetail,
+                              controller: fValue,
                             ),
                             ColumnText(
                               text: 'Family Income',
                               value: "${user.famincome}",
+                              edit: familyDetail,
+                              controller: fIncome,
                             ),
                             ColumnText(
                               text: 'Dietary Habits',
                               value: "${user.diet}",
+                              edit: familyDetail,
+                              controller: diet,
                             ),
                             ColumnText(
                               text: 'Family Status',
                               value: "${user.famstatus}",
+                              edit: familyDetail,
+                              controller: fStatus,
                             ),
                             ColumnText(
                               text: 'No of Sister',
                               value: "${user.noofsisters}",
+                              edit: familyDetail,
+                              controller: nSister,
                             ),
                             ColumnText(
                               text: 'How many sister married',
                               value: "${user.married}",
+                              edit: familyDetail,
+                              controller: mSister,
                             ),
                           ],
                         ),
                         CustomCard(
                           image: Images.religion,
                           title: "Religion Background",
+                          isEdit: religionBackground,
+                          onEdit: () async {
+                            if (religionBackground) {
+                              var data = {
+                                'religion[]': religion.text,
+                                'caste': caste.text,
+                                'subcast': subCaste.text,
+                                'mothertong': motherToungue.text,
+                              };
+                              log("Save Data: $data");
+                              var response = await Provider.of<AuthProvider>(
+                                      context,
+                                      listen: false)
+                                  .update(data);
+                              log("Save Data: $data");
+                              log("Response: $response");
+                              profile();
+                              setState(() {
+                                religionBackground = false;
+                              });
+                            } else {
+                              religion.text = user.religion.toString();
+                              motherToungue.text = user.mothertong.toString();
+                              subCaste.text = user.subcast.toString();
+                              religion.text = user.religion.toString();
+
+                              setState(() {
+                                religionBackground = true;
+                              });
+                            }
+                          },
                           leftChildren: [
                             ColumnText(
                               text: 'Religion',
                               value: "${user.religion}",
+                              edit: religionBackground,
+                              controller: religion,
                             ),
                             ColumnText(
                               text: 'Caste',
                               value: "${user.caste}",
+                              edit: religionBackground,
+                              controller: caste,
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Mother Tounge',
                               value: "${user.mothertong}",
+                              edit: religionBackground,
+                              controller: motherToungue,
                             ),
                             ColumnText(
                               text: 'Sub Caste',
                               value: "${user.subcast}",
+                              edit: religionBackground,
+                              controller: subCaste,
                             ),
                           ],
                         ),
                         CustomCard(
                           image: Images.education,
                           title: "Education & Career",
+                          isEdit: educationCareer,
+                          onEdit: () async {
+                            if (educationCareer) {
+                              var data = {
+                                'employee_in': employedIn.text,
+                                'education': education.text,
+                                'occupation': occupation.text,
+                                'income': annualIncome.text,
+                              };
+                              log("Save Data: $data");
+                              var response = await Provider.of<AuthProvider>(
+                                      context,
+                                      listen: false)
+                                  .update(data);
+                              log("Save Data: $data");
+                              log("Response: $response");
+                              profile();
+                              setState(() {
+                                educationCareer = false;
+                              });
+                            } else {
+                              employedIn.text = user.employeeIn.toString();
+                              education.text = user.education.toString();
+                              occupation.text = user.occupation.toString();
+                              annualIncome.text = user.income.toString();
+                              setState(() {
+                                educationCareer = true;
+                              });
+                            }
+                          },
                           leftChildren: [
                             ColumnText(
                               text: 'Education',
                               value: "${user.education}",
+                              edit: educationCareer,
+                              controller: education,
                             ),
                             ColumnText(
                               text: 'Employed In',
                               value: "${user.employeeIn}",
+                              edit: educationCareer,
+                              controller: employedIn,
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Occupation',
                               value: "${user.occupation}",
+                              edit: educationCareer,
+                              controller: occupation,
                             ),
                             ColumnText(
                               text: 'Annual Income',
                               value: "${user.income}",
+                              edit: educationCareer,
+                              controller: annualIncome,
                             ),
                           ],
                         ),
                         CustomCard(
                           image: Images.location,
                           title: "Location",
+                          isEdit: location,
+                          onEdit: () async {
+                            if (location) {
+                              var data = {
+                                'country': country.text,
+                                'state': state.text,
+                                'city': city.text,
+                                'postalCode': postalCode.text,
+                              };
+                              log("Save Data: $data");
+                              var response = await Provider.of<AuthProvider>(
+                                      context,
+                                      listen: false)
+                                  .update(data);
+                              log("Save Data: $data");
+                              log("Response: $response");
+                              profile();
+                              setState(() {
+                                location = false;
+                              });
+                            } else {
+                              country.text = user.country.toString();
+                              state.text = user.state.toString();
+                              city.text = user.city.toString();
+                              postalCode.text = user.postalCode.toString();
+                              setState(() {
+                                location = true;
+                              });
+                            }
+                          },
                           leftChildren: [
                             ColumnText(
                               text: 'Country',
                               value: "${user.country}",
+                              edit: location,
+                              controller: country,
                             ),
                             ColumnText(
                               text: 'State',
                               value: "${user.state}",
+                              edit: location,
+                              controller: state,
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'City',
                               value: "${user.city}",
+                              edit: location,
+                              controller: city,
                             ),
                             ColumnText(
                               text: 'Postal Code',
                               value: "${user.postalCode}",
+                              edit: location,
+                              controller: postalCode,
                             ),
                           ],
                         ),
                         CustomCard(
                           image: Images.horoscope,
                           title: "Astrology",
+                          isEdit: astrology,
+                          onEdit: () async {
+                            if (astrology) {
+                              var data = {
+                                'timeOfBirth': tob.text,
+                                'rashi': rishi.text,
+                                'manglik': manglik.text,
+                                'nakshtra': nakshtra.text,
+                                'birthplace': pob.text,
+                                'horoscope': horoscope.text,
+                              };
+                              log("Save Data: $data");
+                              var response = await Provider.of<AuthProvider>(
+                                      context,
+                                      listen: false)
+                                  .update(data);
+                              log("Save Data: $data");
+                              log("Response: $response");
+                              profile();
+                              setState(() {
+                                astrology = false;
+                              });
+                            } else {
+                              horoscope.text = user.horoscope.toString();
+                              tob.text = user.timeOfBirth.toString();
+                              rishi.text = user.rashi.toString();
+                              pob.text = user.birthplace.toString();
+                              nakshtra.text = user.nakshtra.toString();
+                              manglik.text = user.manglik.toString();
+                              setState(() {
+                                astrology = true;
+                              });
+                            }
+                          },
                           leftChildren: [
                             ColumnText(
                               text: 'Horoscope',
                               value: "${user.horoscope}",
+                              edit: astrology,
+                              controller: horoscope,
                             ),
                             ColumnText(
                               text: 'Time of Birth',
                               value: "${user.timeOfBirth}",
+                              edit: astrology,
+                              controller: tob,
                             ),
                             ColumnText(
                               text: 'Rishi/ Moon Sign',
                               value: "${user.rashi}",
+                              edit: astrology,
+                              controller: rishi,
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Place of Birth',
                               value: "${user.birthplace}",
+                              edit: astrology,
+                              controller: pob,
                             ),
                             ColumnText(
                               text: 'Nakshtra',
                               value: "${user.nakshtra}",
+                              edit: astrology,
+                              controller: nakshtra,
                             ),
                             ColumnText(
                               text: 'Manglik',
                               value: "${user.manglik}",
+                              edit: astrology,
+                              controller: manglik,
                             ),
                           ],
                         ),
                         CustomCard(
                           image: Images.people,
                           title: "Contact Information",
+                          isEdit: contactInfo,
+                          onEdit: () async {
+                            if (contactInfo) {
+                              var data = {
+                                'email': email.text,
+                                'mobile': phone.text,
+                              };
+                              log("Save Data: $data");
+                              var response = await Provider.of<AuthProvider>(
+                                      context,
+                                      listen: false)
+                                  .update(data);
+                              log("Save Data: $data");
+                              log("Response: $response");
+                              profile();
+                              setState(() {
+                                contactInfo = false;
+                              });
+                            } else {
+                              email.text = user.email.toString();
+                              phone.text = user.mobile.toString();
+                              setState(() {
+                                contactInfo = true;
+                              });
+                            }
+                          },
                           leftChildren: [
                             ColumnText(
                               text: 'Email id',
                               value: "${user.email}",
+                              edit: contactInfo,
+                              controller: email,
                             ),
                           ],
                           rightChildren: [
                             ColumnText(
                               text: 'Mobile No.',
                               value: "${user.mobile}",
+                              edit: contactInfo,
+                              controller: phone,
                             ),
                           ],
                         ),

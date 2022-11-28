@@ -70,7 +70,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   SizedBox(
                     // width: 45.w,
                     child: Text(
-                      'PM6277',
+                      "${user.name}",
                       maxLines: 1,
                       style: TextStyle(
                         fontSize: 2.5.h,
@@ -84,18 +84,18 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        'Edit Profile',
+                        "${user.email}",
                         style: TextStyle(
                           fontSize: 1.8.h,
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      SizedBox(width: 2.w),
-                      Icon(
-                        Icons.edit,
-                        color: AppColors.whiteColor,
-                        size: 2.h,
-                      ),
+                      // SizedBox(width: 2.w),
+                      // Icon(
+                      //   Icons.edit,
+                      //   color: AppColors.whiteColor,
+                      //   size: 2.h,
+                      // ),
                     ],
                   ),
                 ],
@@ -134,7 +134,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ),
             );
           },
-          trailing: true,
+          // trailing: true,
         ),
         CustomListTile(
           title: 'Shortlisted',

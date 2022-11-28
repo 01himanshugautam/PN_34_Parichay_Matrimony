@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:app/utils/constants/app_urls_constant.dart';
@@ -19,6 +20,7 @@ class AuthRepository {
 
   update(data) async {
     try {
+      log("data $data");
       var response = await http.post(Uri.parse(AppUrls.update), body: data);
       return jsonDecode(response.body);
     } catch (e) {
