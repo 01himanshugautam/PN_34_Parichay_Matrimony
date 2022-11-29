@@ -160,6 +160,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   final ScrollController _scrollController = ScrollController();
   bool profileEdit = false,
       basicInformation = false,
+      basicInformation2 = false,
       familyDetail = false,
       religionBackground = false,
       educationCareer = false,
@@ -956,80 +957,156 @@ class _DashboardScreenState extends State<DashboardScreen>
                   : CustomCard(
                       image: Images.people,
                       title: "Basic information",
+                      isEdit: basicInformation2,
+                      onEdit: () async {
+                        if (basicInformation2) {
+                          var data = {
+                            'age': age.text,
+                            'height': height.text,
+                            'email': email.text,
+                            'manglik': manglik.text,
+                            'complexion': complexion.text,
+                            'religion': religion.text,
+                            'caste': caste.text,
+                            'country': country.text,
+                            'state': state.text,
+                            'city': city.text,
+                            'income': annualIncome.text,
+                            'drink': drink.text,
+                            'smoke': smoke.text,
+                            'education': education.text,
+                            'horoscope': horoscope.text,
+                            'occupation': occupation.text,
+                          };
+                          log("Save Data: $data");
+                          var response = await Provider.of<AuthProvider>(
+                                  context,
+                                  listen: false)
+                              .update(data);
+                          log("Save Data: $data");
+                          log("Response: $response");
+                          profile();
+                          setState(() {
+                            basicInformation2 = false;
+                          });
+                        } else {
+                          email.text = user.email.toString();
+                          phone.text = user.mobile.toString();
+                          setState(() {
+                            basicInformation2 = true;
+                          });
+                        }
+                      },
                       leftChildren: [
                         ColumnText(
                           text: 'Age',
                           value: "${user.age}",
+                          edit: basicInformation2,
+                          controller: age,
                         ),
                         ColumnText(
                           text: 'Height',
                           value: "${user.height}",
+                          edit: basicInformation2,
+                          controller: height,
                         ),
                         ColumnText(
                           text: 'Body type',
                           value: "${user.bodyType}",
+                          edit: basicInformation2,
+                          controller: body,
                         ),
                         ColumnText(
                           text: 'Complexion',
                           value: "${user.complexion}",
+                          edit: basicInformation2,
+                          controller: complexion,
                         ),
                         ColumnText(
                           text: 'Religion',
                           value: "${user.religion}",
+                          edit: basicInformation2,
+                          controller: religion,
                         ),
                         ColumnText(
                           text: 'Caste',
                           value: "${user.caste}",
+                          edit: basicInformation2,
+                          controller: caste,
                         ),
                         ColumnText(
                           text: 'Country',
                           value: "${user.country}",
+                          edit: basicInformation2,
+                          controller: country,
                         ),
                         ColumnText(
                           text: 'State',
                           value: "${user.state}",
+                          edit: basicInformation2,
+                          controller: state,
                         ),
                         ColumnText(
                           text: 'City',
                           value: "${user.city}",
+                          edit: basicInformation2,
+                          controller: city,
                         ),
                       ],
                       rightChildren: [
                         ColumnText(
                           text: 'Annual Income',
                           value: "${user.income}",
+                          edit: basicInformation2,
+                          controller: annualIncome,
                         ),
                         ColumnText(
                           text: 'Marital Status',
                           value: "${user.maritalstatus}",
+                          edit: basicInformation2,
+                          controller: marital,
                         ),
                         ColumnText(
                           text: 'Drinking Habits',
                           value: "${user.drinkh}",
+                          edit: basicInformation2,
+                          controller: drink,
                         ),
                         ColumnText(
                           text: 'Smoking Habits',
                           value: "${user.smokha}",
+                          edit: basicInformation2,
+                          controller: smoke,
                         ),
                         ColumnText(
                           text: 'Education',
                           value: "${user.education}",
+                          edit: basicInformation2,
+                          controller: education,
                         ),
                         ColumnText(
                           text: 'Mother Tongue',
                           value: "${user.mothertong}",
+                          edit: basicInformation2,
+                          controller: motherToungue,
                         ),
                         ColumnText(
                           text: 'Manglik Status',
                           value: "${user.manglik}",
+                          edit: basicInformation2,
+                          controller: manglik,
                         ),
                         ColumnText(
                           text: 'Horoscope',
                           value: "${user.horoscope}",
+                          edit: basicInformation2,
+                          controller: horoscope,
                         ),
                         ColumnText(
                           text: 'Occupation',
                           value: "${user.occupation}",
+                          edit: basicInformation2,
+                          controller: occupation,
                         ),
                       ],
                     ),
