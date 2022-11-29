@@ -48,4 +48,18 @@ class AuthProvider with ChangeNotifier {
     // user = response.data;
     return response;
   }
+
+  otpSend(String id, String mobile) async {
+    var response = await authRepository.otpSend(id, mobile);
+    notifyListeners();
+    // user = response.data;
+    return response;
+  }
+
+  imageUpload(String id, images) async {
+    var response = await authRepository.uploadImages(id, images);
+    notifyListeners();
+    // user = response.data;
+    return response;
+  }
 }

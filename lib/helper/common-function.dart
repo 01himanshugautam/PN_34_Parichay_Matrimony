@@ -44,4 +44,25 @@ class CommonFunctions {
       height: 5.h,
     ).show(context);
   }
+
+  static void showFailedToast(String message, BuildContext context) {
+    // Fluttertoast.showToast(
+    //   msg: message,
+    //   toastLength: Toast.LENGTH_SHORT,
+    //   gravity: ToastGravity.TOP_RIGHT,
+    //   timeInSecForIosWeb: 1,
+    //   backgroundColor: Colors.grey,
+    //   textColor: Colors.white,
+    //   fontSize: 16.0,
+    // );
+    MotionToast(
+      position: MotionToastPosition.top,
+      icon: Icons.sms_failed,
+      primaryColor: AppColors.primaryColor,
+      title: Text(message),
+      description: const Text(""),
+      width: 300,
+      height: 5.h,
+    ).show(context);
+  }
 }

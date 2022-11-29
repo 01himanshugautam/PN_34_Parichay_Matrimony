@@ -1,14 +1,19 @@
+import 'dart:developer';
+
+import 'package:app/helper/common-function.dart';
+import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({Key? key}) : super(key: key);
 
-  final TextEditingController _username = TextEditingController();
+  final TextEditingController mobile = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +38,8 @@ class ForgetPasswordScreen extends StatelessWidget {
           children: [
             CustomTextField(
               width: 90.w,
-              controller: _username,
-              hintText: 'Email/Phone Number *',
+              controller: mobile,
+              hintText: 'Phone Number *',
               hintColor: AppColors.whiteColor,
             ),
             CustomButton(
@@ -44,10 +49,13 @@ class ForgetPasswordScreen extends StatelessWidget {
               fontSize: 3.h,
               color: AppColors.primaryColor,
               textColor: AppColors.whiteColor,
-              // onPressed: () => Navigator.pushReplacement(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => const DashboardScreen())),
+              onPressed: () async {
+                var response =
+                    await Provider.of<AuthProvider>(context, listen: false)
+                        .otpSend("", mobile.text);
+                log("Response $response");
+                CommonFunctions.showFailedToast(response['msg'], context);
+              },
             ),
           ],
         ),

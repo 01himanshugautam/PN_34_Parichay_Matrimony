@@ -9,6 +9,8 @@ class AppUrls {
   static const String lifeStyleForm = "${baseUrl}applifestyle";
   static const String profile = "${baseUrl}appprofile";
   static const String update = "${baseUrl}appupdate";
+  static const String imageUpload = "${baseUrl}appphotos";
+  static const String otpSend = "${baseUrl}appresend";
 
   static const String userMatches = "${baseUrl}appmatches";
   static const String successStories = "${baseUrl}appsuccessstories";

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:app/utils/constants/app_urls_constant.dart';
@@ -20,7 +19,6 @@ class AuthRepository {
 
   update(data) async {
     try {
-      log("data $data");
       var response = await http.post(Uri.parse(AppUrls.update), body: data);
       return jsonDecode(response.body);
     } catch (e) {
@@ -61,6 +59,39 @@ class AuthRepository {
     try {
       var response = await http.get(Uri.parse("${AppUrls.profile}/$id"));
       return jsonDecode(response.body);
+    } catch (e) {
+      return e;
+    }
+  }
+
+  otpSend(String id, String mobile) async {
+    try {
+      var response = await http.post(Uri.parse(AppUrls.otpSend),
+          body: {'user_id': id, 'mobile_no': mobile});
+      return jsonDecode(response.body);
+    } catch (e) {
+      return e;
+    }
+  }
+
+  uploadImages(String id, images) async {
+    try {
+      List<http.MultipartFile> newList = [];
+      var request =
+          http.MultipartRequest("POST", Uri.parse(AppUrls.imageUpload));
+      for (var img in images) {
+        var multipartFile = await http.MultipartFile.fromPath(
+          'files[]',
+          img.path,
+          filename: img.path.split('/').last,
+        );
+        newList.add(multipartFile);
+      }
+      request.fields['user_id'] = id;
+      request.files.addAll(newList);
+      var response = await request.send();
+      var data = await http.Response.fromStream(response);
+      return jsonDecode(data.body);
     } catch (e) {
       return e;
     }
