@@ -102,7 +102,10 @@ class _SearchResultState extends State<SearchResult> {
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                          'https://parichaymatrimony.com/uploads/stories/${widget.data[index]['image']}'),
+                                        widget.data[index]['image'] == ''
+                                            ? 'https://parichaymatrimony.com/public/${widget.data[index]['image']}'
+                                            : 'https://iidamidamerica.org/wp-content/uploads/2020/12/male-placeholder-image.jpeg',
+                                      ),
                                       fit: BoxFit.cover,
                                     ),
                                   ),

@@ -175,11 +175,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 ),
               );
             }),
-        CustomListTile(
-          title: 'Inbox',
-          image: Images.inbox,
-          onTap: () {},
-        ),
+        // CustomListTile(
+        //   title: 'Inbox',
+        //   image: Images.inbox,
+        //   onTap: () {},
+        // ),
         CustomListTile(
           title: 'Settings',
           image: Images.settings,
@@ -191,6 +191,16 @@ class _HomeDrawerState extends State<HomeDrawer> {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const ContactScreen()),
+          ),
+        ),
+        CustomListTile(
+          title: 'Upgrade Plan',
+          image: Images.settings,
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => const MembershipScreen()),
+            ),
           ),
         ),
         CustomListTile(
@@ -225,16 +235,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ),
               SizedBox(height: 1.h),
               CustomButton(
-                text: 'UPGRADE PLANS',
+                text: 'Help Us : 8602777203',
                 color: AppColors.primaryColor,
                 textColor: AppColors.whiteColor,
                 width: 60.w,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => const MembershipScreen()),
-                  ),
-                ),
               )
             ],
           ),
