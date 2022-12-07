@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:app/helper/common-function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
@@ -28,6 +30,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController date = TextEditingController();
   String? _gender;
   String? profileFor;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -208,6 +211,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     date.text.isNotEmpty &&
                     _gender != null &&
                     profileFor != null) {
+                  setState(() {
+                    isLoading = true;
+                  });
                   var dateArray = date.text.split('-');
                   Map<String, dynamic> data = {
                     "fullname": name.text,
@@ -220,10 +226,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     "birth_month": dateArray[1],
                     "birth_year": dateArray[2]
                   };
+                  log("Data $data");
                   var response =
                       await Provider.of<AuthProvider>(context, listen: false)
                           .register(data);
+                  log("response $response");
+                  log("${response['data']['userid']}");
                   if (response['success'] == true) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                    log("True");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -235,6 +248,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     CommonFunctions.showSuccessToast(
                         "Profile Successfully Created.", context);
                   } else {
+                    setState(() {
+                      isLoading = false;
+                    });
                     CommonFunctions.showErrorDialog(
                         "Error", response['message'], context);
                   }

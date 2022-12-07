@@ -96,51 +96,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.dispose();
   }
 
-  profileUpdate(data) {
-    var profileUpdate = {
-      "image": "data",
-      "mothertong": "data",
-      "religion": "data",
-      "caste": "data",
-      "subcast": "data",
-      "manglik": "data",
-      "maritalstatus": "data",
-      "height": "data",
-      "country": "data",
-      "religionstate": "data",
-      "city": "data",
-      "no_of_childe": "data",
-      "education": "data",
-      "educationdetail": "data",
-      "occupation": "data",
-      "employee_in": "data",
-      "income": "data",
-      "myself": "data",
-      "familytype": "data",
-      "fatheroccupation": "data",
-      "motheroccupation": "data",
-      "familystatus": "data",
-      "familyvalues": "data",
-      "famincome": "data",
-      "noofbrother": "data",
-      "married1": "data",
-      "noofsisters": "data",
-      "married": "data",
-      "famcountry": "data",
-      "famstate": "data",
-      "famcity": "data",
-      "contactaddress": "data",
-      "myfamily": "data",
-      "diet": "data",
-      "drinkh": "data",
-      "smokha": "data",
-      "btype": "data",
-      "complexion": "data",
-      "physicalstatus": "data",
-      "physical_type": "data",
-    };
-  }
-
   profile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map json = jsonDecode(prefs.getString('userData')!);
@@ -467,80 +422,87 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     });
                                   }
                                 },
-                                leftChildren: [
-                                  ColumnText(
-                                    text: 'Name',
-                                    value: "${user.name}",
-                                    controller: name,
-                                    edit: basicInformation,
-                                  ),
-                                  ColumnText(
-                                    text: 'Gender',
-                                    value: "${user.gender}",
-                                    edit: basicInformation,
-                                    controller: gender,
-                                  ),
-                                  ColumnText(
-                                    text: 'Age',
-                                    value: "${user.age}",
-                                    edit: basicInformation,
-                                    controller: age,
-                                  ),
-                                  ColumnText(
-                                    text: 'Marital Status',
-                                    value: "${user.maritalstatus}",
-                                    edit: basicInformation,
-                                    controller: marital,
-                                  ),
-                                  ColumnText(
-                                    text: 'Complexion',
-                                    value: "${user.complexion}",
-                                    edit: basicInformation,
-                                    controller: complexion,
-                                  ),
-                                  ColumnText(
-                                    text: 'Physical Status',
-                                    value: "${user.physicalstatus}",
-                                    edit: basicInformation,
-                                    controller: physical,
-                                  ),
+                                leftChildren: const [
+                                  // ColumnText(
+                                  //   text: 'Name',
+                                  //   value: "${user.name}",
+                                  //   controller: name,
+                                  //   edit: basicInformation,
+                                  // ),
+                                  // ColumnText(
+                                  //   text: 'Gender',
+                                  //   value: "${user.gender}",
+                                  //   edit: basicInformation,
+                                  //   controller: gender,
+                                  // ),
+                                  // ColumnText(
+                                  //   text: 'Age',
+                                  //   value: "${user.age}",
+                                  //   edit: basicInformation,
+                                  //   controller: age,
+                                  // ),
+                                  // ColumnText(
+                                  //   text: 'Marital Status',
+                                  //   value: "${user.maritalstatus}",
+                                  //   edit: basicInformation,
+                                  //   controller: marital,
+                                  // ),
+                                  // ColumnText(
+                                  //   text: 'Complexion',
+                                  //   value: "${user.complexion}",
+                                  //   edit: basicInformation,
+                                  //   controller: complexion,
+                                  // ),
+                                  // ColumnText(
+                                  //   text: 'Physical Status',
+                                  //   value: "${user.physicalstatus}",
+                                  //   edit: basicInformation,
+                                  //   controller: physical,
+                                  // ),
                                 ],
                                 rightChildren: [
-                                  ColumnText(
-                                    text: 'Date of Birth',
-                                    value: "${user.dOB}",
-                                    edit: basicInformation,
-                                    controller: dob,
-                                  ),
-                                  ColumnText(
-                                    text: 'Height',
-                                    value: "${user.height}",
-                                    edit: basicInformation,
-                                    controller: height,
-                                  ),
-                                  ColumnText(
-                                    text: 'Dietary Habits',
-                                    value: "${user.diet}",
-                                    edit: basicInformation,
-                                    controller: diet,
-                                  ),
-                                  ColumnText(
-                                    text: 'Drinking Habits',
-                                    value: "${user.drinkh}",
-                                    edit: basicInformation,
-                                    controller: drink,
-                                  ),
-                                  ColumnText(
-                                    text: 'Smoking Habits',
-                                    value: "${user.smokha}",
-                                    edit: basicInformation,
-                                    controller: smoke,
-                                  ),
+                                  // ColumnText(
+                                  //   text: 'Date of Birth',
+                                  //   value: "${user.dOB}",
+                                  //   edit: basicInformation,
+                                  //   controller: dob,
+                                  // ),
+                                  // ColumnText(
+                                  //   text: 'Height',
+                                  //   value: "${user.height}",
+                                  //   edit: basicInformation,
+                                  //   controller: height,
+                                  // ),
+                                  // ColumnText(
+                                  //   text: 'Dietary Habits',
+                                  //   value: "${user.diet}",
+                                  //   edit: basicInformation,
+                                  //   controller: diet,
+                                  // ),
+                                  // ColumnText(
+                                  //   text: 'Drinking Habits',
+                                  //   value: "${user.drinkh}",
+                                  //   edit: basicInformation,
+                                  //   controller: drink,
+                                  // ),
+                                  // ColumnText(
+                                  //   text: 'Smoking Habits',
+                                  //   value: "${user.smokha}",
+                                  //   edit: basicInformation,
+                                  //   controller: smoke,
+                                  // ),
                                   ColumnText(
                                     text: 'Body Type',
-                                    value: "${user.bodyType}",
+                                    value: "${user.btype}",
                                     edit: basicInformation,
                                     controller: body,
+                                    dropDown: basicInformation,
+                                    onChanged: (value) {
+                                      debugPrint("Value $value");
+                                      setState(() {
+                                        body.text = value;
+                                      });
+                                    },
                                   ),
                                 ],
                               ),

@@ -1,40 +1,49 @@
+import 'dart:developer';
+
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomDropDown extends StatelessWidget {
-  final String title;
+  final String? title;
   final String? hint;
   final List items;
   final dynamic value;
   final double? width;
+  final bool isPadding;
   final Color? color;
-  final Function(dynamic) onChanged;
+  final Function(dynamic)? onChanged;
   const CustomDropDown({
     Key? key,
-    required this.title,
+    this.title,
     required this.items,
     required this.value,
     required this.onChanged,
     this.hint,
     this.width,
     this.color,
+    this.isPadding = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    log("message $items");
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: isPadding
+          ? const EdgeInsets.only(bottom: 8.0)
+          : const EdgeInsets.only(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 2.h,
-              color: color ?? AppColors.greyColor,
-            ),
-          ),
+          title != null
+              ? Text(
+                  '$title',
+                  style: TextStyle(
+                    fontSize: 2.h,
+                    color: color ?? AppColors.greyColor,
+                  ),
+                )
+              : Container(),
           SizedBox(
             width: width ?? 100.w,
             child: DropdownButton(

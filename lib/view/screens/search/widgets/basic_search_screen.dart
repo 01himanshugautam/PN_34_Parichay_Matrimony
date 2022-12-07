@@ -73,13 +73,13 @@ class _BasicSearchState extends State<BasicSearch> {
     setState(() {
       this.countries = countries['data'];
     });
-    // log("countries ${this.countries}");
+    log("countries ${this.countries}");
   }
 
   getCaste() async {
     var castes =
         await Provider.of<SearchProvider>(context, listen: false).caste();
-    log("castes $castes");
+    // log("castes $castes");
     setState(() {
       this.castes = castes['data'];
     });
@@ -91,7 +91,7 @@ class _BasicSearchState extends State<BasicSearch> {
     setState(() {
       this.religions = religions['data'];
     });
-    log("religions ${this.religions}");
+    // log("religions ${this.religions}");
   }
 
   getHeight() async {
@@ -100,7 +100,7 @@ class _BasicSearchState extends State<BasicSearch> {
     setState(() {
       this.heights = heights['data'];
     });
-    log("heights ${this.heights}");
+    // log("heights ${this.heights}");
   }
 
   getLanguage() async {
@@ -109,13 +109,13 @@ class _BasicSearchState extends State<BasicSearch> {
     setState(() {
       this.languages = languages['data'];
     });
-    log("languages ${this.languages}");
+    // log("languages ${this.languages}");
   }
 
   getState(String id) async {
     var states =
         await Provider.of<SearchProvider>(context, listen: false).state(id);
-    log("States $states");
+    // log("States $states");
     setState(() {
       this.states = states['data'];
     });
@@ -124,7 +124,7 @@ class _BasicSearchState extends State<BasicSearch> {
   getCity(String id) async {
     var cities =
         await Provider.of<SearchProvider>(context, listen: false).city(id);
-    log("Cities $cities");
+    // log("Cities $cities");
     setState(() {
       this.cities = cities['data'];
     });
@@ -349,10 +349,11 @@ class _BasicSearchState extends State<BasicSearch> {
                 'country[]': motherToungue ?? '',
                 'religionstate[]': state ?? '',
               };
-              log("Data $data");
+              // log("Data $data");
               var response =
                   await Provider.of<SearchProvider>(context, listen: false)
                       .filter(data);
+              debugPrint("Response ${response['success'][0][0]}");
               Navigator.push(
                 context,
                 MaterialPageRoute(
