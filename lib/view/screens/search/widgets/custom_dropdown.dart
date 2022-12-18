@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -10,7 +8,7 @@ class CustomDropDown extends StatelessWidget {
   final List items;
   final dynamic value;
   final double? width;
-  final bool isPadding;
+  final bool isPadding, api, id;
   final Color? color;
   final Function(dynamic)? onChanged;
   const CustomDropDown({
@@ -23,11 +21,12 @@ class CustomDropDown extends StatelessWidget {
     this.width,
     this.color,
     this.isPadding = true,
+    this.api = false,
+    this.id = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    log("message $items");
     return Padding(
       padding: isPadding
           ? const EdgeInsets.only(bottom: 8.0)
@@ -65,8 +64,10 @@ class CustomDropDown extends StatelessWidget {
               value: value,
               items: items.map((value) {
                 return DropdownMenuItem(
-                  value: value,
-                  child: Text("$value"),
+                  value: api ? (id ? value['id'] : value['name']) : value,
+                  child: Text(api ? value['name'].toString() : value),
+                  // value: value,
+                  // child: Text("$value"),
                 );
               }).toList(),
               onChanged: onChanged,

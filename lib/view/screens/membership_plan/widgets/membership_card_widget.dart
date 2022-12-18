@@ -1,5 +1,6 @@
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
+import 'package:app/view/screens/get_now/get_now_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -145,6 +146,8 @@ class MembershipCard extends StatelessWidget {
             radius: 10.h,
             height: 6.h,
             width: 40.w,
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const GetNowScreen())),
           )
         ],
       ),

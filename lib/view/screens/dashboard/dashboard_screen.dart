@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:app/data/models/user.model.dart';
-import 'package:app/helper/common-function.dart';
+import 'package:app/helper/common_function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
@@ -82,6 +82,39 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   TextEditingController email = TextEditingController();
   TextEditingController phone = TextEditingController();
+
+  List countries = [
+    {"id": "101", "name": ""},
+  ];
+  List states = [
+    {"id": "1", "name": ""}
+  ];
+  List cities = [
+    {"id": "1", "name": ""}
+  ];
+  List castes = [
+    {"id": "251", "name": "", "status": "1"},
+  ];
+  List heights = [
+    {"id": "1", "name": "", "value": "40"},
+  ];
+  List religions = [
+    {"id": "12", "name": "", "status": "1"},
+  ];
+  List languages = [
+    {"id": "1", "name": ""},
+  ];
+
+  List educations = [
+    {"id": 1, "name": ""},
+  ];
+  List occupations = [
+    {"id": "1", "name": ""}
+  ];
+
+  List incomes = [
+    {"id": "1", "name": ""},
+  ];
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
@@ -117,6 +150,70 @@ class _DashboardScreenState extends State<DashboardScreen>
     return user;
   }
 
+  getHeight() async {
+    var heights =
+        await Provider.of<SearchProvider>(context, listen: false).height();
+    setState(() {
+      this.heights = heights['data'];
+    });
+    log("heights ${this.heights}");
+  }
+
+  getCountry() async {
+    var countries =
+        await Provider.of<SearchProvider>(context, listen: false).country();
+
+    setState(() {
+      this.countries = countries['data'];
+    });
+    log("countries ${this.countries}");
+  }
+
+  getCaste() async {
+    var castes =
+        await Provider.of<SearchProvider>(context, listen: false).caste();
+    log("castes $castes");
+    setState(() {
+      this.castes = castes['data'];
+    });
+  }
+
+  getReligion() async {
+    var religions =
+        await Provider.of<SearchProvider>(context, listen: false).religion();
+    setState(() {
+      this.religions = religions['data'];
+    });
+    // log("religions ${this.religions}");
+  }
+
+  getLanguage() async {
+    var languages =
+        await Provider.of<SearchProvider>(context, listen: false).languages();
+    setState(() {
+      this.languages = languages['data'];
+    });
+    // log("languages ${this.languages}");
+  }
+
+  getState(String id) async {
+    var states =
+        await Provider.of<SearchProvider>(context, listen: false).state(id);
+    // log("States $states");
+    setState(() {
+      this.states = states['data'];
+    });
+  }
+
+  getCity(String id) async {
+    var cities =
+        await Provider.of<SearchProvider>(context, listen: false).city(id);
+    // log("Cities $cities");
+    setState(() {
+      this.cities = cities['data'];
+    });
+  }
+
   getUser(String userId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var response =
@@ -129,6 +226,33 @@ class _DashboardScreenState extends State<DashboardScreen>
         user = Users.fromJson(response['data']);
       });
     }
+  }
+
+  getEducation() async {
+    var educations =
+        await Provider.of<SearchProvider>(context, listen: false).education();
+    log("educations $educations");
+    setState(() {
+      this.educations = educations['data'];
+    });
+  }
+
+  getOccupation() async {
+    var occupations =
+        await Provider.of<SearchProvider>(context, listen: false).occupations();
+    log("occupations $occupations");
+    setState(() {
+      this.occupations = occupations['data'];
+    });
+  }
+
+  getIncome() async {
+    var incomes =
+        await Provider.of<SearchProvider>(context, listen: false).income();
+    log("incomes $incomes");
+    setState(() {
+      this.incomes = incomes['data'];
+    });
   }
 
   final ScrollController _scrollController = ScrollController();
@@ -401,6 +525,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       basicInformation = false;
                                     });
                                   } else {
+                                    getHeight();
                                     name.text = user.name.toString();
                                     gender.text = user.gender.toString();
                                     age.text = user.age.toString();
@@ -422,83 +547,188 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     });
                                   }
                                 },
-                                leftChildren: const [
-                                  // ColumnText(
-                                  //   text: 'Name',
-                                  //   value: "${user.name}",
-                                  //   controller: name,
-                                  //   edit: basicInformation,
-                                  // ),
-                                  // ColumnText(
-                                  //   text: 'Gender',
-                                  //   value: "${user.gender}",
-                                  //   edit: basicInformation,
-                                  //   controller: gender,
-                                  // ),
-                                  // ColumnText(
-                                  //   text: 'Age',
-                                  //   value: "${user.age}",
-                                  //   edit: basicInformation,
-                                  //   controller: age,
-                                  // ),
-                                  // ColumnText(
-                                  //   text: 'Marital Status',
-                                  //   value: "${user.maritalstatus}",
-                                  //   edit: basicInformation,
-                                  //   controller: marital,
-                                  // ),
-                                  // ColumnText(
-                                  //   text: 'Complexion',
-                                  //   value: "${user.complexion}",
-                                  //   edit: basicInformation,
-                                  //   controller: complexion,
-                                  // ),
-                                  // ColumnText(
-                                  //   text: 'Physical Status',
-                                  //   value: "${user.physicalstatus}",
-                                  //   edit: basicInformation,
-                                  //   controller: physical,
-                                  // ),
+                                leftChildren: [
+                                  ColumnText(
+                                    text: 'Name',
+                                    value: "${user.name}",
+                                    controller: name,
+                                    edit: basicInformation,
+                                  ),
+                                  ColumnText(
+                                    text: 'Gender',
+                                    value: "${user.gender}",
+                                    edit: basicInformation,
+                                    dropDown: basicInformation,
+                                    controller: gender,
+                                    items: const [
+                                      "Male",
+                                      "Female",
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        gender.text = value;
+                                      });
+                                    },
+                                  ),
+                                  ColumnText(
+                                    text: 'Age',
+                                    value: "${user.age}",
+                                    edit: basicInformation,
+                                    dropDown: basicInformation,
+                                    controller: age,
+                                    items: [
+                                      for (var i = 18; i <= 80; i++) "$i"
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        age.text = value;
+                                      });
+                                    },
+                                  ),
+                                  ColumnText(
+                                    text: 'Marital Status',
+                                    value: "${user.maritalstatus}",
+                                    edit: basicInformation,
+                                    dropDown: basicInformation,
+                                    controller: marital,
+                                    items: const [
+                                      "Never Married",
+                                      "Awaiting Divorce",
+                                      "Divorced",
+                                      "Widowed",
+                                      "Annulled"
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        marital.text = value;
+                                      });
+                                    },
+                                  ),
+                                  ColumnText(
+                                    text: 'Complexion',
+                                    value: "${user.complexion}",
+                                    edit: basicInformation,
+                                    dropDown: basicInformation,
+                                    controller: complexion,
+                                    items: const [
+                                      "Fair",
+                                      'Not Fair',
+                                      "Wheatish",
+                                      "Wheatish Brown",
+                                      "Dark"
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        complexion.text = value;
+                                      });
+                                    },
+                                  ),
+                                  ColumnText(
+                                    text: 'Physical Status',
+                                    value: "${user.physicalstatus}",
+                                    edit: basicInformation,
+                                    dropDown: basicInformation,
+                                    controller: physical,
+                                    items: const [
+                                      "Normal",
+                                      "HIV Positive",
+                                      "Physically Challenged"
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        physical.text = value;
+                                      });
+                                    },
+                                  ),
                                 ],
                                 rightChildren: [
-                                  // ColumnText(
-                                  //   text: 'Date of Birth',
-                                  //   value: "${user.dOB}",
-                                  //   edit: basicInformation,
-                                  //   controller: dob,
-                                  // ),
-                                  // ColumnText(
-                                  //   text: 'Height',
-                                  //   value: "${user.height}",
-                                  //   edit: basicInformation,
-                                  //   controller: height,
-                                  // ),
-                                  // ColumnText(
-                                  //   text: 'Dietary Habits',
-                                  //   value: "${user.diet}",
-                                  //   edit: basicInformation,
-                                  //   controller: diet,
-                                  // ),
-                                  // ColumnText(
-                                  //   text: 'Drinking Habits',
-                                  //   value: "${user.drinkh}",
-                                  //   edit: basicInformation,
-                                  //   controller: drink,
-                                  // ),
-                                  // ColumnText(
-                                  //   text: 'Smoking Habits',
-                                  //   value: "${user.smokha}",
-                                  //   edit: basicInformation,
-                                  //   controller: smoke,
-                                  // ),
+                                  ColumnText(
+                                    text: 'Date of Birth',
+                                    value: "${user.dOB}",
+                                    edit: basicInformation,
+                                    controller: dob,
+                                  ),
+                                  ColumnText(
+                                    text: 'Height',
+                                    value: "${user.height}",
+                                    edit: basicInformation,
+                                    dropDown: basicInformation,
+                                    controller: height,
+                                    items: heights,
+                                    api: true,
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        height.text = value;
+                                      });
+                                    },
+                                  ),
+                                  ColumnText(
+                                    text: 'Dietary Habits',
+                                    value: "${user.diet}",
+                                    edit: basicInformation,
+                                    dropDown: basicInformation,
+                                    controller: diet,
+                                    items: const [
+                                      "Vegetarian",
+                                      "Non Veg",
+                                      "jain",
+                                      "Eggetarian"
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        diet.text = value;
+                                      });
+                                    },
+                                  ),
+                                  ColumnText(
+                                    text: 'Drinking Habits',
+                                    value: "${user.drinkh}",
+                                    edit: basicInformation,
+                                    dropDown: basicInformation,
+                                    controller: drink,
+                                    items: const ['Yes', 'No', 'Occasionally'],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        drink.text = value;
+                                      });
+                                    },
+                                  ),
+                                  ColumnText(
+                                    text: 'Smoking Habits',
+                                    value: "${user.smokha}",
+                                    edit: basicInformation,
+                                    dropDown: basicInformation,
+                                    controller: smoke,
+                                    items: const ['Yes', 'No', 'Occasionally'],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        smoke.text = value;
+                                      });
+                                    },
+                                  ),
                                   ColumnText(
                                     text: 'Body Type',
                                     value: "${user.btype}",
                                     edit: basicInformation,
-                                    controller: body,
                                     dropDown: basicInformation,
+                                    controller: body,
+                                    items: const [
+                                      "Slim",
+                                      "Average",
+                                      "Athletic",
+                                      "Heavy"
+                                    ],
                                     onChanged: (value) {
-                                      debugPrint("Value $value");
+                                      log("Value $value");
                                       setState(() {
                                         body.text = value;
                                       });
@@ -539,6 +769,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       familyDetail = false;
                                     });
                                   } else {
+                                    getIncome();
                                     familyType.text =
                                         user.familytype.toString();
                                     fOccupation.text =
@@ -566,12 +797,34 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     value: "${user.familytype}",
                                     edit: familyDetail,
                                     controller: familyType,
+                                    dropDown: familyDetail,
+                                    items: const ["Joint", "Nuclear", "Other"],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        familyType.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'Father Occupation',
                                     value: "${user.fatheroccupation}",
                                     edit: familyDetail,
+                                    dropDown: familyDetail,
                                     controller: fOccupation,
+                                    items: const [
+                                      "Employed",
+                                      "Business Man",
+                                      "Not Employed",
+                                      "Retired",
+                                      "Passed Away"
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        fOccupation.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'Age',
@@ -583,7 +836,22 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     text: 'Mother Occupation ',
                                     value: "${user.motheroccupation}",
                                     edit: familyDetail,
+                                    dropDown: familyDetail,
                                     controller: mOccupation,
+                                    items: const [
+                                      "Home Worker",
+                                      "Employed",
+                                      "Business Man",
+                                      "Not Employed",
+                                      "Retired",
+                                      "Passed Away",
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        mOccupation.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'No of brothers',
@@ -610,18 +878,52 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     value: "${user.famincome}",
                                     edit: familyDetail,
                                     controller: fIncome,
+                                    dropDown: familyDetail,
+                                    api: true,
+                                    items: incomes,
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        fIncome.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'Dietary Habits',
                                     value: "${user.diet}",
                                     edit: familyDetail,
+                                    dropDown: familyDetail,
                                     controller: diet,
+                                    items: const [
+                                      "Vegetarian",
+                                      "Non Veg",
+                                      "jain",
+                                      "Eggetarian"
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        diet.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'Family Status',
                                     value: "${user.famstatus}",
                                     edit: familyDetail,
+                                    dropDown: familyDetail,
                                     controller: fStatus,
+                                    items: const [
+                                      "Upper Middle",
+                                      "Rich Affluent",
+                                      "Middle Class"
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        fStatus.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'No of Sister',
@@ -661,10 +963,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       religionBackground = false;
                                     });
                                   } else {
+                                    getReligion();
+                                    getLanguage();
+                                    getCaste();
                                     religion.text = user.religion.toString();
                                     motherToungue.text =
                                         user.mothertong.toString();
                                     subCaste.text = user.subcast.toString();
+                                    caste.text = user.caste.toString();
                                     religion.text = user.religion.toString();
 
                                     setState(() {
@@ -677,13 +983,31 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     text: 'Religion',
                                     value: "${user.religion}",
                                     edit: religionBackground,
+                                    dropDown: religionBackground,
+                                    items: religions,
+                                    api: true,
                                     controller: religion,
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        religion.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'Caste',
                                     value: "${user.caste}",
                                     edit: religionBackground,
+                                    dropDown: religionBackground,
+                                    items: castes,
+                                    api: true,
                                     controller: caste,
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        caste.text = value;
+                                      });
+                                    },
                                   ),
                                 ],
                                 rightChildren: [
@@ -691,13 +1015,31 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     text: 'Mother Tounge',
                                     value: "${user.mothertong}",
                                     edit: religionBackground,
+                                    dropDown: religionBackground,
                                     controller: motherToungue,
+                                    api: true,
+                                    items: languages,
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        motherToungue.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'Sub Caste',
                                     value: "${user.subcast}",
                                     edit: religionBackground,
+                                    dropDown: religionBackground,
+                                    items: castes,
+                                    api: true,
                                     controller: subCaste,
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        caste.text = value;
+                                      });
+                                    },
                                   ),
                                 ],
                               ),
@@ -725,6 +1067,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       educationCareer = false;
                                     });
                                   } else {
+                                    getEducation();
+                                    getOccupation();
+                                    getIncome();
                                     employedIn.text =
                                         user.employeeIn.toString();
                                     education.text = user.education.toString();
@@ -741,13 +1086,37 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     text: 'Education',
                                     value: "${user.education}",
                                     edit: educationCareer,
+                                    dropDown: educationCareer,
                                     controller: education,
+                                    api: true,
+                                    items: educations,
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        education.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'Employed In',
                                     value: "${user.employeeIn}",
                                     edit: educationCareer,
+                                    dropDown: educationCareer,
                                     controller: employedIn,
+                                    items: const [
+                                      "Government",
+                                      "Private",
+                                      "Business",
+                                      "Defence",
+                                      "Self Employed",
+                                      "Not Working",
+                                    ],
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        employedIn.text = value;
+                                      });
+                                    },
                                   ),
                                 ],
                                 rightChildren: [
@@ -755,13 +1124,31 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     text: 'Occupation',
                                     value: "${user.occupation}",
                                     edit: educationCareer,
+                                    dropDown: educationCareer,
                                     controller: occupation,
+                                    api: true,
+                                    items: occupations,
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        occupation.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'Annual Income',
                                     value: "${user.income}",
                                     edit: educationCareer,
+                                    dropDown: educationCareer,
                                     controller: annualIncome,
+                                    api: true,
+                                    items: incomes,
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        annualIncome.text = value;
+                                      });
+                                    },
                                   ),
                                 ],
                               ),
@@ -789,7 +1176,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       location = false;
                                     });
                                   } else {
-                                    country.text = user.country.toString();
+                                    getCountry();
+                                    country.text = user.country != ""
+                                        ? user.country.toString()
+                                        : 'null';
                                     state.text = user.state.toString();
                                     city.text = user.city.toString();
                                     postalCode.text =
@@ -804,7 +1194,16 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     text: 'Country',
                                     value: "${user.country}",
                                     edit: location,
+                                    dropDown: location,
                                     controller: country,
+                                    api: true,
+                                    items: countries,
+                                    onChanged: (value) {
+                                      log("Value $value");
+                                      setState(() {
+                                        motherToungue.text = value;
+                                      });
+                                    },
                                   ),
                                   ColumnText(
                                     text: 'State',
@@ -990,8 +1389,25 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   basicInformation2 = false;
                                 });
                               } else {
-                                email.text = user.email.toString();
-                                phone.text = user.mobile.toString();
+                                getHeight();
+                                getReligion();
+                                age.text = user.age.toString();
+                                height.text = user.height.toString();
+                                body.text = user.bodyType.toString();
+                                complexion.text = user.complexion.toString();
+                                religion.text = user.religion.toString();
+                                caste.text = user.caste.toString();
+                                country.text = user.country.toString();
+                                state.text = user.state.toString();
+                                annualIncome.text = user.income.toString();
+                                marital.text = user.maritalstatus.toString();
+                                drink.text = user.drinkh.toString();
+                                smoke.text = user.smokha.toString();
+                                education.text = user.education.toString();
+                                motherToungue.text = user.mothertong.toString();
+                                manglik.text = user.manglik.toString();
+                                horoscope.text = user.horoscope.toString();
+                                occupation.text = user.occupation.toString();
                                 setState(() {
                                   basicInformation2 = true;
                                 });
@@ -1008,7 +1424,16 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 text: 'Height',
                                 value: "${user.height}",
                                 edit: basicInformation2,
+                                dropDown: basicInformation2,
                                 controller: height,
+                                items: heights,
+                                api: true,
+                                onChanged: (value) {
+                                  log("Value $value");
+                                  setState(() {
+                                    height.text = value;
+                                  });
+                                },
                               ),
                               ColumnText(
                                 text: 'Body type',
@@ -1020,13 +1445,36 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 text: 'Complexion',
                                 value: "${user.complexion}",
                                 edit: basicInformation2,
+                                dropDown: basicInformation2,
                                 controller: complexion,
+                                items: const [
+                                  "Fair",
+                                  'Not Fair',
+                                  "Wheatish",
+                                  "Wheatish Brown",
+                                  "Dark"
+                                ],
+                                onChanged: (value) {
+                                  log("Value $value");
+                                  setState(() {
+                                    complexion.text = value;
+                                  });
+                                },
                               ),
                               ColumnText(
                                 text: 'Religion',
                                 value: "${user.religion}",
                                 edit: basicInformation2,
                                 controller: religion,
+                                dropDown: basicInformation2,
+                                items: religions,
+                                api: true,
+                                onChanged: (value) {
+                                  log("Value $value");
+                                  setState(() {
+                                    religion.text = value;
+                                  });
+                                },
                               ),
                               ColumnText(
                                 text: 'Caste',
@@ -1059,30 +1507,78 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 value: "${user.income}",
                                 edit: basicInformation2,
                                 controller: annualIncome,
+                                dropDown: basicInformation2,
+                                api: true,
+                                items: incomes,
+                                onChanged: (value) {
+                                  log("Value $value");
+                                  setState(() {
+                                    annualIncome.text = value;
+                                  });
+                                },
                               ),
                               ColumnText(
                                 text: 'Marital Status',
                                 value: "${user.maritalstatus}",
                                 edit: basicInformation2,
+                                dropDown: basicInformation2,
                                 controller: marital,
+                                items: const [
+                                  "Never Married",
+                                  "Awaiting Divorce",
+                                  "Divorced",
+                                  "Widowed",
+                                  "Annulled"
+                                ],
+                                onChanged: (value) {
+                                  log("Value $value");
+                                  setState(() {
+                                    marital.text = value;
+                                  });
+                                },
                               ),
                               ColumnText(
                                 text: 'Drinking Habits',
                                 value: "${user.drinkh}",
                                 edit: basicInformation2,
+                                dropDown: basicInformation2,
                                 controller: drink,
+                                items: const ['Yes', 'No', 'Occasionally'],
+                                onChanged: (value) {
+                                  log("Value $value");
+                                  setState(() {
+                                    drink.text = value;
+                                  });
+                                },
                               ),
                               ColumnText(
                                 text: 'Smoking Habits',
                                 value: "${user.smokha}",
                                 edit: basicInformation2,
+                                dropDown: basicInformation2,
                                 controller: smoke,
+                                items: const ['Yes', 'No', 'Occasionally'],
+                                onChanged: (value) {
+                                  log("Value $value");
+                                  setState(() {
+                                    drink.text = value;
+                                  });
+                                },
                               ),
                               ColumnText(
                                 text: 'Education',
                                 value: "${user.education}",
                                 edit: basicInformation2,
+                                dropDown: basicInformation2,
                                 controller: education,
+                                api: true,
+                                items: educations,
+                                onChanged: (value) {
+                                  log("Value $value");
+                                  setState(() {
+                                    education.text = value;
+                                  });
+                                },
                               ),
                               ColumnText(
                                 text: 'Mother Tongue',

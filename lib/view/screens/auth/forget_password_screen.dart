@@ -1,6 +1,5 @@
 import 'dart:developer';
-
-import 'package:app/helper/common-function.dart';
+import 'package:app/helper/common_function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   final TextEditingController mobile = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, [bool mounted = true]) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.basicColor,
@@ -54,6 +53,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                     await Provider.of<AuthProvider>(context, listen: false)
                         .otpSend("", mobile.text);
                 log("Response $response");
+                if (!mounted) return;
+
                 CommonFunctions.showFailedToast(response['msg'], context);
               },
             ),

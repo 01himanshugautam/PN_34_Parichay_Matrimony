@@ -1,5 +1,5 @@
 import 'package:app/data/models/user.model.dart';
-import 'package:app/helper/common-function.dart';
+import 'package:app/helper/common_function.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/screens/profile/profile_view_screen.dart';
 import 'package:flutter/material.dart';
@@ -102,8 +102,10 @@ class _SearchResultState extends State<SearchResult> {
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        widget.data[index]['image'] == ''
-                                            ? 'https://parichaymatrimony.com/public/${widget.data[index]['image']}'
+                                        widget.data[index]['image'] != "" ||
+                                                widget.data[index]['image'] !=
+                                                    null
+                                            ? widget.data[index]['image']
                                             : 'https://iidamidamerica.org/wp-content/uploads/2020/12/male-placeholder-image.jpeg',
                                       ),
                                       fit: BoxFit.cover,

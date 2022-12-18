@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
@@ -21,58 +19,68 @@ class ByIdSearch extends StatefulWidget {
 class _ByIdSearchState extends State<ByIdSearch> {
   final TextEditingController id = TextEditingController();
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 80.h,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Search By ID",
-                style: TextStyle(
-                  fontSize: 2.h,
-                  color: AppColors.blackColor,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              CustomTextField(
-                width: 90.w,
-                controller: id,
-                hintText: 'Profile ID',
-                hintColor: AppColors.blackColor,
-                isPadding: false,
-                borderColor: AppColors.blackColor,
-              ),
-            ],
-          ),
-          CustomButton(
-            width: 90.w,
-            height: 6.h,
-            text: 'Search',
-            fontSize: 3.h,
-            color: AppColors.primaryColor,
-            textColor: AppColors.whiteColor,
-            onPressed: () async {
-              var response =
-                  await Provider.of<SearchProvider>(context, listen: false)
-                      .filterById(id.text);
-              log("Response  ${response['profile']['data']}");
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchResult(
-                    title: "Search",
-                    data: response['profile']['data'],
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: 80.h,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Search By ID",
+                  style: TextStyle(
+                    fontSize: 2.h,
+                    color: AppColors.blackColor,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
-              );
-            },
-          ),
-        ],
+                CustomTextField(
+                  width: 90.w,
+                  controller: id,
+                  hintText: 'Profile ID',
+                  hintColor: AppColors.blackColor,
+                  isPadding: false,
+                  borderColor: AppColors.blackColor,
+                ),
+              ],
+            ),
+            CustomButton(
+              width: 90.w,
+              height: 6.h,
+              text: 'Search',
+              isLoading: isLoading,
+              fontSize: 3.h,
+              color: AppColors.primaryColor,
+              textColor: AppColors.whiteColor,
+              onPressed: () async {
+                setState(() {
+                  isLoading = true;
+                });
+                var response =
+                    await Provider.of<SearchProvider>(context, listen: false)
+                        .filterById(id.text);
+                setState(() {
+                  isLoading = false;
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchResult(
+                      title: "Search",
+                      data: response['profile'][0]['data'],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

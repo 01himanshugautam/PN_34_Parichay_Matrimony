@@ -10,4 +10,16 @@ class MatchProvider with ChangeNotifier {
     notifyListeners();
     return response;
   }
+
+  userInterested(String userId) async {
+    var response = await machRepository.userInterested(userId);
+    notifyListeners();
+    return response;
+  }
+
+  userShortlisted(String userId) async {
+    var response = await machRepository.userShortlisted(userId);
+    notifyListeners();
+    return response;
+  }
 }

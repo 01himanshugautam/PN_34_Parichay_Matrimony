@@ -43,7 +43,7 @@ class _AdvanceSearchState extends State<AdvanceSearch> {
       education,
       job;
 
-  bool isMale = true;
+  bool isMale = true, isLoading = false;
   List countries = [
     {"id": "101", "name": "India"},
   ];
@@ -485,10 +485,14 @@ class _AdvanceSearchState extends State<AdvanceSearch> {
             width: 90.w,
             height: 6.h,
             text: 'Search',
+            isLoading: isLoading,
             fontSize: 3.h,
             color: AppColors.primaryColor,
             textColor: AppColors.whiteColor,
             onPressed: () async {
+              setState(() {
+                isLoading = true;
+              });
               var data = {
                 'lookingfor': isMale ? "male" : "female",
                 'minage': minAge ?? '',
@@ -516,12 +520,15 @@ class _AdvanceSearchState extends State<AdvanceSearch> {
                   await Provider.of<SearchProvider>(context, listen: false)
                       .filter(data);
               log("Filter Response $response");
+              setState(() {
+                isLoading = false;
+              });
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SearchResult(
                     title: "Search",
-                    data: response['success'][0]['data'],
+                    data: response['success'][0][0]['data'],
                   ),
                 ),
               );

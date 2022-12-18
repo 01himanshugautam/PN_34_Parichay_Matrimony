@@ -30,6 +30,12 @@ class AuthProvider with ChangeNotifier {
     return response;
   }
 
+  changePassword(userId, password) async {
+    var response = await authRepository.changePassword(userId, password);
+    notifyListeners();
+    return response;
+  }
+
   education(data) async {
     var response = await authRepository.education(data);
     notifyListeners();

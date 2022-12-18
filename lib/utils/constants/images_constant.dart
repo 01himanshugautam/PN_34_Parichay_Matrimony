@@ -25,8 +25,13 @@ class Images {
   static const String view = "assets/images/view.png";
   static const String preview = "assets/images/preview.png";
   static const String logout = "assets/images/logout.png";
+  static const String plan = "assets/images/clipboard.png";
+  static const String premium = "assets/images/premium.png";
 
   static const String background = "assets/images/image1.png";
   static const String background2 = "assets/images/image2.png";
   static const String background3 = "assets/images/image3.png";
+
+  static const String bandDetails = "assets/images/bank_details.jpeg";
+  static const String upiQr = "assets/images/qr_code.jpeg";
 }

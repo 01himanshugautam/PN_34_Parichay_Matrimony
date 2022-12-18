@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'dart:developer';
 import 'package:app/data/models/user.model.dart';
 import 'package:app/provider/match_provider.dart';
 import 'package:app/provider/success_story_provider.dart';
@@ -11,8 +10,10 @@ import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/screens/contact/contact_screen.dart';
 import 'package:app/view/screens/dashboard/widgets/custom_list_tile_widget.dart';
 import 'package:app/view/screens/membership_plan/membership_plan_screen.dart';
+import 'package:app/view/screens/plan/active_plan_screen.dart';
 import 'package:app/view/screens/search/search_result.dart';
 import 'package:app/view/screens/search/search_screen.dart';
+import 'package:app/view/screens/settings/settings_screen.dart';
 import 'package:app/view/screens/story_success/success_story_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getUser();
   }
@@ -53,7 +53,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
       children: <Widget>[
         Container(
           height: 20.h,
-          // width: 70.w,
           padding: EdgeInsets.only(top: 3.h, left: 5.w),
           color: AppColors.primaryColor,
           child: Row(
@@ -123,13 +122,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
             var response =
                 await Provider.of<MatchProvider>(context, listen: false)
                     .userMatches('${user.id}');
-            log("Response ${response['0']['profile']['data'].length}");
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => SearchResult(
                   title: "Matches",
-                  data: response['0']['profile']['data'],
+                  data: response['0']['profile'][0]['data'],
                 ),
               ),
             );
@@ -140,50 +138,91 @@ class _HomeDrawerState extends State<HomeDrawer> {
           title: 'Shortlisted',
           image: Images.star,
           onTap: () async {
+            // var response =
+            //     await Provider.of<MatchProvider>(context, listen: false)
+            //         .userShortlisted('${user.id}');
             var response =
                 await Provider.of<MatchProvider>(context, listen: false)
                     .userMatches('${user.id}');
-            log("Response ${response['0']['profile']['data'].length}");
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => SearchResult(
                   title: "Shortlist",
-                  data: response['0']['profile']['data'],
+                  data: response['0']['profile'][0]['data'],
                 ),
               ),
             );
           },
         ),
         CustomListTile(
-          title: 'Profile Visitors',
+          title: 'Interested',
           image: Images.view,
-          onTap: () {},
+          onTap: () async {
+            // var response =
+            //     await Provider.of<MatchProvider>(context, listen: false)
+            //         .userInterested('${user.id}');
+            var response =
+                await Provider.of<MatchProvider>(context, listen: false)
+                    .userMatches('${user.id}');
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchResult(
+                  title: "Shortlist",
+                  data: response['0']['profile'][0]['data'],
+                ),
+              ),
+            );
+          },
         ),
         CustomListTile(
-            title: 'Success Stories',
-            image: Images.success,
-            onTap: () async {
-              var response =
-                  await Provider.of<SuccessProvider>(context, listen: false)
-                      .successStory();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      SuccessStoryScreen(data: response['data']),
-                ),
-              );
-            }),
-        // CustomListTile(
-        //   title: 'Inbox',
-        //   image: Images.inbox,
-        //   onTap: () {},
-        // ),
+          title: 'Success Stories',
+          image: Images.success,
+          onTap: () async {
+            var response =
+                await Provider.of<SuccessProvider>(context, listen: false)
+                    .successStory();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    SuccessStoryScreen(data: response['data']),
+              ),
+            );
+          },
+        ),
+        CustomListTile(
+          title: 'Active Plan',
+          image: Images.plan,
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => ActivePlanScreen(
+                    userId: user.id.toString(),
+                  )),
+            ),
+          ),
+        ),
         CustomListTile(
           title: 'Settings',
           image: Images.settings,
-          onTap: () {},
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SettingScreen()),
+          ),
+        ),
+
+        CustomListTile(
+          title: 'Upgrade Plan',
+          image: Images.premium,
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => const MembershipScreen()),
+            ),
+          ),
         ),
         CustomListTile(
           title: 'Help & Support',
@@ -191,16 +230,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const ContactScreen()),
-          ),
-        ),
-        CustomListTile(
-          title: 'Upgrade Plan',
-          image: Images.settings,
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: ((context) => const MembershipScreen()),
-            ),
           ),
         ),
         CustomListTile(

@@ -32,7 +32,7 @@ class _BasicSearchState extends State<BasicSearch> {
       country,
       state,
       city;
-  bool isMale = true;
+  bool isMale = true, isLoading = false;
 
   List countries = [
     {"id": "101", "name": ""},
@@ -333,9 +333,13 @@ class _BasicSearchState extends State<BasicSearch> {
             height: 6.h,
             text: 'Search',
             fontSize: 3.h,
+            isLoading: isLoading,
             color: AppColors.primaryColor,
             textColor: AppColors.whiteColor,
             onPressed: () async {
+              setState(() {
+                isLoading = true;
+              });
               var data = {
                 'lookingfor': isMale ? "male" : "female",
                 'minage': minAge ?? '',
@@ -354,12 +358,15 @@ class _BasicSearchState extends State<BasicSearch> {
                   await Provider.of<SearchProvider>(context, listen: false)
                       .filter(data);
               debugPrint("Response ${response['success'][0][0]}");
+              setState(() {
+                isLoading = false;
+              });
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SearchResult(
                     title: "Search",
-                    data: response['success'][0]['data'],
+                    data: response['success'][0][0]['data'],
                   ),
                 ),
               );

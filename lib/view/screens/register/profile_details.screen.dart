@@ -381,9 +381,10 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => EducationProfessionScreen(
-                          userId: widget.userId,
-                        )),
+                  builder: (context) => EducationProfessionScreen(
+                    userId: widget.userId,
+                  ),
+                ),
               ),
             ),
           ],

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:app/data/models/user.model.dart';
-import 'package:app/helper/common-function.dart';
+import 'package:app/helper/common_function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/auth/forget_password_screen.dart';

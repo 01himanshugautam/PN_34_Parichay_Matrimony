@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +14,24 @@ class ColumnText extends StatelessWidget {
     this.controller,
     this.edit = false,
     this.dropDown = false,
+    this.api = false,
+    this.id = false,
+    this.items = const [],
   }) : super(key: key);
 
   final String text;
   final dynamic value;
-  final bool edit, dropDown;
+  final bool edit, dropDown, api, id;
   final Function(dynamic)? onChanged;
+  final List items;
   TextEditingController? controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    if (edit && !dropDown && controller!.text == 'null') {
+      // log("message ${controller!.text}");
+      log("Hello ${controller!.text}");
+      // controller!.clear();
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -33,23 +44,31 @@ class ColumnText extends StatelessWidget {
           ),
         ),
         edit
-            ? (dropDown != true
+            ? (!dropDown
                 ? SizedBox(
-                    height: 2.h,
+                    height: 3.h,
                     child: TextField(
                       style: TextStyle(
-                          fontSize: 1.6.h,
-                          color: AppColors.blackColor.withOpacity(.8)),
+                        fontSize: 1.6.h,
+                        color: AppColors.blackColor.withOpacity(.8),
+                      ),
                       controller: controller,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
-                    ))
+                    ),
+                  )
                 : CustomDropDown(
-                    items: const ["Slim", "Average", "Athletic", "Heavy"],
-                    value: value,
+                    items: items,
+                    value: controller!.text != 'null'
+                        ? controller!.text
+                        : api
+                            ? items[0]['name']
+                            : items[0],
                     color: AppColors.blackColor,
                     onChanged: onChanged,
+                    api: api,
+                    id: id,
                     isPadding: false,
                   ))
             : Text(

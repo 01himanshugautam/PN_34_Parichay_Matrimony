@@ -2,10 +2,9 @@
 
 import 'dart:developer';
 
-import 'package:app/helper/common-function.dart';
+import 'package:app/helper/common_function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
-import 'package:app/view/screens/register/profile_details.screen.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -226,25 +225,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     "birth_month": dateArray[1],
                     "birth_year": dateArray[2]
                   };
-                  log("Data $data");
                   var response =
                       await Provider.of<AuthProvider>(context, listen: false)
                           .register(data);
-                  log("response $response");
+                  log(response.toString());
                   log("${response['data']['userid']}");
                   if (response['success'] == true) {
                     setState(() {
                       isLoading = false;
                     });
-                    log("True");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProfileDetailScreen(
-                          userId: "${response['data']['userid']}",
-                        ),
-                      ),
-                    );
+
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => ProfileDetailScreen(
+                    //       userId: "${response['data']['userid']}",
+                    //     ),
+                    //   ),
+                    // );
                     CommonFunctions.showSuccessToast(
                         "Profile Successfully Created.", context);
                   } else {

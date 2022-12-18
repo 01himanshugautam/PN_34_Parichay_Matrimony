@@ -68,7 +68,7 @@ class CustomCard extends StatelessWidget {
               ),
               SizedBox(height: 1.h),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(

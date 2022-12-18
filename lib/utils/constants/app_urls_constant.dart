@@ -12,7 +12,11 @@ class AppUrls {
   static const String imageUpload = "${baseUrl}appphotos";
   static const String otpSend = "${baseUrl}appresend";
 
+  static const String changePassword = "${baseUrl}appchangepassword";
+
   static const String userMatches = "${baseUrl}appmatches";
+  static const String userInterest = "${baseUrl}appinterst";
+  static const String userShortlist = "${baseUrl}appshortlist";
   static const String successStories = "${baseUrl}appsuccessstories";
 
   static const String filter = "${baseUrl}appfilter";

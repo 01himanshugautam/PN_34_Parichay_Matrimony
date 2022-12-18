@@ -1,7 +1,8 @@
 import 'dart:convert';
-
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:app/utils/constants/app_urls_constant.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRepository {
@@ -28,9 +29,25 @@ class AuthRepository {
 
   register(body) async {
     try {
+      // var data = FormData.fromMap(body).toString();
+      FormData data = FormData.fromMap(body);
+      log(FormData.fromMap(body).toString());
       var response = await http.post(Uri.parse(AppUrls.register), body: body);
       return jsonDecode(response.body);
     } catch (e) {
+      debugPrint(e.toString());
+      return e;
+    }
+  }
+
+  changePassword(String userId, String password) async {
+    try {
+      log(AppUrls.changePassword);
+      var response = await http.post(Uri.parse(AppUrls.changePassword),
+          body: {'user_id': userId, 'password': password});
+      return response.body;
+    } catch (e) {
+      log(e.toString());
       return e;
     }
   }

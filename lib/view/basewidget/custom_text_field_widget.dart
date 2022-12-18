@@ -62,7 +62,7 @@ class CustomTextField extends StatelessWidget {
           ),
           decoration: InputDecoration(
             prefixIcon: icon,
-            contentPadding: EdgeInsets.zero,
+            contentPadding: const EdgeInsets.only(left: 10),
             filled: true,
             fillColor: backgroundColor ?? Colors.transparent,
             hintText: hintText,

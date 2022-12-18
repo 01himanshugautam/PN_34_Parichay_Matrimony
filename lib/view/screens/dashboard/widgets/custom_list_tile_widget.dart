@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class CustomListTile extends StatelessWidget {
   final String title;
   final String image;
+  final bool isLoading;
   final bool trailing;
   final Function() onTap;
   const CustomListTile({
@@ -12,6 +13,7 @@ class CustomListTile extends StatelessWidget {
     required this.title,
     required this.image,
     this.trailing = false,
+    this.isLoading = false,
     required this.onTap,
   }) : super(key: key);
 
@@ -40,12 +42,23 @@ class CustomListTile extends StatelessWidget {
                 ),
               ],
             ),
-            trailing
-                ? Icon(
-                    Icons.add,
-                    color: AppColors.blackColor,
+            isLoading
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    ],
                   )
-                : Container(),
+                : trailing
+                    ? Icon(
+                        Icons.add,
+                        color: AppColors.blackColor,
+                      )
+                    : Container(),
           ],
         ),
       ),
