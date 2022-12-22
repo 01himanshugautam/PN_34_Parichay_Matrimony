@@ -24,8 +24,8 @@ class AuthProvider with ChangeNotifier {
     return response;
   }
 
-  register(data) async {
-    var response = await authRepository.register(data);
+  register(body) async {
+    var response = await authRepository.register(body);
     notifyListeners();
     return response;
   }

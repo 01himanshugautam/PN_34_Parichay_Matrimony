@@ -29,9 +29,6 @@ class AuthRepository {
 
   register(body) async {
     try {
-      // var data = FormData.fromMap(body).toString();
-      FormData data = FormData.fromMap(body);
-      log(FormData.fromMap(body).toString());
       var response = await http.post(Uri.parse(AppUrls.register), body: body);
       return jsonDecode(response.body);
     } catch (e) {

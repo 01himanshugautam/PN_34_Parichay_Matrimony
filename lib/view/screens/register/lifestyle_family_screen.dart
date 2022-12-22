@@ -367,7 +367,7 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
               onPressed: () async {
                 Map<String, dynamic> data = {
                   'user_id': widget.userId,
-                  'familytype': fType,
+                  // 'familytype': fType,
                   'fatheroccupation': fOccupation,
                   'motheroccupation': mOccupation,
                   'familystatus': fStatus,
@@ -391,6 +391,7 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                   'physical_type': "",
                   'otp': widget.otp
                 };
+                log(data.toString());
                 var response =
                     await Provider.of<AuthProvider>(context, listen: false)
                         .lifeStyle(data);

@@ -58,11 +58,17 @@ class CustomCard extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: onEdit,
-                    child: Icon(
-                      isEdit ? Icons.done : Icons.edit,
-                      color: AppColors.blackColor,
-                      size: 3.5.h,
-                    ),
+                    child: isEdit
+                        ? Icon(
+                            Icons.done,
+                            color: AppColors.primaryColor,
+                            size: 3.5.h,
+                          )
+                        : Icon(
+                            Icons.edit,
+                            color: AppColors.blackColor,
+                            size: 3.5.h,
+                          ),
                   ),
                 ],
               ),

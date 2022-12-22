@@ -49,7 +49,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
           rightChildren: [
             ColumnText(
               text: 'Date of Birth',
-              value: "${widget.user.dOB}",
+              value: "${widget.user.dob}",
             ),
             ColumnText(
               text: 'Height',

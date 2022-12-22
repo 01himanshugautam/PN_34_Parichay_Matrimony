@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -502,12 +504,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     var data = {
                                       "user_id": user.id,
                                       'name': name.text,
+                                      'dob': dob.text,
+                                      'gender': gender.text,
                                       'diet': diet.text,
                                       'drinking_habit': drink.text,
                                       'smoking_habit': smoke.text,
                                       'body_type': body.text,
                                       'height': height.text,
-                                      'age': age.text,
                                       "complexion": complexion.text,
                                       "drink": drink.text,
                                       "smoke": smoke.text,
@@ -519,8 +522,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                 listen: false)
                                             .update(data);
                                     log("Save Data: $data");
-                                    log("Response: ${response['data']['userid']}");
-                                    await getUser(response['data']['userid']);
+                                    log("Response: $response");
+
+                                    // await getUser(response['data']['userid']);
+                                    if (response['success'] == true) {
+                                      CommonFunctions.showSuccessToast(
+                                          "Profile Update Successfully",
+                                          context);
+                                    }
                                     setState(() {
                                       basicInformation = false;
                                     });
@@ -535,7 +544,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         user.complexion.toString();
                                     physical.text =
                                         user.physicalstatus.toString();
-                                    dob.text = user.dOB.toString();
+                                    dob.text = user.dob.toString();
                                     height.text = user.height.toString();
                                     diet.text = user.diet.toString();
                                     drink.text = user.drinkh.toString();
@@ -556,7 +565,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   ),
                                   ColumnText(
                                     text: 'Gender',
-                                    value: "${user.gender}",
+                                    value: user.gender.toString(),
                                     edit: basicInformation,
                                     dropDown: basicInformation,
                                     controller: gender,
@@ -649,7 +658,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 rightChildren: [
                                   ColumnText(
                                     text: 'Date of Birth',
-                                    value: "${user.dOB}",
+                                    value: "${user.dob}",
                                     edit: basicInformation,
                                     controller: dob,
                                   ),

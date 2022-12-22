@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:app/helper/common_function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
+import 'package:app/view/screens/register/profile_details.screen.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -202,6 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               fontSize: 3.h,
               color: AppColors.primaryColor,
               textColor: AppColors.whiteColor,
+              isLoading: isLoading,
               onPressed: () async {
                 if (name.text.isNotEmpty &&
                     email.text.isNotEmpty &&
@@ -221,28 +223,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     "profile_for": profileFor,
                     "phone": phone.text,
                     "gender": _gender,
-                    "birth_date": dateArray[0],
-                    "birth_month": dateArray[1],
-                    "birth_year": dateArray[2]
+                    "birth_date": dateArray[2].toString(),
+                    "birth_month": dateArray[1].toString(),
+                    "birth_year": dateArray[0].toString()
                   };
+                  log("Register Data: $data");
                   var response =
                       await Provider.of<AuthProvider>(context, listen: false)
                           .register(data);
-                  log(response.toString());
-                  log("${response['data']['userid']}");
                   if (response['success'] == true) {
                     setState(() {
                       isLoading = false;
                     });
-
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => ProfileDetailScreen(
-                    //       userId: "${response['data']['userid']}",
-                    //     ),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileDetailScreen(
+                          userId: "${response['data']['userid']}",
+                        ),
+                      ),
+                    );
                     CommonFunctions.showSuccessToast(
                         "Profile Successfully Created.", context);
                   } else {

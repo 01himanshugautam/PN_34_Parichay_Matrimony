@@ -74,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
             fit: BoxFit.fill,
           ),
         ),
+        padding: const EdgeInsets.only(bottom: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -132,8 +133,10 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Text(
                   "New to Parichay password?",
-                  style:
-                      TextStyle(fontWeight: FontWeight.normal, fontSize: 2.h),
+                  style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 2.h,
+                      color: AppColors.whiteColor),
                 ),
                 CustomButton(
                   text: "Register now!",

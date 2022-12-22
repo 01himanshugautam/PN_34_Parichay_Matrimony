@@ -1,6 +1,6 @@
 class Users {
   String? id;
-  String? dOB;
+  String? dob;
   String? name;
   String? gender;
   String? height;
@@ -161,7 +161,7 @@ class Users {
 
   Users({
     this.id,
-    this.dOB,
+    this.dob,
     this.name,
     this.gender,
     this.height,
@@ -323,7 +323,7 @@ class Users {
 
   Users.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'].toString();
-    dOB = json['DOB'];
+    dob = json['DOB'];
     name = json['name'];
     gender = json['gender'];
     height = json['height'];
@@ -486,7 +486,7 @@ class Users {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['DOB'] = dOB;
+    data['DOB'] = dob;
     data['name'] = name;
     data['gender'] = gender;
     data['height'] = height;
