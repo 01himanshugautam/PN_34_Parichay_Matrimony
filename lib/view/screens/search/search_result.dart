@@ -102,11 +102,10 @@ class _SearchResultState extends State<SearchResult> {
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        widget.data[index]['image'] != "" ||
-                                                widget.data[index]['image'] !=
-                                                    null
-                                            ? widget.data[index]['image']
-                                            : 'https://iidamidamerica.org/wp-content/uploads/2020/12/male-placeholder-image.jpeg',
+                                        ((widget.data[index]['image'] != ""
+                                                ? widget.data[index]['image']
+                                                : 'https://iidamidamerica.org/wp-content/uploads/2020/12/male-placeholder-image.jpeg') ??
+                                            'https://iidamidamerica.org/wp-content/uploads/2020/12/male-placeholder-image.jpeg'),
                                       ),
                                       fit: BoxFit.cover,
                                     ),

@@ -2,12 +2,14 @@ import 'package:app/provider/auth_provider.dart';
 import 'package:app/provider/match_provider.dart';
 import 'package:app/provider/search_provider.dart';
 import 'package:app/provider/success_story_provider.dart';
+import 'package:app/provider/user_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/screens/auth/auth_screen.dart';
 import 'package:app/view/screens/auth/login_screen.dart';
 import 'package:app/view/screens/auth/sign_up_screen.dart';
 import 'package:app/view/screens/dashboard/dashboard_screen.dart';
 import 'package:app/view/screens/search/search_screen.dart';
+import 'package:app/view/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -46,6 +48,9 @@ class _AppState extends State<App> {
               create: (context) => AuthProvider(),
             ),
             ChangeNotifierProvider(
+              create: (context) => UserProvider(),
+            ),
+            ChangeNotifierProvider(
               create: (context) => SearchProvider(),
             ),
             ChangeNotifierProvider(
@@ -61,8 +66,7 @@ class _AppState extends State<App> {
             theme: ThemeData(
               unselectedWidgetColor: AppColors.whiteColor,
             ),
-            home:
-                isLogin == true ? const DashboardScreen() : const AuthScreen(),
+            home: const SplashScreen(),
             routes: {
               "/home": (context) => const DashboardScreen(),
               "/login": (context) => const LoginScreen(),

@@ -60,6 +60,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               CircleAvatar(
                 radius: 5.h,
                 backgroundColor: AppColors.basicColor,
+                backgroundImage: NetworkImage(user.image.toString()),
               ),
               SizedBox(width: 4.w),
               Column(

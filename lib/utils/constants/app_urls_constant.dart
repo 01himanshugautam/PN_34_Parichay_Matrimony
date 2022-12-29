@@ -13,6 +13,9 @@ class AppUrls {
   static const String otpSend = "${baseUrl}appresend";
 
   static const String changePassword = "${baseUrl}appchangepassword";
+  static const String images = "${baseUrl}appuseralbum";
+  static const String deleteImage = "${baseUrl}appdeletealbumimg";
+  static const String setProfileImage = "${baseUrl}appdefaultimg";
 
   static const String userMatches = "${baseUrl}appmatches";
   static const String userInterest = "${baseUrl}appinterst";

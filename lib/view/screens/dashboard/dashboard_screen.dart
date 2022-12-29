@@ -2,13 +2,12 @@
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:app/data/models/user.model.dart';
 import 'package:app/helper/common_function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/provider/search_provider.dart';
+import 'package:app/provider/user_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
-import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/screens/dashboard/drawer.dart';
 import 'package:app/view/screens/dashboard/widgets/column_text.dart';
 import 'package:app/view/screens/dashboard/widgets/custom_card.dart';
@@ -85,6 +84,12 @@ class _DashboardScreenState extends State<DashboardScreen>
   TextEditingController email = TextEditingController();
   TextEditingController phone = TextEditingController();
 
+  final ImagePicker imagePicker = ImagePicker();
+  List<XFile> imageFileList = [];
+
+  List userImages = [];
+  String active = '';
+
   List countries = [
     {"id": "101", "name": ""},
   ];
@@ -121,6 +126,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     profile();
+    getUserImages();
     super.initState();
   }
 
@@ -257,6 +263,28 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
   }
 
+  getUserImages() async {
+    var userImages = await Provider.of<UserProvider>(context, listen: false)
+        .userImages(user.id.toString());
+    setState(() {
+      this.userImages = userImages['data'];
+    });
+    log("User Images ${this.userImages}");
+  }
+
+  void selectImages() async {
+    final List<XFile> selectedImages = await imagePicker.pickMultiImage();
+    if (selectedImages.isNotEmpty) {
+      imageFileList.addAll(selectedImages);
+      var response = await Provider.of<AuthProvider>(context, listen: false)
+          .imageUpload(user.id.toString(), imageFileList);
+      log("Image Upload $response");
+      CommonFunctions.showSuccessToast(response['message'], context);
+      getUserImages();
+    }
+    setState(() {});
+  }
+
   final ScrollController _scrollController = ScrollController();
   bool profileEdit = false,
       basicInformation = false,
@@ -267,19 +295,6 @@ class _DashboardScreenState extends State<DashboardScreen>
       location = false,
       astrology = false,
       contactInfo = false;
-  String? _image;
-
-  final ImagePicker imagePicker = ImagePicker();
-  List<XFile>? imageFileList = [];
-
-  void selectImages() async {
-    final List<XFile> selectedImages = await imagePicker.pickMultiImage();
-    if (selectedImages.isNotEmpty) {
-      imageFileList!.addAll(selectedImages);
-    }
-    print("Image List Length:${imageFileList!.length}");
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -346,7 +361,14 @@ class _DashboardScreenState extends State<DashboardScreen>
           Container(
             height: 35.h,
             padding: EdgeInsets.only(top: 3.h, left: 5.w, right: 5.w),
-            color: AppColors.backgroundColor2,
+            decoration: BoxDecoration(
+              color: AppColors.backgroundColor2,
+              image: DecorationImage(
+                image: NetworkImage(user.image.toString()),
+                fit: BoxFit.fill,
+                opacity: .2,
+              ),
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -362,6 +384,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                           CircleAvatar(
                             radius: 5.h,
                             backgroundColor: AppColors.basicColor,
+                            backgroundImage:
+                                NetworkImage(user.image.toString()),
                           ),
                           SizedBox(width: 4.w),
                           Column(
@@ -370,7 +394,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                               SizedBox(
                                 width: 55.w,
                                 child: Text(
-                                  "${user.name}",
+                                  user.id.toString(),
                                   maxLines: 1,
                                   overflow: TextOverflow.clip,
                                   style: TextStyle(
@@ -1619,56 +1643,128 @@ class _DashboardScreenState extends State<DashboardScreen>
                 )
               // : selectIndex == 1
               //     ? const Text("Message")
-              : Container(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 40.h,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GridView.builder(
-                              itemCount: imageFileList!.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 4),
-                              itemBuilder: (BuildContext context, int index) {
-                                return Image.file(
-                                  File(imageFileList![index].path),
-                                  fit: BoxFit.cover,
-                                );
-                              }),
-                        ),
-                      ),
-                      CustomButton(
-                        text: "Select Images",
-                        radius: 10,
-                        width: 30.w,
-                        onPressed: selectImages,
-                      ),
-                      CustomButton(
-                        text: "Upload",
-                        color: AppColors.primaryColor,
-                        radius: 10,
-                        textColor: AppColors.whiteColor,
-                        width: 30.w,
-                        onPressed: () async {
-                          var response = await Provider.of<AuthProvider>(
-                                  context,
-                                  listen: false)
-                              .imageUpload("${user.id}", imageFileList);
-                          CommonFunctions.showSuccessToast(
-                              response['message'], context);
-                          log("Response $response");
-                          if (response['success'] == true) {
-                            setState(() {
-                              imageFileList = [];
-                            });
-                          }
-                        },
-                      )
-                    ],
-                  ),
-                ),
+              : Column(
+                  children: [
+                    SizedBox(
+                      height: 40.h,
+                      child: GridView.builder(
+                          itemCount: userImages.length + 1,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 5),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    active = index.toString();
+                                  });
+                                },
+                                child: Column(
+                                  children: [
+                                    userImages.length > index
+                                        ? Stack(
+                                            children: [
+                                              Image.network(
+                                                userImages[index]['image'],
+                                                fit: BoxFit.fill,
+                                                height: 13.h,
+                                                width: 30.w,
+                                              ),
+                                              active == index.toString()
+                                                  ? Positioned(
+                                                      bottom: 10,
+                                                      width: 30.w,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          GestureDetector(
+                                                            onTap: () async {
+                                                              log("Set Profile");
+
+                                                              var response = await Provider.of<
+                                                                          UserProvider>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .setProfileImage(
+                                                                      user.id
+                                                                          .toString(),
+                                                                      userImages[
+                                                                              index]
+                                                                          [
+                                                                          'id']);
+                                                              CommonFunctions
+                                                                  .showSuccessToast(
+                                                                      response[
+                                                                          'message'],
+                                                                      context);
+                                                              getUserImages();
+                                                              profile();
+
+                                                              log("Response: $response");
+                                                              // log(response);
+                                                            },
+                                                            child: Icon(
+                                                              Icons.done,
+                                                              color: AppColors
+                                                                  .greenColor,
+                                                              size: 4.h,
+                                                            ),
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () async {
+                                                              log("Delete Photo");
+                                                              var response = await Provider.of<
+                                                                          UserProvider>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .deleteImage(
+                                                                      userImages[
+                                                                              index]
+                                                                          [
+                                                                          'id']);
+                                                              CommonFunctions
+                                                                  .showSuccessToast(
+                                                                      "Photo detected successfully",
+                                                                      context);
+                                                              getUserImages();
+                                                              log("Response: $response");
+                                                            },
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              color: AppColors
+                                                                  .primaryColor,
+                                                              size: 4.h,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  : Container(),
+                                            ],
+                                          )
+                                        : GestureDetector(
+                                            onTap: selectImages,
+                                            child: Icon(
+                                              Icons.add_a_photo,
+                                              size: 1.5.h * 1.5.w,
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
+                )
         ],
       ),
     );
