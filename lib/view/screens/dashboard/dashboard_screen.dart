@@ -11,7 +11,7 @@ import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/dashboard/drawer.dart';
 import 'package:app/view/screens/dashboard/widgets/column_text.dart';
 import 'package:app/view/screens/dashboard/widgets/custom_card.dart';
-import 'package:app/view/screens/search/search_result.dart';
+import 'package:app/view/screens/search/search_result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,6 +36,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   TextEditingController name = TextEditingController();
   TextEditingController gender = TextEditingController();
   TextEditingController age = TextEditingController();
+  TextEditingController employeeIn = TextEditingController();
   TextEditingController marital = TextEditingController();
   TextEditingController complexion = TextEditingController();
   TextEditingController physical = TextEditingController();
@@ -122,6 +123,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   List incomes = [
     {"id": "1", "name": ""},
   ];
+
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
@@ -161,6 +163,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   getHeight() async {
     var heights =
         await Provider.of<SearchProvider>(context, listen: false).height();
+    log("heights ${this.heights}");
     setState(() {
       this.heights = heights['data'];
     });
@@ -301,6 +304,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.basicColor,
+        elevation: 0,
         actions: [
           Center(
             child: SizedBox(
@@ -343,7 +347,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                     context,
                     MaterialPageRoute(
                       builder: (context) => SearchResult(
-                        title: "Search",
                         data: response['profile']['data'],
                       ),
                     ),
@@ -392,9 +395,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: 55.w,
+                                width: 60.w,
                                 child: Text(
-                                  user.id.toString(),
+                                  user.name.toString(),
                                   maxLines: 1,
                                   overflow: TextOverflow.clip,
                                   style: TextStyle(
@@ -443,6 +446,31 @@ class _DashboardScreenState extends State<DashboardScreen>
                       //   ),
                       // ),
                     ],
+                  ),
+                ),
+                // SizedBox(height: 1.h),
+                Container(
+                  // height: 10.h,
+                  width: 100.w,
+                  decoration: const BoxDecoration(
+                      // color: AppColors.whiteColor,
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: AppColors.greyColor.withOpacity(.6),
+                      //     blurRadius: 10,
+                      //   )
+                      // ],
+                      ),
+                  padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.h),
+                  child: Text(
+                    user.aboutMe == null ? '' : user.aboutMe.toString(),
+                    maxLines: 5,
+                    overflow: TextOverflow.clip,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontSize: 1.7.h,
+                      color: AppColors.whiteColor.withOpacity(.6),
+                    ),
                   ),
                 ),
                 TabBar(
@@ -528,7 +556,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     var data = {
                                       "user_id": user.id,
                                       'name': name.text,
-                                      'dob': dob.text,
+                                      'dob': dob.text == 'null' ? '' : dob.text,
                                       'gender': gender.text,
                                       'diet': diet.text,
                                       'drinking_habit': drink.text,
@@ -564,12 +592,15 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     age.text = user.age.toString();
                                     marital.text =
                                         user.maritalstatus.toString();
+                                    employeeIn.text =
+                                        user.employeeIn.toString();
                                     complexion.text =
                                         user.complexion.toString();
                                     physical.text =
                                         user.physicalstatus.toString();
                                     dob.text = user.dob.toString();
-                                    height.text = user.height.toString();
+                                    height.text = CommonFunctions()
+                                        .convertHeight(user.height.toString());
                                     diet.text = user.diet.toString();
                                     drink.text = user.drinkh.toString();
                                     smoke.text = user.smokha.toString();
@@ -605,18 +636,23 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     },
                                   ),
                                   ColumnText(
-                                    text: 'Age',
-                                    value: "${user.age}",
+                                    text: 'Employed In',
+                                    value: "${user.employeeIn}",
                                     edit: basicInformation,
                                     dropDown: basicInformation,
-                                    controller: age,
-                                    items: [
-                                      for (var i = 18; i <= 80; i++) "$i"
+                                    controller: employeeIn,
+                                    items: const [
+                                      "Government",
+                                      "Private",
+                                      "Business",
+                                      "Defence",
+                                      "Self Employed",
+                                      "Not Working",
                                     ],
                                     onChanged: (value) {
                                       log("Value $value");
                                       setState(() {
-                                        age.text = value;
+                                        employeeIn.text = value;
                                       });
                                     },
                                   ),
@@ -688,7 +724,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   ),
                                   ColumnText(
                                     text: 'Height',
-                                    value: "${user.height}",
+                                    value: CommonFunctions()
+                                        .convertHeight("${user.height}"),
                                     edit: basicInformation,
                                     dropDown: basicInformation,
                                     controller: height,

@@ -29,12 +29,12 @@ class CustomListTile extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  image,
-                  height: 3.h,
-                  // width: 2.h,
-                  fit: BoxFit.fill,
-                ),
+                // Image.asset(
+                //   image,
+                //   height: 3.h,
+                //   // width: 2.h,
+                //   fit: BoxFit.fill,
+                // ),
                 SizedBox(width: 4.w),
                 Text(
                   title,

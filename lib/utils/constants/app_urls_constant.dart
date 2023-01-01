@@ -18,8 +18,23 @@ class AppUrls {
   static const String setProfileImage = "${baseUrl}appdefaultimg";
 
   static const String userMatches = "${baseUrl}appmatches";
+
   static const String userInterest = "${baseUrl}appinterst";
-  static const String userShortlist = "${baseUrl}appshortlist";
+
+  static const String userInterestReceived =
+      "${baseUrl}appinterstintrestreceived";
+  static const String userInterestSent = "${baseUrl}appinterstintrestsent";
+
+  static const String userShortList = "${baseUrl}appshortlistme";
+  static const String userShortListMe = "${baseUrl}appshortlistbyme";
+
+  static const String userAccepted = "${baseUrl}appinterstintrestiaccepted";
+  static const String userAcceptanceMy =
+      "${baseUrl}appinterstmyintrestaccepted";
+
+  static const String userViewMyContact = "${baseUrl}appinterstviewedmycontact";
+  static const String userViewContact = "${baseUrl}appinterstcontactiviewed";
+
   static const String successStories = "${baseUrl}appsuccessstories";
 
   static const String filter = "${baseUrl}appfilter";

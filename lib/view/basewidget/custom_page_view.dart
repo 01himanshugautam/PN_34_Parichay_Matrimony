@@ -5,22 +5,21 @@ import 'package:app/view/screens/profile/profile_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class SearchResult extends StatefulWidget {
+class CustomPageView extends StatefulWidget {
   final data;
-  final String title;
-  const SearchResult({super.key, required this.data, required this.title});
+  const CustomPageView({super.key, required this.data});
 
   @override
-  State<SearchResult> createState() => _SearchResultState();
+  State<CustomPageView> createState() => _SearchResultState();
 }
 
-class _SearchResultState extends State<SearchResult> {
+class _SearchResultState extends State<CustomPageView> {
   late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
-    // The PageController allows us to instruct the PageView to change pages.
+
     _pageController = PageController();
   }
 
@@ -38,16 +37,6 @@ class _SearchResultState extends State<SearchResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.basicColor,
-        centerTitle: true,
-        title: Text(widget.title),
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      //   backgroundColor: AppColors.basicColor,
-      //   child: const Icon(Icons.search),
-      // ),
       body: widget.data.length == 0
           ? Center(
               child: Text(
@@ -70,16 +59,16 @@ class _SearchResultState extends State<SearchResult> {
               child: PageView.builder(
                 itemCount: widget.data.length,
                 controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   return SizedBox(
-                    height: 100.h,
                     width: 100.w,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: 1.h, horizontal: 1.5.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             decoration: BoxDecoration(
@@ -87,18 +76,18 @@ class _SearchResultState extends State<SearchResult> {
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.basicColor.withOpacity(.3),
-                                  blurRadius: 10,
+                                  color: AppColors.blackColor.withOpacity(.6),
+                                  blurRadius: 15,
                                 ),
                               ],
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: 45.h,
+                                  height: 40.h,
                                   decoration: BoxDecoration(
-                                    // color: AppColors.primaryColor,
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                       image: NetworkImage(

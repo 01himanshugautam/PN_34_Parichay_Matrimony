@@ -61,8 +61,7 @@ class _PhotosWidgetState extends State<PhotosWidget> {
           child: GridView.builder(
               itemCount: userImages.length + 1,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-              ),
+                  crossAxisCount: 3),
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding:

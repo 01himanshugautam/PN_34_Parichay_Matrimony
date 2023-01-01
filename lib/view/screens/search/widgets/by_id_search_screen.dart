@@ -2,7 +2,7 @@ import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
-import 'package:app/view/screens/search/search_result.dart';
+import 'package:app/view/screens/search/search_result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -72,7 +72,6 @@ class _ByIdSearchState extends State<ByIdSearch> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => SearchResult(
-                      title: "Search",
                       data: response['profile'][0]['data'],
                     ),
                   ),

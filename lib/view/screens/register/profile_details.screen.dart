@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:app/provider/auth_provider.dart';
 import 'package:app/provider/search_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/register/eduction_profession_screen.dart';
@@ -16,6 +17,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ProfileDetailScreen extends StatefulWidget {
   String userId;
+
   ProfileDetailScreen({
     Key? key,
     required this.userId,
@@ -27,10 +29,11 @@ class ProfileDetailScreen extends StatefulWidget {
 
 class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
   final TextEditingController _username = TextEditingController();
+  bool isLoading = false;
   int? _minAge;
   String? minAge,
       maxAge,
-      minHeight,
+      height,
       maxHeight,
       marital,
       religion,
@@ -201,7 +204,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.basicColor,
         centerTitle: true,
-        title: const Text("Personal Details"),
+        title: Text("Personal Details ${widget.userId}"),
       ),
       body: Container(
         height: 100.h,
@@ -313,14 +316,14 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                     },
                   ),
                   CustomDropDownApi(
-                    title: "Min. Height",
+                    title: "Height",
                     items: heights,
-                    value: minHeight,
+                    value: height,
                     color: AppColors.whiteColor,
                     onChanged: (value) {
                       debugPrint("Value $value");
                       setState(() {
-                        minHeight = value;
+                        height = value;
                       });
                     },
                   ),
@@ -376,16 +379,41 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
               height: 6.h,
               text: 'Continue',
               fontSize: 3.h,
+              isLoading: isLoading,
               color: AppColors.primaryColor,
               textColor: AppColors.whiteColor,
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EducationProfessionScreen(
-                    userId: widget.userId,
+              onPressed: () async {
+                setState(() {
+                  isLoading = true;
+                });
+                var data = {
+                  'user_id': widget.userId,
+                  'mothertong': motherToungue,
+                  'religion': religion,
+                  'subcast': caste,
+                  'maritalstatus': marital,
+                  'country': country,
+                  'religionstate': state,
+                  'city': city,
+                  'height': height,
+                };
+                log("Save Data: $data");
+                var response =
+                    await Provider.of<AuthProvider>(context, listen: false)
+                        .update(data);
+                log("Response: $response");
+                setState(() {
+                  isLoading = false;
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EducationProfessionScreen(
+                      userId: widget.userId,
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),

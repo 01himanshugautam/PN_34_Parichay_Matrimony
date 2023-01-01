@@ -11,14 +11,50 @@ class MatchProvider with ChangeNotifier {
     return response;
   }
 
-  userInterested(String userId) async {
-    var response = await machRepository.userInterested(userId);
+  userInterestedReceived(String userId, int page) async {
+    var response = await machRepository.userInterestedReceived(userId, page);
     notifyListeners();
     return response;
   }
 
-  userShortlisted(String userId) async {
+  userInterestedSent(String userId, int page) async {
+    var response = await machRepository.userInterestedSent(userId, page);
+    notifyListeners();
+    return response;
+  }
+
+  userViewedContactMe(String userId, int page) async {
+    var response = await machRepository.userViewedContactMe(userId, page);
+    notifyListeners();
+    return response;
+  }
+
+  userViewedContact(String userId, int page) async {
+    var response = await machRepository.userViewedContact(userId, page);
+    notifyListeners();
+    return response;
+  }
+
+  userAccepted(String userId, int page) async {
+    var response = await machRepository.userAccepted(userId, page);
+    notifyListeners();
+    return response;
+  }
+
+  userAcceptedMy(String userId, int page) async {
+    var response = await machRepository.userAcceptedMy(userId, page);
+    notifyListeners();
+    return response;
+  }
+
+  userShortlisted(String userId, int page) async {
     var response = await machRepository.userShortlisted(userId);
+    notifyListeners();
+    return response;
+  }
+
+  userShortlistedMe(String userId, int page) async {
+    var response = await machRepository.userShortlistedMe(userId);
     notifyListeners();
     return response;
   }

@@ -30,7 +30,7 @@ class EducationProfessionScreen extends StatefulWidget {
 class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
   final TextEditingController college = TextEditingController();
   final TextEditingController about = TextEditingController();
-
+  bool isLoading = false;
   String? education;
   String? job;
   String? occupation;
@@ -209,9 +209,13 @@ class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
                 height: 6.h,
                 text: 'Continue',
                 fontSize: 3.h,
+                isLoading: isLoading,
                 color: AppColors.primaryColor,
                 textColor: AppColors.whiteColor,
                 onPressed: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
                   var data = {
                     'user_id': widget.userId,
                     'education': education,
@@ -225,6 +229,9 @@ class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
                   var response =
                       await Provider.of<AuthProvider>(context, listen: false)
                           .lifeStyle(data);
+                  setState(() {
+                    isLoading = false;
+                  });
                   response['success']['msg'] == 'true'
                       ? log("Response ${response['success']}")
                       : log("Failoedx");

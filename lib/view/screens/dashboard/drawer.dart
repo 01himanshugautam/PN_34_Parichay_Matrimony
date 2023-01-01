@@ -2,19 +2,22 @@
 
 import 'dart:convert';
 import 'package:app/data/models/user.model.dart';
-import 'package:app/provider/match_provider.dart';
 import 'package:app/provider/success_story_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
+import 'package:app/view/screens/acceptance/acceptance_screen.dart';
 import 'package:app/view/screens/contact/contact_screen.dart';
 import 'package:app/view/screens/dashboard/widgets/custom_list_tile_widget.dart';
+import 'package:app/view/screens/interest/interest_screen.dart';
 import 'package:app/view/screens/membership_plan/membership_plan_screen.dart';
+import 'package:app/view/screens/my_matches/my_matches_screen.dart';
 import 'package:app/view/screens/plan/active_plan_screen.dart';
-import 'package:app/view/screens/search/search_result.dart';
 import 'package:app/view/screens/search/search_screen.dart';
 import 'package:app/view/screens/settings/settings_screen.dart';
+import 'package:app/view/screens/shortlist/shortlist_screen.dart';
 import 'package:app/view/screens/story_success/success_story_screen.dart';
+import 'package:app/view/screens/view_contact/view_contact_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -54,7 +57,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
         Container(
           height: 20.h,
           padding: EdgeInsets.only(top: 3.h, left: 5.w),
-          color: AppColors.primaryColor,
+          decoration: BoxDecoration(
+            color: AppColors.primaryColor,
+            // image: DecorationImage(
+            //   image: NetworkImage(user.image.toString()),
+            //   fit: BoxFit.fill,
+            //   opacity: .3,
+            // ),
+          ),
           child: Row(
             children: [
               CircleAvatar(
@@ -68,7 +78,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    // width: 45.w,
+                    width: 45.w,
                     child: Text(
                       "${user.name}",
                       maxLines: 1,
@@ -119,16 +129,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
         CustomListTile(
           title: 'My Matches',
           image: Images.matches,
-          onTap: () async {
-            var response =
-                await Provider.of<MatchProvider>(context, listen: false)
-                    .userMatches('${user.id}');
+          onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SearchResult(
-                  title: "Matches",
-                  data: response['0']['profile'][0]['data'],
+                builder: (context) => MyMatchesScreen(
+                  userId: user.id.toString(),
                 ),
               ),
             );
@@ -136,21 +142,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
           // trailing: true,
         ),
         CustomListTile(
-          title: 'Shortlisted',
+          title: 'Shortlist',
           image: Images.star,
           onTap: () async {
-            // var response =
-            //     await Provider.of<MatchProvider>(context, listen: false)
-            //         .userShortlisted('${user.id}');
-            var response =
-                await Provider.of<MatchProvider>(context, listen: false)
-                    .userMatches('${user.id}');
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SearchResult(
-                  title: "Shortlist",
-                  data: response['0']['profile'][0]['data'],
+                builder: (context) => ShortListScreen(
+                  userId: user.id.toString(),
                 ),
               ),
             );
@@ -160,19 +159,39 @@ class _HomeDrawerState extends State<HomeDrawer> {
           title: 'Interested',
           image: Images.view,
           onTap: () async {
-            // var response =
-            //     await Provider.of<MatchProvider>(context, listen: false)
-            //         .userInterested('${user.id}');
-            var response =
-                await Provider.of<MatchProvider>(context, listen: false)
-                    .userMatches('${user.id}');
-
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SearchResult(
-                  title: "Shortlist",
-                  data: response['0']['profile'][0]['data'],
+                builder: (context) => InterestScreen(
+                  userId: user.id.toString(),
+                ),
+              ),
+            );
+          },
+        ),
+        CustomListTile(
+          title: 'Acceptance',
+          image: Images.view,
+          onTap: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AcceptanceScreen(
+                  userId: user.id.toString(),
+                ),
+              ),
+            );
+          },
+        ),
+        CustomListTile(
+          title: 'Contact Viewed',
+          image: Images.view,
+          onTap: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ViewContactScreen(
+                  userId: user.id.toString(),
                 ),
               ),
             );
@@ -244,7 +263,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
             Navigator.pushNamedAndRemoveUntil(context, '/login', (r) => false);
           },
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 2.h),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
           child: Column(

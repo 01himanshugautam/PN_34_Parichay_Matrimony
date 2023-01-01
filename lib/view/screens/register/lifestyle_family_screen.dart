@@ -33,6 +33,7 @@ class LifestyleFamilyScreen extends StatefulWidget {
 class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
   final TextEditingController about = TextEditingController();
   final TextEditingController address = TextEditingController();
+  bool isLoading = false;
   String? diet,
       drink,
       smoke,
@@ -364,7 +365,11 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
               fontSize: 3.h,
               color: AppColors.primaryColor,
               textColor: AppColors.whiteColor,
+              isLoading: isLoading,
               onPressed: () async {
+                setState(() {
+                  isLoading = true;
+                });
                 Map<String, dynamic> data = {
                   'user_id': widget.userId,
                   // 'familytype': fType,
@@ -382,7 +387,7 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                   'famcity': city,
                   'contactaddress': address.text,
                   'myfamily': fType,
-                  'diet': drink,
+                  'diet': diet,
                   'drinkh': drink,
                   'smokha': smoke,
                   'btype': body,
@@ -396,6 +401,9 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                     await Provider.of<AuthProvider>(context, listen: false)
                         .lifeStyle(data);
                 log("Response $response");
+                setState(() {
+                  isLoading = false;
+                });
                 if (response['success']['msg'] == 'true') {
                   final SharedPreferences prefs =
                       await SharedPreferences.getInstance();

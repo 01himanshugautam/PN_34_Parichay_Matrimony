@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/screens/search/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +25,6 @@ class ColumnText extends StatelessWidget {
   TextEditingController? controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    if (edit && !dropDown && controller!.text == 'null') {
-      // log("message ${controller!.text}");
-      log("Hello ${controller!.text}");
-      // controller!.clear();
-    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

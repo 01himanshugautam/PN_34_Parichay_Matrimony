@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
 import 'package:app/view/basewidget/custom_text_field_widget.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,11 +31,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   login(email, password, context) async {
     Vibration.vibrate(duration: 1, amplitude: 100);
+    if (dotenv.env['APP_ENV'] == "development") {
+      log("development");
+      _email.text = dotenv.env['TEST_USER_NAME'].toString();
+      _password.text = dotenv.env['TEST_PASSWORD'].toString();
+    }
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
       setState(() {
         isLoading = true;
       });
+
       var response = await Provider.of<AuthProvider>(context, listen: false)
           .login(_email.text, _password.text);
       FocusScope.of(context).unfocus();
@@ -54,6 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
         });
         CommonFunctions.showErrorDialog("Error", response['message'], context);
       }
+    } else {
+      CommonFunctions.showErrorDialog(
+          "Error", "All fields are mandatory", context);
     }
   }
 
