@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class AppUrls {
   AppUrls._();
 
@@ -51,4 +53,10 @@ class AppUrls {
   static const String occupation = "${baseUrl}appoccupation";
   static const String income = "${baseUrl}appminimumincome";
   static const String education = "${baseUrl}apphighesteducation";
+}
+
+convertUri(String path) {
+  Uri uri = Uri.parse(path);
+  log("Uri $uri");
+  return uri;
 }

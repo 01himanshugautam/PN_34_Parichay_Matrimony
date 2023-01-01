@@ -357,7 +357,7 @@ class _BasicSearchState extends State<BasicSearch> {
               var response =
                   await Provider.of<SearchProvider>(context, listen: false)
                       .filter(data);
-              debugPrint("Response ${response['success'][0][0]}");
+
               setState(() {
                 isLoading = false;
               });

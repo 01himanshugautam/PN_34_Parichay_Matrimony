@@ -39,7 +39,6 @@ class AuthRepository {
 
   changePassword(String userId, String password) async {
     try {
-      log(AppUrls.changePassword);
       var response = await http.post(Uri.parse(AppUrls.changePassword),
           body: {'user_id': userId, 'password': password});
       return response.body;

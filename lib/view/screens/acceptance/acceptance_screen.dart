@@ -1,4 +1,4 @@
-import 'package:app/provider/match_provider.dart';
+import 'package:app/provider/user_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_page_view.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class _AcceptanceScreenState extends State<AcceptanceScreen> {
     setState(() {
       isInterestSentLoading = true;
     });
-    var response = await Provider.of<MatchProvider>(context, listen: false)
+    var response = await Provider.of<UserProvider>(context, listen: false)
         .userAccepted(widget.userId, page);
     setState(() {
       userAccepted = response['data']['intrestiaccepted']['data'];
@@ -46,7 +46,7 @@ class _AcceptanceScreenState extends State<AcceptanceScreen> {
     setState(() {
       isInterestReceivedLoading = true;
     });
-    var response = await Provider.of<MatchProvider>(context, listen: false)
+    var response = await Provider.of<UserProvider>(context, listen: false)
         .userAcceptedMy(widget.userId, page);
     setState(() {
       userAcceptedMe = response['data']['myintrestaccepted']['data'];

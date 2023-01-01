@@ -109,7 +109,6 @@ class _PhotosWidgetState extends State<PhotosWidget> {
                                                           context);
                                                   getUserImages();
 
-                                                  log("Response: $response");
                                                   // log(response);
                                                 },
                                                 child: Icon(
@@ -132,7 +131,6 @@ class _PhotosWidgetState extends State<PhotosWidget> {
                                                       "Photo detected successfully",
                                                       context);
                                                   getUserImages();
-                                                  log("Response: $response");
                                                 },
                                                 child: Icon(
                                                   Icons.close,

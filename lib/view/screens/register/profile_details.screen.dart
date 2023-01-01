@@ -397,11 +397,11 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                   'city': city,
                   'height': height,
                 };
-                log("Save Data: $data");
+
                 var response =
                     await Provider.of<AuthProvider>(context, listen: false)
                         .update(data);
-                log("Response: $response");
+
                 setState(() {
                   isLoading = false;
                 });

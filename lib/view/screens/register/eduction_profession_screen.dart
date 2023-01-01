@@ -232,9 +232,7 @@ class _EducationProfessionScreenState extends State<EducationProfessionScreen> {
                   setState(() {
                     isLoading = false;
                   });
-                  response['success']['msg'] == 'true'
-                      ? log("Response ${response['success']}")
-                      : log("Failoedx");
+
                   if (response['success']['msg'] == 'true') {
                     Navigator.push(
                       context,

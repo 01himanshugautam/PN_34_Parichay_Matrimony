@@ -29,7 +29,6 @@ class _ActivePlanScreenState extends State<ActivePlanScreen> {
     var response = await Provider.of<AuthProvider>(context, listen: false)
         .profile(widget.userId);
 
-    log("Response ${response['data']}");
     if (response['success'] == true) {
       String userData = jsonEncode(Users.fromJson(response['data']));
       prefs.setString('userData', userData);

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:app/utils/constants/app_urls_constant.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 class SearchRepository {
@@ -83,8 +84,10 @@ class SearchRepository {
 
   height() async {
     try {
-      var response = await http.get(Uri.parse(AppUrls.height));
-      return jsonDecode(response.body);
+      // var response = await http.get(Uri.parse(AppUrls.height));
+      String data = await rootBundle.loadString('assets/json/height.json');
+      return json.decode(data);
+      // return jsonDecode(response.body);
     } catch (e) {
       return e;
     }

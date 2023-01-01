@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
@@ -71,14 +69,9 @@ class CommonFunctions {
   convertHeight(String height) {
     var convertedHeight = height;
     var data = height.split('');
-    log(height.toString());
-    log((data[1].toString() == ' ').toString());
     if (height.length == 2) {
       convertedHeight = "${data[0]} feet ${data[1]} inches";
     }
-    // data[1].toString() == ' '
-    //     ? convertedHeight
-    //     : "$convertedHeight data[0] inches";
     return convertedHeight;
   }
 }

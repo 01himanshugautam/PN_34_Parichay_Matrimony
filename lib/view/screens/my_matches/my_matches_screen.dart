@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:app/provider/match_provider.dart';
+import 'package:app/provider/user_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_page_view.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class _MyMatchesScreenState extends State<MyMatchesScreen> {
   List matches = [];
 
   getMatches() async {
-    var response = await Provider.of<MatchProvider>(context, listen: false)
+    var response = await Provider.of<UserProvider>(context, listen: false)
         .userMatches('596');
     setState(() {
       matches = response['0']['profile'][0]['data'];

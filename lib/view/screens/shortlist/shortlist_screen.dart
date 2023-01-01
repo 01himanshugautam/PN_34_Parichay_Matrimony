@@ -1,4 +1,4 @@
-import 'package:app/provider/match_provider.dart';
+import 'package:app/provider/user_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_page_view.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _ShortListScreenState extends State<ShortListScreen> {
   }
 
   getShortListedMe(int page) async {
-    var response = await Provider.of<MatchProvider>(context, listen: false)
+    var response = await Provider.of<UserProvider>(context, listen: false)
         .userShortlistedMe(widget.userId, page);
     setState(() {
       shortListed = response['data']['shortlistedbyme']['data'];
@@ -39,7 +39,7 @@ class _ShortListScreenState extends State<ShortListScreen> {
   }
 
   getShortListed(int page) async {
-    var response = await Provider.of<MatchProvider>(context, listen: false)
+    var response = await Provider.of<UserProvider>(context, listen: false)
         .userShortlisted(widget.userId, page);
     setState(() {
       shortListedMe = response['data']['shortlistedme']['data'];

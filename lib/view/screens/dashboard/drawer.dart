@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 import 'package:app/data/models/user.model.dart';
-import 'package:app/provider/success_story_provider.dart';
+import 'package:app/provider/user_provider.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
@@ -202,7 +202,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           image: Images.success,
           onTap: () async {
             var response =
-                await Provider.of<SuccessProvider>(context, listen: false)
+                await Provider.of<UserProvider>(context, listen: false)
                     .successStory();
             Navigator.push(
               context,

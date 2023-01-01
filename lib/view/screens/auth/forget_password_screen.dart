@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:app/helper/common_function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
@@ -52,7 +51,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 var response =
                     await Provider.of<AuthProvider>(context, listen: false)
                         .otpSend("", mobile.text);
-                log("Response $response");
+
                 if (!mounted) return;
 
                 CommonFunctions.showFailedToast(response['msg'], context);

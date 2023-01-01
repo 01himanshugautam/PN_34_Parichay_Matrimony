@@ -400,7 +400,7 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                 var response =
                     await Provider.of<AuthProvider>(context, listen: false)
                         .lifeStyle(data);
-                log("Response $response");
+
                 setState(() {
                   isLoading = false;
                 });

@@ -32,7 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
   login(email, password, context) async {
     Vibration.vibrate(duration: 1, amplitude: 100);
     if (dotenv.env['APP_ENV'] == "development") {
-      log("development");
       _email.text = dotenv.env['TEST_USER_NAME'].toString();
       _password.text = dotenv.env['TEST_PASSWORD'].toString();
     }

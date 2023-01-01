@@ -515,11 +515,11 @@ class _AdvanceSearchState extends State<AdvanceSearch> {
                 'smoke': smoke ?? '',
                 'hiv': hiv ?? ''
               };
-              log("Data $data");
+
               var response =
                   await Provider.of<SearchProvider>(context, listen: false)
                       .filter(data);
-              log("Filter Response $response");
+
               setState(() {
                 isLoading = false;
               });

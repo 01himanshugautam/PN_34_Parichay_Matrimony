@@ -148,7 +148,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
     var response = await Provider.of<AuthProvider>(context, listen: false)
         .profile("${user.id}");
-    log("Response ${response['data']}");
+
     if (response['success'] == true) {
       String userData = jsonEncode(Users.fromJson(response['data']));
 
@@ -163,11 +163,10 @@ class _DashboardScreenState extends State<DashboardScreen>
   getHeight() async {
     var heights =
         await Provider.of<SearchProvider>(context, listen: false).height();
-    log("heights ${this.heights}");
+
     setState(() {
-      this.heights = heights['data'];
+      this.heights = heights;
     });
-    log("heights ${this.heights}");
   }
 
   getCountry() async {
@@ -342,7 +341,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   var response =
                       await Provider.of<SearchProvider>(context, listen: false)
                           .filterById(value);
-                  log("Response  ${response['profile']['data']}");
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -573,10 +572,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         await Provider.of<AuthProvider>(context,
                                                 listen: false)
                                             .update(data);
-                                    log("Save Data: $data");
-                                    log("Response: $response");
-
-                                    // await getUser(response['data']['userid']);
+                                    profile();
                                     if (response['success'] == true) {
                                       CommonFunctions.showSuccessToast(
                                           "Profile Update Successfully",
@@ -629,7 +625,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Female",
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         gender.text = value;
                                       });
@@ -650,7 +645,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Not Working",
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         employeeIn.text = value;
                                       });
@@ -670,7 +664,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Annulled"
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         marital.text = value;
                                       });
@@ -690,7 +683,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Dark"
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         complexion.text = value;
                                       });
@@ -708,7 +700,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Physically Challenged"
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         physical.text = value;
                                       });
@@ -732,7 +723,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     items: heights,
                                     api: true,
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         height.text = value;
                                       });
@@ -751,7 +741,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Eggetarian"
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         diet.text = value;
                                       });
@@ -765,7 +754,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     controller: drink,
                                     items: const ['Yes', 'No', 'Occasionally'],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         drink.text = value;
                                       });
@@ -779,7 +767,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     controller: smoke,
                                     items: const ['Yes', 'No', 'Occasionally'],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         smoke.text = value;
                                       });
@@ -798,7 +785,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Heavy"
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         body.text = value;
                                       });
@@ -830,11 +816,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         await Provider.of<AuthProvider>(context,
                                                 listen: false)
                                             .update(data);
-                                    log("Save Data: $data");
-                                    log("Response: $response");
+
                                     profile();
 
-                                    log("Save Data: $data");
                                     setState(() {
                                       familyDetail = false;
                                     });
@@ -855,7 +839,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     fStatus.text = user.famstatus.toString();
                                     nSister.text = user.noofsisters.toString();
                                     mSister.text = user.married.toString();
-                                    log("Edit");
+
                                     setState(() {
                                       familyDetail = true;
                                     });
@@ -870,7 +854,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     dropDown: familyDetail,
                                     items: const ["Joint", "Nuclear", "Other"],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         familyType.text = value;
                                       });
@@ -890,7 +873,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Passed Away"
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         fOccupation.text = value;
                                       });
@@ -917,7 +899,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Passed Away",
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         mOccupation.text = value;
                                       });
@@ -952,7 +933,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     api: true,
                                     items: incomes,
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         fIncome.text = value;
                                       });
@@ -971,7 +951,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Eggetarian"
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         diet.text = value;
                                       });
@@ -989,7 +968,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Middle Class"
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         fStatus.text = value;
                                       });
@@ -1021,13 +999,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       'subcast': subCaste.text,
                                       'mothertong': motherToungue.text,
                                     };
-                                    log("Save Data: $data");
+
                                     var response =
                                         await Provider.of<AuthProvider>(context,
                                                 listen: false)
                                             .update(data);
-                                    log("Save Data: $data");
-                                    log("Response: $response");
+
                                     profile();
                                     setState(() {
                                       religionBackground = false;
@@ -1058,7 +1035,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     api: true,
                                     controller: religion,
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         religion.text = value;
                                       });
@@ -1073,7 +1049,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     api: true,
                                     controller: caste,
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         caste.text = value;
                                       });
@@ -1090,7 +1065,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     api: true,
                                     items: languages,
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         motherToungue.text = value;
                                       });
@@ -1105,7 +1079,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     api: true,
                                     controller: subCaste,
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         caste.text = value;
                                       });
@@ -1125,13 +1098,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       'occupation': occupation.text,
                                       'income': annualIncome.text,
                                     };
-                                    log("Save Data: $data");
+
                                     var response =
                                         await Provider.of<AuthProvider>(context,
                                                 listen: false)
                                             .update(data);
-                                    log("Save Data: $data");
-                                    log("Response: $response");
+
                                     profile();
                                     setState(() {
                                       educationCareer = false;
@@ -1161,7 +1133,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     api: true,
                                     items: educations,
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         education.text = value;
                                       });
@@ -1182,7 +1153,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       "Not Working",
                                     ],
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         employedIn.text = value;
                                       });
@@ -1199,7 +1169,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     api: true,
                                     items: occupations,
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         occupation.text = value;
                                       });
@@ -1214,7 +1183,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     api: true,
                                     items: incomes,
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         annualIncome.text = value;
                                       });
@@ -1234,13 +1202,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       'city': city.text,
                                       'postalCode': postalCode.text,
                                     };
-                                    log("Save Data: $data");
+
                                     var response =
                                         await Provider.of<AuthProvider>(context,
                                                 listen: false)
                                             .update(data);
-                                    log("Save Data: $data");
-                                    log("Response: $response");
+
                                     profile();
                                     setState(() {
                                       location = false;
@@ -1269,7 +1236,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     api: true,
                                     items: countries,
                                     onChanged: (value) {
-                                      log("Value $value");
                                       setState(() {
                                         motherToungue.text = value;
                                       });
@@ -1311,13 +1277,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       'birthplace': pob.text,
                                       'horoscope': horoscope.text,
                                     };
-                                    log("Save Data: $data");
+
                                     var response =
                                         await Provider.of<AuthProvider>(context,
                                                 listen: false)
                                             .update(data);
-                                    log("Save Data: $data");
-                                    log("Response: $response");
+
                                     profile();
                                     setState(() {
                                       astrology = false;
@@ -1385,13 +1350,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       'email': email.text,
                                       'mobile': phone.text,
                                     };
-                                    log("Save Data: $data");
+
                                     var response =
                                         await Provider.of<AuthProvider>(context,
                                                 listen: false)
                                             .update(data);
-                                    log("Save Data: $data");
-                                    log("Response: $response");
+
                                     profile();
                                     setState(() {
                                       contactInfo = false;
@@ -1447,13 +1411,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   'horoscope': horoscope.text,
                                   'occupation': occupation.text,
                                 };
-                                log("Save Data: $data");
+
                                 var response = await Provider.of<AuthProvider>(
                                         context,
                                         listen: false)
                                     .update(data);
-                                log("Save Data: $data");
-                                log("Response: $response");
+
                                 profile();
                                 setState(() {
                                   basicInformation2 = false;
@@ -1499,7 +1462,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 items: heights,
                                 api: true,
                                 onChanged: (value) {
-                                  log("Value $value");
                                   setState(() {
                                     height.text = value;
                                   });
@@ -1525,7 +1487,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   "Dark"
                                 ],
                                 onChanged: (value) {
-                                  log("Value $value");
                                   setState(() {
                                     complexion.text = value;
                                   });
@@ -1540,7 +1501,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 items: religions,
                                 api: true,
                                 onChanged: (value) {
-                                  log("Value $value");
                                   setState(() {
                                     religion.text = value;
                                   });
@@ -1581,7 +1541,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 api: true,
                                 items: incomes,
                                 onChanged: (value) {
-                                  log("Value $value");
                                   setState(() {
                                     annualIncome.text = value;
                                   });
@@ -1601,7 +1560,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   "Annulled"
                                 ],
                                 onChanged: (value) {
-                                  log("Value $value");
                                   setState(() {
                                     marital.text = value;
                                   });
@@ -1615,7 +1573,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 controller: drink,
                                 items: const ['Yes', 'No', 'Occasionally'],
                                 onChanged: (value) {
-                                  log("Value $value");
                                   setState(() {
                                     drink.text = value;
                                   });
@@ -1629,7 +1586,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 controller: smoke,
                                 items: const ['Yes', 'No', 'Occasionally'],
                                 onChanged: (value) {
-                                  log("Value $value");
                                   setState(() {
                                     drink.text = value;
                                   });
@@ -1644,7 +1600,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 api: true,
                                 items: educations,
                                 onChanged: (value) {
-                                  log("Value $value");
                                   setState(() {
                                     education.text = value;
                                   });
@@ -1744,7 +1699,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                               getUserImages();
                                                               profile();
 
-                                                              log("Response: $response");
                                                               // log(response);
                                                             },
                                                             child: Icon(
@@ -1772,7 +1726,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                                       "Photo detected successfully",
                                                                       context);
                                                               getUserImages();
-                                                              log("Response: $response");
                                                             },
                                                             child: Icon(
                                                               Icons.close,

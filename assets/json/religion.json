@@ -1,0 +1,44 @@
+[
+  {
+    "id": "10",
+    "religion1": "Buddhist",
+    "status": "1",
+    "name": "Buddhist"
+  },
+  {
+    "id": "11",
+    "religion1": "Christian",
+    "status": "1",
+    "name": "Christian"
+  },
+  {
+    "id": "12",
+    "religion1": "Hindu",
+    "status": "1",
+    "name": "Hindu"
+  },
+  {
+    "id": "14",
+    "religion1": "Jain",
+    "status": "1",
+    "name": "Jain"
+  },
+  {
+    "id": "15",
+    "religion1": "Parsi",
+    "status": "1",
+    "name": "Parsi"
+  },
+  {
+    "id": "16",
+    "religion1": "Sikh",
+    "status": "1",
+    "name": "Sikh"
+  },
+  {
+    "id": "17",
+    "religion1": "Muslim",
+    "status": "1",
+    "name": "Muslim"
+  }
+]
