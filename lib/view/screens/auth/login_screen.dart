@@ -5,7 +5,6 @@ import 'package:app/helper/common_function.dart';
 import 'package:app/provider/auth_provider.dart';
 import 'package:app/utils/constants/images_constant.dart';
 import 'package:app/view/screens/auth/forget_password_screen.dart';
-import 'package:app/view/screens/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utils/constants/colors_constant.dart';
 import 'package:app/view/basewidget/custom_button_widget.dart';
@@ -116,7 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ForgetPasswordScreen(),
+                              builder: (context) =>
+                                  const ForgetPasswordScreen(),
                             ),
                           );
                         }),
@@ -153,12 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 3.h,
                   textColor: AppColors.primaryColor,
                   isPadding: false,
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SignUpScreen(),
-                    ),
-                  ),
+                  onPressed: () => Navigator.pushNamed(context, '/signUp'),
                 ),
               ],
             ),

@@ -259,7 +259,7 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                       color: AppColors.whiteColor,
                     ),
                   ),
-                  const CustomTextField(hintText: ""),
+                  CustomTextField(hintText: ""),
                   Text(
                     "About My Family *",
                     style: TextStyle(
@@ -267,7 +267,7 @@ class _LifestyleFamilyScreenState extends State<LifestyleFamilyScreen> {
                       color: AppColors.whiteColor,
                     ),
                   ),
-                  const CustomTextField(hintText: ""),
+                  CustomTextField(hintText: ""),
                   CustomDropDown(
                     title: "Dietary Habits *",
                     items: const [

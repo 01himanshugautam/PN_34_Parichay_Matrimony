@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'screens/forget_password/forget_password_screen.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -63,6 +64,7 @@ class _AppState extends State<App> {
               "/login": (context) => const LoginScreen(),
               "/signUp": (context) => const SignUpScreen(),
               "/search": (context) => const SearchScreen(),
+              "/changePassword": (context) => const ChangePasswordScreen(),
             },
           ),
         );

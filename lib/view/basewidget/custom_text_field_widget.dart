@@ -20,7 +20,7 @@ class CustomTextField extends StatelessWidget {
   final bool isPadding;
   final bool readOnly;
   final Icon? icon;
-  const CustomTextField({
+  CustomTextField({
     Key? key,
     required,
     required this.hintText,
@@ -41,9 +41,10 @@ class CustomTextField extends StatelessWidget {
     this.isPadding = true,
     this.readOnly = false,
   }) : super(key: key);
-
+  FocusNode gfgFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
+    gfgFocusNode.requestFocus();
     return Padding(
       padding: isPadding
           ? const EdgeInsets.symmetric(vertical: 8.0)
@@ -53,6 +54,8 @@ class CustomTextField extends StatelessWidget {
         width: width ?? 25.w,
         child: TextField(
           controller: controller,
+          // focusNode: gfgFocusNode,
+          autofocus: true,
           readOnly: readOnly,
 
           // expands: true,
